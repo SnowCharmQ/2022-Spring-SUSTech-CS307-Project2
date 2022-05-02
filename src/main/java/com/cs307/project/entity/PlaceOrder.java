@@ -3,7 +3,7 @@ package com.cs307.project.entity;
 import java.util.Date;
 import java.util.Objects;
 
-public class Order {
+public class PlaceOrder {
     private String contractNum;
     private String enterprise;
     private String productModel;
@@ -99,7 +99,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order that = (Order) o;
+        PlaceOrder that = (PlaceOrder) o;
         return quantity == that.quantity && Objects.equals(contractNum, that.contractNum) && Objects.equals(enterprise, that.enterprise) && Objects.equals(productModel, that.productModel) && Objects.equals(contractManager, that.contractManager) && Objects.equals(contractDate, that.contractDate) && Objects.equals(estimatedDeliveryDate, that.estimatedDeliveryDate) && Objects.equals(lodgementDate, that.lodgementDate) && Objects.equals(salesmanNum, that.salesmanNum) && Objects.equals(contractType, that.contractType);
     }
 
@@ -110,7 +110,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "PlaceOrder{" +
                 "contractNum='" + contractNum + '\'' +
                 ", enterprise='" + enterprise + '\'' +
                 ", productModel='" + productModel + '\'' +

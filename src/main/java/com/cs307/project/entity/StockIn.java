@@ -3,7 +3,7 @@ package com.cs307.project.entity;
 import java.util.Date;
 import java.util.Objects;
 
-public class Stock {
+public class StockIn {
     private int id;
     private String supplyCenter;
     private String productModel;
@@ -72,7 +72,7 @@ public class Stock {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Stock stockIn = (Stock) o;
+        StockIn stockIn = (StockIn) o;
         return id == stockIn.id && purchasePrice == stockIn.purchasePrice && quantity == stockIn.quantity && Objects.equals(supplyCenter, stockIn.supplyCenter) && Objects.equals(productModel, stockIn.productModel) && Objects.equals(supplyStaff, stockIn.supplyStaff) && Objects.equals(date, stockIn.date);
     }
 
@@ -83,7 +83,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "Stock{" +
+        return "StockIn{" +
                 "id=" + id +
                 ", supplyCenter='" + supplyCenter + '\'' +
                 ", productModel='" + productModel + '\'' +
