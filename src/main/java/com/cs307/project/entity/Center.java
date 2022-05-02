@@ -22,6 +22,11 @@ public class Center {
         this.name = name;
     }
 
+    public Center(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
