@@ -49,6 +49,14 @@ public class Model {
         this.unitPrice = unitPrice;
     }
 
+    public Model(int id, String number, String model, String name, int unitPrice) {
+        this.id = id;
+        this.number = number;
+        this.model = model;
+        this.name = name;
+        this.unitPrice = unitPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

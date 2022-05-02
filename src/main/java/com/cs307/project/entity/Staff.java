@@ -6,6 +6,7 @@ public class Staff {
     private int id;
     private String name;
     private int age;
+    private String gender;
     private String number;
     private String supplyCenter;
     private String mobileNumber;
@@ -67,17 +68,36 @@ public class Staff {
         this.type = type;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Staff(int id, String name, int age, String gender, String number, String supplyCenter, String mobileNumber, String type) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.number = number;
+        this.supplyCenter = supplyCenter;
+        this.mobileNumber = mobileNumber;
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Staff)) return false;
         Staff staff = (Staff) o;
-        return id == staff.id && age == staff.age && Objects.equals(name, staff.name) && Objects.equals(number, staff.number) && Objects.equals(supplyCenter, staff.supplyCenter) && Objects.equals(mobileNumber, staff.mobileNumber) && Objects.equals(type, staff.type);
+        return getId() == staff.getId() && getAge() == staff.getAge() && Objects.equals(getName(), staff.getName()) && Objects.equals(gender, staff.gender) && Objects.equals(getNumber(), staff.getNumber()) && Objects.equals(getSupplyCenter(), staff.getSupplyCenter()) && Objects.equals(getMobileNumber(), staff.getMobileNumber()) && Objects.equals(getType(), staff.getType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age, number, supplyCenter, mobileNumber, type);
+        return Objects.hash(getId(), getName(), getAge(), gender, getNumber(), getSupplyCenter(), getMobileNumber(), getType());
     }
 
     @Override
@@ -86,6 +106,7 @@ public class Staff {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", gender='" + gender + '\'' +
                 ", number='" + number + '\'' +
                 ", supplyCenter='" + supplyCenter + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +

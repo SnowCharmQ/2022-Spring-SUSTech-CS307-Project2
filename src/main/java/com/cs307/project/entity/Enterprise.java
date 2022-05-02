@@ -6,6 +6,7 @@ public class Enterprise {
     private int id;
     private String name;
     private String country;
+    private String city;
     private String supplyCenter;
     private String industry;
 
@@ -49,17 +50,34 @@ public class Enterprise {
         this.industry = industry;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Enterprise(int id, String name, String country, String city, String supplyCenter, String industry) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.supplyCenter = supplyCenter;
+        this.industry = industry;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Enterprise)) return false;
         Enterprise that = (Enterprise) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(country, that.country) && Objects.equals(supplyCenter, that.supplyCenter) && Objects.equals(industry, that.industry);
+        return getId() == that.getId() && Objects.equals(getName(), that.getName()) && Objects.equals(getCountry(), that.getCountry()) && Objects.equals(getCity(), that.getCity()) && Objects.equals(getSupplyCenter(), that.getSupplyCenter()) && Objects.equals(getIndustry(), that.getIndustry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, country, supplyCenter, industry);
+        return Objects.hash(getId(), getName(), getCountry(), getCity(), getSupplyCenter(), getIndustry());
     }
 
     @Override
@@ -68,6 +86,7 @@ public class Enterprise {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
                 ", supplyCenter='" + supplyCenter + '\'' +
                 ", industry='" + industry + '\'' +
                 '}';
