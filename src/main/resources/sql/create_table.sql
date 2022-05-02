@@ -20,8 +20,8 @@ create table model
 (
     id         integer primary key,
     number     varchar(20),
-    model      varchar(50),
-    name       varchar(50),
+    model      varchar(100),
+    name       varchar(100),
     unit_price integer
 );
 
