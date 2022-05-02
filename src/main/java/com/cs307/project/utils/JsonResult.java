@@ -1,4 +1,4 @@
-package com.cs307.project.util;
+package com.cs307.project.utils;
 
 
 import java.io.Serializable;
