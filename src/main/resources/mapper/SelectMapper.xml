@@ -3,5 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs307.project.mapper.SelectMapper">
+    <resultMap id="StaffEntityMap" type="com.cs307.project.entity.Staff">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="number" property="number"/>
+        <result column="supply_center" property="supplyCenter"/>
+        <result column="mobile_number" property="mobileNumber"/>
+        <result column="type" property="type"/>
+    </resultMap>
 
+    <resultMap id="CenterEntityMap" type="com.cs307.project.entity.Center">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <resultMap id="ModelEntityMap" type="com.cs307.project.entity.Model">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="model" property="model"/>
+        <result column="name" property="name"/>
+        <result column="unit_price" property="unitPrice"/>
+    </resultMap>
+
+    <select id="selectStaffByNumber" resultMap="StaffEntityMap">
+        SELECT * FROM staff WHERE number = #{number}
+    </select>
+
+    <select id="selectCenterByName" resultMap="CenterEntityMap">
+        SELECT * FROM center WHERE center.name = #{name}
+    </select>
+
+    <select id="selectModelByModel" resultMap="ModelEntityMap">
+        SELECT * FROM model WHERE model.model = #{model}
+    </select>
 </mapper>

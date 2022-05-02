@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Enterprise {
+public class Enterprise implements Serializable {
     private int id;
     private String name;
     private String country;

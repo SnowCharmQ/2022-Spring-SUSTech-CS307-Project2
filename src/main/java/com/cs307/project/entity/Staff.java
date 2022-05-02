@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Staff {
+public class Staff implements Serializable {
     private int id;
     private String name;
     private int age;
@@ -92,12 +93,12 @@ public class Staff {
         if (this == o) return true;
         if (!(o instanceof Staff)) return false;
         Staff staff = (Staff) o;
-        return getId() == staff.getId() && getAge() == staff.getAge() && Objects.equals(getName(), staff.getName()) && Objects.equals(gender, staff.gender) && Objects.equals(getNumber(), staff.getNumber()) && Objects.equals(getSupplyCenter(), staff.getSupplyCenter()) && Objects.equals(getMobileNumber(), staff.getMobileNumber()) && Objects.equals(getType(), staff.getType());
+        return getId() == staff.getId() && getAge() == staff.getAge() && Objects.equals(getName(), staff.getName()) && Objects.equals(getGender(), staff.getGender()) && Objects.equals(getNumber(), staff.getNumber()) && Objects.equals(getSupplyCenter(), staff.getSupplyCenter()) && Objects.equals(getMobileNumber(), staff.getMobileNumber()) && Objects.equals(getType(), staff.getType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAge(), gender, getNumber(), getSupplyCenter(), getMobileNumber(), getType());
+        return Objects.hash(getId(), getName(), getAge(), getGender(), getNumber(), getSupplyCenter(), getMobileNumber(), getType());
     }
 
     @Override

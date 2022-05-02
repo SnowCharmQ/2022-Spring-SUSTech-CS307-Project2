@@ -3,5 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs307.project.mapper.UpdateMapper">
-
+    <update id="updateOrder">
+        UPDATE placeOrder
+        SET quantity                = #{quantity},
+            estimated_delivery_date = #{estimatedDeliveryDate},
+            lodgement_date          = #{lodgementDate}
+        WHERE contract_num = #{contractNum} and product_model = #{productModel} and salesman_num = #{salesmanNum}
+    </update>
 </mapper>

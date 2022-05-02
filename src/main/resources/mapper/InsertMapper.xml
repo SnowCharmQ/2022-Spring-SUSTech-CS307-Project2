@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs307.project.mapper.InsertMapper">
-
-
+    <insert id="insertOrder">
+        INSERT INTO placeOrder (contract_num, enterprise, product_model, quantity, contract_manager, contract_date,
+                                estimated_delivery_date, lodgement_date, salesman_num, contract_type)
+        VALUES (#{contractNum}, #{enterprise}, #{productModel}, #{quantity}, #{contractManager}, #{contractDate},
+                #{estimatedDeliveryDate}, #{lodgementDate}, #{salesmanNum}, #{contractType})
+    </insert>
+    <insert id="insertStock">
+        INSERT INTO stockIn (id, supply_center, product_model, supply_staff, date, purchase_price, quantity)
+        VALUES (#{id}, #{supplyCenter}, #{productModel}, #{supplyStaff}, #{date}, #{purchasePrice}, #{quantity})
+    </insert>
 </mapper>
