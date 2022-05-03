@@ -1,4 +1,4 @@
-drop table if exists center, enterprise, model, staff, stockIn, placeOrder cascade;
+drop table if exists center, enterprise, model, staff, stockIn, placeOrder,stock_info cascade;
 
 create table center
 (
@@ -62,6 +62,11 @@ create table placeOrder
     contract_type           varchar(15)
 );
 
-truncate table placeOrder, stockIn;
+create table stock_info
+(
+    supply_center varchar(50),
+    product_model varchar(100),
+    quantity      integer
+);
 
-select * from stockIn;
+truncate table placeOrder, stockIn;
