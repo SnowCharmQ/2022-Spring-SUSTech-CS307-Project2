@@ -66,7 +66,7 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public void deleteOrder() {
+    public void deleteOrder(String contract, int salesmanId, int seq) {
 
     }
 

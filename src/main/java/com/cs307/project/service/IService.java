@@ -14,7 +14,7 @@ public interface IService {
 
     void updateOrder(String contractNum, String productModel, String salesmanNum, int quantity, Date estimatedDeliveryDate, Date lodgementDate);
 
-    void deleteOrder();
+    void deleteOrder(String contract, int salesmanID, int seq);
 
     List<StaffCount> getAllStaffCount();
 
