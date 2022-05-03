@@ -1,15 +1,14 @@
 package com.cs307.project.service.impl;
 
-import com.cs307.project.entity.Center;
-import com.cs307.project.entity.Model;
-import com.cs307.project.entity.Staff;
-import com.cs307.project.entity.StockIn;
+import com.cs307.project.entity.*;
 import com.cs307.project.mapper.InsertMapper;
 import com.cs307.project.mapper.SelectMapper;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class IServiceImpl implements IService {
@@ -43,12 +42,22 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public void updateOrder() {
+    public void updateOrder(String contractNum, String productModel, String salesmanNum, int quantity, Date estimatedDeliveryDate, Date lodgementDate) {
 
     }
 
     @Override
     public void deleteOrder() {
 
+    }
+
+    @Override
+    public StaffCount getAllStaffCount() {
+        return selectMapper.selectAllStaffCount();
+    }
+
+    @Override
+    public OrderCount getOrderCount() {
+        return selectMapper.selectOrderCount();
     }
 }
