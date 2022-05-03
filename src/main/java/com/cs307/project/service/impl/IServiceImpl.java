@@ -1,9 +1,6 @@
 package com.cs307.project.service.impl;
 
-import com.cs307.project.entity.Center;
-import com.cs307.project.entity.Model;
-import com.cs307.project.entity.Staff;
-import com.cs307.project.entity.StockIn;
+import com.cs307.project.entity.*;
 import com.cs307.project.mapper.InsertMapper;
 import com.cs307.project.mapper.SelectMapper;
 import com.cs307.project.service.IService;
@@ -38,7 +35,7 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public void placeOrder() {
+    public void placeOrder(PlaceOrder placeOrder) {
 
     }
 
