@@ -1,6 +1,7 @@
 package com.cs307.project.service.impl;
 
 import com.cs307.project.entity.*;
+import com.cs307.project.mapper.DeleteMapper;
 import com.cs307.project.mapper.InsertMapper;
 import com.cs307.project.mapper.SelectMapper;
 import com.cs307.project.mapper.UpdateMapper;
@@ -21,6 +22,8 @@ public class IServiceImpl implements IService {
     private InsertMapper insertMapper;
     @Autowired
     private UpdateMapper updateMapper;
+    @Autowired
+    private DeleteMapper deleteMapper;
 
     @Override
     public void stockIn(StockIn stockIn) {
@@ -34,39 +37,56 @@ public class IServiceImpl implements IService {
         Staff staff = selectMapper.selectStaffByNumber(number);
         if (staff == null) throw new StaffNotFoundException("Staff does not exist");
         if (!staff.getType().equals("Supply Staff"))
-            throw new SalesmanWrongTypeException("The type of the supply staff is not \"supply_staff\"");
+            throw new SalesmanWrongTypeException("The type of the staff is not \"supply_staff\"");
         if (!stockIn.getSupplyCenter().equals(staff.getSupplyCenter()))
             throw new MismatchSupplyCenterException("The supply center and the supply center to which the supply staff belongs do not match");
-        Integer stock = selectMapper.selectModelStock(stockIn.getSupplyCenter(), stockIn.getProductModel());
-        if (stock == null){
-            insertMapper.insertStockInfo(stockIn.getSupplyCenter(),stockIn.getProductModel(),stockIn.getQuantity());
-        }
-        else updateMapper.updateStockInfo(stockIn.getSupplyCenter(),stockIn.getProductModel(),stock + stockIn.getQuantity());
+        Integer stock = selectMapper.selectStockByModel(stockIn.getSupplyCenter(), stockIn.getProductModel());
+        if (stock == null)
+            insertMapper.insertStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getQuantity());
+        else
+            updateMapper.updateStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stock + stockIn.getQuantity());
         insertMapper.insertStock(stockIn.getId(), stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getSupplyStaff(), stockIn.getDate(), stockIn.getPurchasePrice(), stockIn.getQuantity());
     }
 
     @Override
     public void placeOrder(PlaceOrder placeOrder) {
-        String supplyCenter = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise()).getSupplyCenter();
-        Integer stock = selectMapper.selectModelStock(supplyCenter, placeOrder.getProductModel());
+        Enterprise enterprise = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise());
+        String supplyCenter = enterprise.getSupplyCenter();
+        Integer stock = selectMapper.selectStockByModel(supplyCenter, placeOrder.getProductModel());
         if (stock == null || stock < placeOrder.getQuantity())
-            throw new OrderQuantityOvereflowException("The stock quantity is not enough");
+            throw new OrderQuantityOverflowException("The stock quantity is not enough");
         Staff staff = selectMapper.selectStaffByNumber(placeOrder.getSalesmanNum());
         if (staff == null || !staff.getType().equals("Salesman"))
-            throw new SalesmanWrongTypeException("The type of the supply staff is not \"Salesman\"");
+            throw new SalesmanWrongTypeException("The type of the staff is not \"Salesman\"");
         int quantity = stock - placeOrder.getQuantity();
-        updateMapper.updateStockInfo(supplyCenter,placeOrder.getProductModel(), quantity);
-        insertMapper.insertOrder(placeOrder.getContractNum(),placeOrder.getEnterprise(),placeOrder.getProductModel(),placeOrder.getQuantity(),placeOrder.getContractManager(),placeOrder.getContractDate(),placeOrder.getEstimatedDeliveryDate(),placeOrder.getLodgementDate(),placeOrder.getSalesmanNum(),placeOrder.getContractType());
-        //insertMapper.insertOrder();
+        updateMapper.updateStockInfo(supplyCenter, placeOrder.getProductModel(), quantity);
+        insertMapper.insertOrder(placeOrder.getContractNum(), placeOrder.getEnterprise(), placeOrder.getProductModel(), placeOrder.getQuantity(), placeOrder.getContractManager(), placeOrder.getContractDate(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate(), placeOrder.getSalesmanNum(), placeOrder.getContractType());
     }
 
     @Override
     public void updateOrder(String contractNum, String productModel, String salesmanNum, int quantity, Date estimatedDeliveryDate, Date lodgementDate) {
-
+        List<PlaceOrder> list = selectMapper.selectOrderBySalesman(salesmanNum);
+        PlaceOrder placeOrder = null;
+        for (PlaceOrder po : list) {
+            if (po.getContractNum().equals(contractNum) && po.getProductModel().equals(productModel)) {
+                placeOrder = po;
+                break;
+            }
+        }
+        if (placeOrder == null) throw new OrderNotFoundException("No matched order");
+        Enterprise enterprise = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise());
+        String supplyCenter = enterprise.getSupplyCenter();
+        Integer stock = selectMapper.selectStockByModel(supplyCenter, productModel);
+        if (stock + placeOrder.getQuantity() - quantity < 0)
+            throw new OrderQuantityOverflowException("The stock quantity is not enough");
+        updateMapper.updateStockInfo(supplyCenter, productModel, stock + placeOrder.getQuantity() - quantity);
+        if (quantity == 0) deleteMapper.deleteOrderBySalesman(contractNum, productModel, salesmanNum);
+        else
+            updateMapper.updateOrder(contractNum, productModel, salesmanNum, quantity, estimatedDeliveryDate, lodgementDate);
     }
 
     @Override
-    public void deleteOrder(String contract, int salesmanId, int seq) {
+    public void deleteOrder() {
 
     }
 
@@ -78,5 +98,24 @@ public class IServiceImpl implements IService {
     @Override
     public Integer getOrderCount() {
         return selectMapper.selectOrderCount();
+    }
+
+    @Override
+    public FavoriteModel getFavoriteProductModel() {//貌似有点问题
+        List<StockQuantity> stockQuantityList = selectMapper.selectStockQuantity();
+        List<OrderQuantity> orderQuantityList = selectMapper.selectOrderQuantity();
+        String productModel = null;
+        int max = 0;
+        for (StockQuantity sq : stockQuantityList) {
+            OrderQuantity oq = orderQuantityList.stream()
+                    .filter(o -> o.getProductModel().equals(sq.getProductModel()))
+                    .findFirst().get();
+            int sales = sq.getSum() - oq.getSum();
+            if (sales > max) {
+                max = sales;
+                productModel = oq.getProductModel();
+            }
+        }
+        return new FavoriteModel(productModel, max);
     }
 }
