@@ -101,7 +101,7 @@ public class ServiceTests {
         c.set(year, month, day);
         placeOrder.setLodgementDate(date);
         placeOrder.setSalesmanNum(content[8]);
-        placeOrder.setContractNum(content[9]);
+        placeOrder.setContractType(content[9]);
     }
 
     public void readStockIn(StockIn stock, String line) {
