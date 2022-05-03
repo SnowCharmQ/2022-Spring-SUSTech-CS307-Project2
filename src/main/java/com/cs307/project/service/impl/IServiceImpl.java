@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class IServiceImpl implements IService {
@@ -52,12 +53,12 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public StaffCount getAllStaffCount() {
+    public List<StaffCount> getAllStaffCount() {
         return selectMapper.selectAllStaffCount();
     }
 
     @Override
-    public OrderCount getOrderCount() {
+    public Integer getOrderCount() {
         return selectMapper.selectOrderCount();
     }
 }

@@ -1,10 +1,10 @@
 package com.cs307.project.service;
 
-import com.cs307.project.entity.OrderCount;
 import com.cs307.project.entity.StaffCount;
 import com.cs307.project.entity.StockIn;
 
 import java.util.Date;
+import java.util.List;
 
 public interface IService {
     void stockIn(StockIn stockIn);
@@ -15,7 +15,7 @@ public interface IService {
 
     void deleteOrder();
 
-    StaffCount getAllStaffCount();
+    List<StaffCount> getAllStaffCount();
 
-    OrderCount getOrderCount();
+    Integer getOrderCount();
 }

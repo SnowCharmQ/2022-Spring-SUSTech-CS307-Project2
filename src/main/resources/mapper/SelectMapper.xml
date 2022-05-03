@@ -32,10 +32,6 @@
         <result column="count" property="count"/>
     </resultMap>
 
-    <resultMap id="OrderCountEntityMap" type="com.cs307.project.entity.OrderCount">
-        <result column="count" property="count"/>
-    </resultMap>
-
     <select id="selectStaffByNumber" resultMap="StaffEntityMap">
         SELECT * FROM staff WHERE number = #{number};
     </select>
@@ -52,7 +48,7 @@
         SELECT type as staff_type, count(*) as count from staff group by type;
     </select>
 
-    <select id="selectOrderCount" resultMap="OrderCountEntityMap">
+    <select id="selectOrderCount" resultMap="java.lang.Integer">
         SELECT count(*) as count from placeOrder;
     </select>
 </mapper>

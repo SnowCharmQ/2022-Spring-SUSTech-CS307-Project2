@@ -63,7 +63,3 @@ create table placeOrder
 );
 
 truncate table placeOrder, stockIn;
-
-select * from staff where number = '11210906';
-
-select * from center;
