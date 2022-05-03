@@ -1,9 +1,10 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class StockIn {
+public class StockIn implements Serializable {
     private int id;
     private String supplyCenter;
     private String productModel;

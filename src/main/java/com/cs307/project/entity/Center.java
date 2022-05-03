@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Center {
+public class Center implements Serializable {
     private int id;
     private String name;
 

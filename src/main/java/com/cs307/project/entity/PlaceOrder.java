@@ -1,9 +1,10 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class PlaceOrder {
+public class PlaceOrder implements Serializable {
     private String contractNum;
     private String enterprise;
     private String productModel;

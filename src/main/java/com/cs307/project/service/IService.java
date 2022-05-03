@@ -1,9 +1,13 @@
 package com.cs307.project.service;
 
+import com.cs307.project.entity.StockIn;
+
 public interface IService {
-    void stockIn();
+    void stockIn(StockIn stockIn);
+
     void placeOrder();
+
     void updateOrder();
+
     void deleteOrder();
-    //剩下的get得有对应的返回参数
 }
