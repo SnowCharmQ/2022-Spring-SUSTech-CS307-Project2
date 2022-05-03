@@ -63,3 +63,5 @@ create table placeOrder
 );
 
 truncate table placeOrder, stockIn;
+
+select * from stockIn;

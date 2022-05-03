@@ -48,6 +48,12 @@ public class ServiceTests {
         for (StaffCount sc: staffCounts) System.out.println(sc);
     }
 
+    @Test
+    public void getOrderCountTest(){
+        Integer cnt = iService.getOrderCount();
+        System.out.println(cnt);
+    }
+
     public void read(StockIn stock, String line) {
         String[] content = line.split(",");
         stock.setId(Integer.parseInt(content[0]));
