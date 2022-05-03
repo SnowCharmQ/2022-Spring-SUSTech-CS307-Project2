@@ -26,10 +26,14 @@
         <result column="name" property="name"/>
         <result column="unit_price" property="unitPrice"/>
     </resultMap>
-    
+
     <resultMap id="StaffCountEntityMap" type="com.cs307.project.entity.StaffCount">
         <result column="staff_type" property="staffType"/>
         <result column="count" property="count"/>
+    </resultMap>
+
+    <resultMap id="EnterpriseEntityMap" type="com.cs307.project.entity.Enterprise">
+        <result column="supply_center" property="supplyCenter"/>
     </resultMap>
 
     <select id="selectStaffByNumber" resultMap="StaffEntityMap">
@@ -50,5 +54,13 @@
 
     <select id="selectOrderCount" resultType="java.lang.Integer">
         SELECT count(*) as count from placeOrder;
+    </select>
+
+    <select id="selectEnterpriseByName" resultMap="EnterpriseEntityMap">
+        SELECT * FROM enterprise WHERE enterprise.name = #{name};
+    </select>
+
+    <select id="selectModelStock" resultType="java.lang.Integer">
+        SELECT quantity FROM stock_info where product_model = #{model} AND supply_center = #{supply_center};
     </select>
 </mapper>

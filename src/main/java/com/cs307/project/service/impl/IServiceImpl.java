@@ -38,9 +38,7 @@ public class IServiceImpl implements IService {
         if (!stockIn.getSupplyCenter().equals(staff.getSupplyCenter()))
             throw new MismatchSupplyCenterException("The supply center and the supply center to which the supply staff belongs do not match");
         Integer stock = selectMapper.selectModelStock(stockIn.getSupplyCenter(), stockIn.getProductModel());
-        if (stock == null){
-            insertMapper.insertStockInfo(stockIn.getSupplyCenter(),stockIn.getProductModel(),stockIn.getQuantity());
-        }
+        if (stock == null) insertMapper.insertStockInfo(stockIn.getSupplyCenter(),stockIn.getProductModel(),stockIn.getQuantity());
         else updateMapper.updateStockInfo(stockIn.getSupplyCenter(),stockIn.getProductModel(),stock + stockIn.getQuantity());
         insertMapper.insertStock(stockIn.getId(), stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getSupplyStaff(), stockIn.getDate(), stockIn.getPurchasePrice(), stockIn.getQuantity());
     }
