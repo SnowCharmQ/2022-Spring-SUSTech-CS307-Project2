@@ -1,7 +1,9 @@
 package com.cs307.project.mapper;
 
-public interface UpdateMapper {
-    void insertOrder();
+import java.util.Date;
 
-    void insertStock();
+public interface UpdateMapper {
+    void updateOrder(int quantity, Date estimatedDeliveryDate, Date lodgementDate);
+
+    void updateStock();
 }

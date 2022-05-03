@@ -8,6 +8,9 @@ import com.cs307.project.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class IServiceImpl implements IService {
 
@@ -40,12 +43,22 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public void updateOrder() {
+    public void updateOrder(String contractNum, String productModel, String salesmanNum, int quantity, Date estimatedDeliveryDate, Date lodgementDate) {
 
     }
 
     @Override
     public void deleteOrder() {
 
+    }
+
+    @Override
+    public List<StaffCount> getAllStaffCount() {
+        return selectMapper.selectAllStaffCount();
+    }
+
+    @Override
+    public Integer getOrderCount() {
+        return selectMapper.selectOrderCount();
     }
 }

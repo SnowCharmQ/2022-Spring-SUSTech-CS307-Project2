@@ -8,6 +8,6 @@
         SET quantity                = #{quantity},
             estimated_delivery_date = #{estimatedDeliveryDate},
             lodgement_date          = #{lodgementDate}
-        WHERE contract_num = #{contractNum} and product_model = #{productModel} and salesman_num = #{salesmanNum}
+        WHERE contract_num = #{contractNum} and product_model = #{productModel} and salesman_num = #{salesmanNum};
     </update>
 </mapper>

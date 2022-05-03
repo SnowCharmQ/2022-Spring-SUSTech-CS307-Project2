@@ -26,16 +26,29 @@
         <result column="name" property="name"/>
         <result column="unit_price" property="unitPrice"/>
     </resultMap>
+    
+    <resultMap id="StaffCountEntityMap" type="com.cs307.project.entity.StaffCount">
+        <result column="staff_type" property="staffType"/>
+        <result column="count" property="count"/>
+    </resultMap>
 
     <select id="selectStaffByNumber" resultMap="StaffEntityMap">
-        SELECT * FROM staff WHERE number = #{number}
+        SELECT * FROM staff WHERE number = #{number};
     </select>
 
     <select id="selectCenterByName" resultMap="CenterEntityMap">
-        SELECT * FROM center WHERE center.name = #{name}
+        SELECT * FROM center WHERE center.name = #{name};
     </select>
 
     <select id="selectModelByModel" resultMap="ModelEntityMap">
-        SELECT * FROM model WHERE model.model = #{model}
+        SELECT * FROM model WHERE model.model = #{model};
+    </select>
+
+    <select id="selectAllStaffCount" resultMap="StaffCountEntityMap">
+        SELECT type as staff_type, count(*) as count from staff group by type;
+    </select>
+
+    <select id="selectOrderCount" resultType="java.lang.Integer">
+        SELECT count(*) as count from placeOrder;
     </select>
 </mapper>
