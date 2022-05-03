@@ -4,26 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs307.project.mapper.SelectMapper">
     <resultMap id="StaffEntityMap" type="com.cs307.project.entity.Staff">
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="age" property="age"/>
-        <result column="gender" property="gender"/>
-        <result column="number" property="number"/>
         <result column="supply_center" property="supplyCenter"/>
         <result column="mobile_number" property="mobileNumber"/>
-        <result column="type" property="type"/>
     </resultMap>
 
     <resultMap id="CenterEntityMap" type="com.cs307.project.entity.Center">
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
     </resultMap>
 
     <resultMap id="ModelEntityMap" type="com.cs307.project.entity.Model">
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="model" property="model"/>
-        <result column="name" property="name"/>
         <result column="unit_price" property="unitPrice"/>
     </resultMap>
 
@@ -34,6 +22,24 @@
 
     <resultMap id="EnterpriseEntityMap" type="com.cs307.project.entity.Enterprise">
         <result column="supply_center" property="supplyCenter"/>
+    </resultMap>
+
+    <resultMap id="PlaceOrderEntityMap" type="com.cs307.project.entity.PlaceOrder">
+        <result column="contract_num" property="contractNum"/>
+        <result column="product_model" property="productModel"/>
+        <result column="contract_manager" property="contractManager"/>
+        <result column="contract_date" property="contractDate"/>
+        <result column="estimated_delivery_date" property="estimatedDeliveryDate"/>
+        <result column="lodgement_date" property="lodgementDate"/>
+        <result column="salesman_num" property="salesmanNum"/>
+    </resultMap>
+
+    <resultMap id="StockQuantityEntityMap" type="com.cs307.project.entity.StockQuantity">
+        <result column="product_model" property="productModel"/>
+    </resultMap>
+
+    <resultMap id="OrderQuantityEntityMap" type="com.cs307.project.entity.OrderQuantity">
+        <result column="product_model" property="productModel"/>
     </resultMap>
 
     <select id="selectStaffByNumber" resultMap="StaffEntityMap">
@@ -49,18 +55,30 @@
     </select>
 
     <select id="selectAllStaffCount" resultMap="StaffCountEntityMap">
-        SELECT type as staff_type, count(*) as count from staff group by type;
+        SELECT type AS staff_type, count(*) AS count FROM staff GROUP BY type;
     </select>
 
     <select id="selectOrderCount" resultType="java.lang.Integer">
-        SELECT count(*) as count from placeOrder;
+        SELECT count(*) AS count FROM placeOrder;
     </select>
 
     <select id="selectEnterpriseByName" resultMap="EnterpriseEntityMap">
         SELECT * FROM enterprise WHERE enterprise.name = #{name};
     </select>
 
-    <select id="selectModelStock" resultType="java.lang.Integer">
+    <select id="selectStockByModel" resultType="java.lang.Integer">
         SELECT quantity FROM stock_info where product_model = #{model} AND supply_center = #{supply_center};
+    </select>
+
+    <select id="selectOrderBySalesman" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder;
+    </select>
+
+    <select id="selectStockQuantity" resultMap="StockQuantityEntityMap">
+        SELECT product_model, sum(quantity) FROM stockIn GROUP BY product_model;
+    </select>
+
+    <select id="selectOrderQuantity" resultMap="OrderQuantityEntityMap">
+        SELECT product_model, sum(quantity) FROM stock_info GROUP BY product_model;
     </select>
 </mapper>

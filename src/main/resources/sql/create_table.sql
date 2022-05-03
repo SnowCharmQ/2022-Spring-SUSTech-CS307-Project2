@@ -1,4 +1,4 @@
-drop table if exists center, enterprise, model, staff, stockIn, placeOrder,stock_info cascade;
+drop table if exists center, enterprise, model, staff, stockIn, placeOrder, stock_info cascade;
 
 create table center
 (
@@ -69,4 +69,12 @@ create table stock_info
     quantity      integer
 );
 
-truncate table placeOrder, stockIn;
+
+truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder cascade;
+
+
+select * from stockIn order by product_model;
+select * from stock_info;
+select product_model, sum(quantity) from stock_info group by product_model;
+select product_model, sum(quantity) from stockIn group by product_model;
+

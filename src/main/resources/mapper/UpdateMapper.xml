@@ -18,5 +18,4 @@
         SET quantity = #{quantity}
         WHERE product_model = #{productModel} AND supply_center = #{supplyCenter};
     </update>
-
 </mapper>

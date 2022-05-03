@@ -11,5 +11,8 @@ public interface SelectMapper {
     Model selectModelByModel(String model);
     List<StaffCount> selectAllStaffCount();
     Integer selectOrderCount();
-    Integer selectModelStock(String supply_center, String model);
+    Integer selectStockByModel(String supply_center, String model);
+    List<PlaceOrder> selectOrderBySalesman(String salesman);
+    List<StockQuantity> selectStockQuantity();
+    List<OrderQuantity> selectOrderQuantity();
 }

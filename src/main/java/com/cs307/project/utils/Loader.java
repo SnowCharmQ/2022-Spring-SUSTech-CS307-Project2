@@ -198,7 +198,7 @@ public class Loader {
             stmt0 = con.createStatement();
             stmt0.execute(
                     "truncate table " +
-                            "center, enterprise, model, staff cascade;");
+                            "center, enterprise, model, staff, stock_info, stockIn cascade;");
             con.commit();
             stmt0.close();
         }

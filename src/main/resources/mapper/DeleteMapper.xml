@@ -3,7 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cs307.project.mapper.DeleteMapper">
-
+    <delete id="deleteOrderBySalesman">
+        DELETE
+        FROM placeOrder
+        WHERE contract_num = #{contractNum}
+          AND product_model = #{productModel}
+          AND salesman_num = #{salesmanNum};
+    </delete>
 
 
 </mapper>
