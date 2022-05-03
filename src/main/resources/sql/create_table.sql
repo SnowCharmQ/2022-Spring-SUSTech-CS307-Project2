@@ -62,4 +62,11 @@ create table placeOrder
     contract_type           varchar(15)
 );
 
+create table stock_info
+(
+    supply_center varchar(50),
+    product_model varchar(100),
+    quantity      integer
+);
+
 truncate table placeOrder, stockIn;
