@@ -8,6 +8,15 @@
         SET quantity                = #{quantity},
             estimated_delivery_date = #{estimatedDeliveryDate},
             lodgement_date          = #{lodgementDate}
-        WHERE contract_num = #{contractNum} and product_model = #{productModel} and salesman_num = #{salesmanNum};
+        WHERE contract_num = #{contractNum}
+          and product_model = #{productModel}
+          and salesman_num = #{salesmanNum};
     </update>
+
+    <update id="updateStockInfo">
+        UPDATE stock_info
+        SET quantity = #{quantity}
+        WHERE product_model = #{productModel} AND supply_center = #{supplyCenter};
+    </update>
+
 </mapper>

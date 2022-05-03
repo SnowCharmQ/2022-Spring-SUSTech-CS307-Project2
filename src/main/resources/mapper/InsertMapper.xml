@@ -13,4 +13,8 @@
         INSERT INTO stockIn (id, supply_center, product_model, supply_staff, date, purchase_price, quantity)
         VALUES (#{id}, #{supplyCenter}, #{productModel}, #{supplyStaff}, #{date}, #{purchasePrice}, #{quantity});
     </insert>
+    <insert id="insertStockInfo">
+        INSERT INTO stock_info (supply_center, product_model, quantity)
+        VALUES (#{supplyCenter}, #{productModel}, #{quantity});
+    </insert>
 </mapper>
