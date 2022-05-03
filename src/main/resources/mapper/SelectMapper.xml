@@ -48,7 +48,7 @@
         SELECT type as staff_type, count(*) as count from staff group by type;
     </select>
 
-    <select id="selectOrderCount" resultMap="java.lang.Integer">
+    <select id="selectOrderCount" resultType="java.lang.Integer">
         SELECT count(*) as count from placeOrder;
     </select>
 </mapper>

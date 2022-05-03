@@ -1,5 +1,6 @@
 package com.cs307.project;
 
+import com.cs307.project.entity.StaffCount;
 import com.cs307.project.entity.StockIn;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,6 +40,12 @@ public class ServiceTests {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void getAllStaffCountTest(){
+        List<StaffCount> staffCounts = iService.getAllStaffCount();
+        for (StaffCount sc: staffCounts) System.out.println(sc);
     }
 
     public void read(StockIn stock, String line) {
