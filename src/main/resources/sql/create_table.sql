@@ -61,3 +61,9 @@ create table placeOrder
     salesman_num            varchar(10),
     contract_type           varchar(15)
 );
+
+truncate table placeOrder, stockIn;
+
+select * from staff where number = '11210906';
+
+select * from center;
