@@ -61,6 +61,7 @@ public class IServiceImpl implements IService {
         int quantity = stock - placeOrder.getQuantity();
         updateMapper.updateStockInfo(supplyCenter, placeOrder.getProductModel(), quantity);
         insertMapper.insertOrder(placeOrder.getContractNum(), placeOrder.getEnterprise(), placeOrder.getProductModel(), placeOrder.getQuantity(), placeOrder.getContractManager(), placeOrder.getContractDate(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate(), placeOrder.getSalesmanNum(), placeOrder.getContractType());
+        insertMapper.insertContract(placeOrder.getContractNum());
     }
 
     @Override
@@ -86,8 +87,14 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public void deleteOrder() {
-
+    public void deleteOrder(String contract, String salesman, int seq) {
+        List<PlaceOrder> orders = selectMapper.selectOrderByContractNum(contract, salesman);
+        if (orders == null || orders.size() < seq) throw new OrderNotFoundException("No order of the seq");
+        PlaceOrder order = orders.get(seq - 1);
+        String supply_center = selectMapper.selectEnterpriseByName(order.getEnterprise()).getSupplyCenter();
+        int stock = selectMapper.selectStockByModel(supply_center, order.getProductModel()) + order.getQuantity();
+        updateMapper.updateStockInfo(supply_center, order.getProductModel(), stock);
+        deleteMapper.deleteOrder(order.getContractNum(), order.getEnterprise(), order.getProductModel(), order.getQuantity(), order.getContractManager(), order.getContractDate(), order.getEstimatedDeliveryDate(), order.getLodgementDate(), order.getSalesmanNum(), order.getContractType());
     }
 
     @Override

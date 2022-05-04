@@ -9,4 +9,9 @@ public interface InsertMapper {
 
     void insertStockInfo(String supplyCenter, String productModel, int quantity);
 
+    /**
+     * record all the contract exits
+     * @param contractNum
+     */
+    void insertContract(String contractNum);
 }

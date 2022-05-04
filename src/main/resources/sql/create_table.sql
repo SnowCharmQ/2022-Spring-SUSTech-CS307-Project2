@@ -68,6 +68,21 @@ create table stock_info
     product_model varchar(100),
     quantity      integer
 );
+create table contract
+(
+    contract_num varchar(15)
+);
+
+create function insert_contract(num varchar)
+    returns void
+as
+    $$
+begin
+    IF EXISTS (SELECT FROM contract WHERE contract_num = num) THEN
+    ELSE INSERT INTO contract VALUES (num);
+end IF;
+end;
+$$ language plpgsql;
 
 
 truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder cascade;

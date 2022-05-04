@@ -17,4 +17,7 @@
         INSERT INTO stock_info (supply_center, product_model, quantity)
         VALUES (#{supplyCenter}, #{productModel}, #{quantity});
     </insert>
+    <insert id="insertContract">
+        SELECT insert_contract(#{contractNum});
+    </insert>
 </mapper>

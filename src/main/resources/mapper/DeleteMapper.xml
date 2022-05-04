@@ -11,5 +11,18 @@
           AND salesman_num = #{salesmanNum};
     </delete>
 
-
+    <delete id="deleteOrder">
+        DELETE
+        FROM placeOrder
+        WHERE contract_num = #{contractNum}
+          AND enterprise = #{enterprise}
+          AND product_model = #{productModel}
+          AND quantity = #{quantity}
+          AND contract_manager = #{contractManager}
+          AND contract_date = #{contractDate}
+          AND estimated_delivery_date = #{estimatedDeliveryDate}
+          AND lodgement_date = #{lodgementDate}
+          AND salesman_num = #{salesmanNum}
+          AND contract_type = #{contractType}
+    </delete>
 </mapper>

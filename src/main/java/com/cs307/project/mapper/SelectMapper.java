@@ -15,4 +15,5 @@ public interface SelectMapper {
     List<PlaceOrder> selectOrderBySalesman(String salesman);
     List<StockQuantity> selectStockQuantity();
     List<OrderQuantity> selectOrderQuantity();
+    List<PlaceOrder> selectOrderByContractNum(String contract_num, String salesman);
 }

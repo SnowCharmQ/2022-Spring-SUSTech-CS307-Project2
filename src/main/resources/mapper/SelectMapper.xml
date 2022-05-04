@@ -32,6 +32,7 @@
         <result column="estimated_delivery_date" property="estimatedDeliveryDate"/>
         <result column="lodgement_date" property="lodgementDate"/>
         <result column="salesman_num" property="salesmanNum"/>
+        <result column="contract_type" property="contractType"/>
     </resultMap>
 
     <resultMap id="StockQuantityEntityMap" type="com.cs307.project.entity.StockQuantity">
@@ -72,6 +73,11 @@
 
     <select id="selectOrderBySalesman" resultMap="PlaceOrderEntityMap">
         SELECT * FROM placeOrder;
+    </select>
+
+    <select id="selectOrderByContractNum" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{contract_num} AND salesman_num = #{salesman}
+        order by estimated_delivery_date, product_model;
     </select>
 
     <select id="selectStockQuantity" resultMap="StockQuantityEntityMap">

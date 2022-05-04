@@ -115,6 +115,26 @@ public class ServiceTests {
     }
 
     @Test
+    public void deleteOrderTest() {//6
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_delete_test_data_publish.tsv")))) {
+            String line = in.readLine();
+            int cnt = 0;
+            while ((line = in.readLine()) != null) {
+                String[] content = line.split("\t");
+                System.out.println(++cnt);
+                try {
+                    iService.deleteOrder(content[0], content[1], Integer.parseInt(content[2]));
+                }catch (ServiceException e){
+                    System.out.println(e.getClass().getSimpleName());
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
     public void getAllStaffCountTest() {//6
         List<StaffCount> staffCounts = iService.getAllStaffCount();
         for (StaffCount sc : staffCounts) System.out.println(sc);
