@@ -107,6 +107,17 @@ public class IServiceImpl implements IService {
         return selectMapper.selectOrderCount();
     }
 
+    public Integer getContractCount(){
+        return selectMapper.selectContractCount();
+    }
+    public Integer getNeverSoldProductCount(){
+        return selectMapper.getNeverSoldProductCount();
+    }
+
+    public List<AvgStockByCenter> getgetAvgStockByCenter(){
+        return selectMapper.getAvgStockByCenter();
+    }
+
     @Override
     public FavoriteModel getFavoriteProductModel() {//貌似有点问题
         List<StockQuantity> stockQuantityList = selectMapper.selectStockQuantity();

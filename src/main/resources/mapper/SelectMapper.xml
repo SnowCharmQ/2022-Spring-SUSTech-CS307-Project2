@@ -35,6 +35,11 @@
         <result column="contract_type" property="contractType"/>
     </resultMap>
 
+    <resultMap id="AvgStockByCenterEntityMap" type="com.cs307.project.entity.AvgStockByCenter">
+        <result column="center" property="center"/>
+        <result column="avg" property="avg"/>
+    </resultMap>
+
     <resultMap id="StockQuantityEntityMap" type="com.cs307.project.entity.StockQuantity">
         <result column="product_model" property="productModel"/>
     </resultMap>
@@ -44,47 +49,93 @@
     </resultMap>
 
     <select id="selectStaffByNumber" resultMap="StaffEntityMap">
-        SELECT * FROM staff WHERE number = #{number};
+        SELECT *
+        FROM staff
+        WHERE number = #{number};
     </select>
 
     <select id="selectCenterByName" resultMap="CenterEntityMap">
-        SELECT * FROM center WHERE center.name = #{name};
+        SELECT *
+        FROM center
+        WHERE center.name = #{name};
     </select>
 
     <select id="selectModelByModel" resultMap="ModelEntityMap">
-        SELECT * FROM model WHERE model.model = #{model};
+        SELECT *
+        FROM model
+        WHERE model.model = #{model};
     </select>
 
     <select id="selectAllStaffCount" resultMap="StaffCountEntityMap">
-        SELECT type AS staff_type, count(*) AS count FROM staff GROUP BY type;
+        SELECT type AS staff_type, count(*) AS count
+        FROM staff
+        GROUP BY type;
     </select>
 
     <select id="selectOrderCount" resultType="java.lang.Integer">
-        SELECT count(*) AS count FROM placeOrder;
+        SELECT count(*) AS count
+        FROM placeOrder;
     </select>
 
     <select id="selectEnterpriseByName" resultMap="EnterpriseEntityMap">
-        SELECT * FROM enterprise WHERE enterprise.name = #{name};
+        SELECT *
+        FROM enterprise
+        WHERE enterprise.name = #{name};
     </select>
 
     <select id="selectStockByModel" resultType="java.lang.Integer">
-        SELECT quantity FROM stock_info where product_model = #{model} AND supply_center = #{supply_center};
+        SELECT quantity
+        FROM stock_info
+        where product_model = #{model}
+          AND supply_center = #{supply_center};
     </select>
 
     <select id="selectOrderBySalesman" resultMap="PlaceOrderEntityMap">
-        SELECT * FROM placeOrder;
+        SELECT *
+        FROM placeOrder;
     </select>
 
     <select id="selectOrderByContractNum" resultMap="PlaceOrderEntityMap">
-        SELECT * FROM placeOrder WHERE contract_num = #{contract_num} AND salesman_num = #{salesman}
+        SELECT *
+        FROM placeOrder
+        WHERE contract_num = #{contract_num}
+          AND salesman_num = #{salesman}
         order by estimated_delivery_date, product_model;
     </select>
 
     <select id="selectStockQuantity" resultMap="StockQuantityEntityMap">
-        SELECT product_model, sum(quantity) FROM stockIn GROUP BY product_model;
+        SELECT product_model, sum(quantity)
+        FROM stockIn
+        GROUP BY product_model;
     </select>
 
     <select id="selectOrderQuantity" resultMap="OrderQuantityEntityMap">
-        SELECT product_model, sum(quantity) FROM stock_info GROUP BY product_model;
+        SELECT product_model, sum(quantity)
+        FROM stock_info
+        GROUP BY product_model;
+    </select>
+    <select id="selectContractCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM contract;
+    </select>
+    <select id="getNeverSoldProductCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (
+                 select product_model
+                 from stock_info
+                 except
+                 select product_model
+                 from placeOrder
+        ) as sub;
+    </select>
+
+    <select id="getAvgStockByCenter" resultMap="AvgStockByCenterEntityMap">
+        select *
+        from (
+                 select supply_center center, avg(quantity) over (partition by supply_center) avg
+                 from stock_info
+             ) as sub
+        group by center,avg
+        order by center;
     </select>
 </mapper>

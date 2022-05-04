@@ -1,9 +1,6 @@
 package com.cs307.project;
 
-import com.cs307.project.entity.FavoriteModel;
-import com.cs307.project.entity.PlaceOrder;
-import com.cs307.project.entity.StaffCount;
-import com.cs307.project.entity.StockIn;
+import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
 import org.junit.Test;
@@ -115,7 +112,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void deleteOrderTest() {//6
+    public void deleteOrderTest() {//5
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_delete_test_data_publish.tsv")))) {
             String line = in.readLine();
             int cnt = 0;
@@ -141,8 +138,20 @@ public class ServiceTests {
     }
 
     @Test
+    public void getContractNumberTest() {//7
+        Integer cnt = iService.getContractCount();
+        System.out.println(cnt);
+    }
+
+    @Test
     public void getOrderCountTest() {//8
         Integer cnt = iService.getOrderCount();
+        System.out.println(cnt);
+    }
+
+    @Test
+    public void getNeverSoldProductCountTest(){//9
+        Integer cnt = iService.getNeverSoldProductCount();
         System.out.println(cnt);
     }
 
@@ -150,6 +159,14 @@ public class ServiceTests {
     public void getFavoriteProductModelTest(){//10
         FavoriteModel fm = iService.getFavoriteProductModel();
         System.out.println(fm);
+    }
+    @Test
+    public void getgetAvgStockByCenter(){
+        List<AvgStockByCenter> list = iService.getgetAvgStockByCenter();
+        for (AvgStockByCenter a:
+             list) {
+            System.out.println(a.toString());
+        }
     }
 
     public void readPlaceOrder(PlaceOrder placeOrder, String line) {

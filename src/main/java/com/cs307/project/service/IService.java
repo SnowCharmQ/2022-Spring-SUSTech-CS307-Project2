@@ -18,5 +18,11 @@ public interface IService {
 
     Integer getOrderCount();
 
+    Integer getContractCount();
+
+    Integer getNeverSoldProductCount();
+
+    List<AvgStockByCenter> getgetAvgStockByCenter();
+
     FavoriteModel getFavoriteProductModel();
 }
