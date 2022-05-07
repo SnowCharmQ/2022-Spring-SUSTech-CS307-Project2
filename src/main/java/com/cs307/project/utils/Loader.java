@@ -71,6 +71,7 @@ public class Loader {
                 content = line.split(",");
                 if (content.length > 2) {
                     content[1] = content[1] + "," + content[2];
+                    content[1] = content[1].substring(1,content[1].length()-1);
                 }
                 set_center.add(new Center(Integer.parseInt(content[id]), content[name]));
             }
@@ -98,6 +99,7 @@ public class Loader {
                 content = line.split(",");
                 if (content.length > 6){
                     content[4] = content[4]+","+content[5];
+                    content[4] = content[4].substring(1,content[4].length()-1);
                     content[5] = content[6];
                 }
                 set_enterprise.add(new Enterprise(Integer.parseInt(content[id]),content[name], content[country], content[city], content[supply_center], content[industry]));
@@ -157,6 +159,7 @@ public class Loader {
                 content = line.split(",");
                 if (content.length > 8){
                     content[5] = content[5]+","+content[6];
+                    content[5] = content[5].substring(1,content[5].length()-1);
                     content[6] = content[7];
                     content[7] = content[8];
                 }

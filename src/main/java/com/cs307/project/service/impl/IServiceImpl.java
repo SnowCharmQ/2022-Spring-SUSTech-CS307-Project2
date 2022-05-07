@@ -61,7 +61,7 @@ public class IServiceImpl implements IService {
         int quantity = stock - placeOrder.getQuantity();
         updateMapper.updateStockInfo(supplyCenter, placeOrder.getProductModel(), quantity);
         insertMapper.insertOrder(placeOrder.getContractNum(), placeOrder.getEnterprise(), placeOrder.getProductModel(), placeOrder.getQuantity(), placeOrder.getContractManager(), placeOrder.getContractDate(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate(), placeOrder.getSalesmanNum(), placeOrder.getContractType());
-        insertMapper.insertContract(placeOrder.getContractNum());
+        //insertMapper.insertContract(placeOrder.getContractNum());
     }
 
     @Override

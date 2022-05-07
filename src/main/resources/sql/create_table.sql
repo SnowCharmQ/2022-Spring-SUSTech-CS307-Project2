@@ -73,19 +73,27 @@ create table contract
     contract_num varchar(15)
 );
 
-create function insert_contract(num varchar)
-    returns void
+drop function if exists insert_contract();
+create or replace function insert_contract()
+    returns trigger
 as
-    $$
+$$
 begin
-    IF EXISTS (SELECT FROM contract WHERE contract_num = num) THEN
-    ELSE INSERT INTO contract VALUES (num);
+    IF NOT EXISTS(SELECT FROM contract WHERE contract_num = new.contract_num) THEN
+        INSERT INTO contract VALUES (new.contract_num);
 end IF;
+return new;
 end;
 $$ language plpgsql;
 
+create trigger record_contract
+    before insert
+    on placeOrder
+    for each row
+    execute procedure insert_contract();
 
-truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder cascade;
+
+truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract cascade;
 
 
 select * from stockIn order by product_model;

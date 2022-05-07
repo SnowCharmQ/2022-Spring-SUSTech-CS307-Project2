@@ -161,7 +161,7 @@ public class ServiceTests {
         System.out.println(fm);
     }
     @Test
-    public void getgetAvgStockByCenter(){
+    public void getgetAvgStockByCenter(){//11
         List<AvgStockByCenter> list = iService.getgetAvgStockByCenter();
         for (AvgStockByCenter a:
              list) {
@@ -221,7 +221,9 @@ public class ServiceTests {
             stock.setPurchasePrice(Integer.parseInt(content[5]));
             stock.setQuantity(Integer.parseInt(content[6]));
         } else {
-            stock.setSupplyCenter(content[1] + "," + content[2]);
+            String sub = content[1] + "," + content[2];
+            sub = sub.substring(1,sub.length()-1);
+            stock.setSupplyCenter(sub);
             stock.setProductModel(content[3]);
             stock.setSupplyStaff(content[4]);
             String[] dateArr = content[5].split("/");
