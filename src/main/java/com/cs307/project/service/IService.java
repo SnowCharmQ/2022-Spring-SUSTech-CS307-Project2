@@ -25,4 +25,6 @@ public interface IService {
     List<AvgStockByCenter> getgetAvgStockByCenter();
 
     FavoriteModel getFavoriteProductModel();
+
+    String getContractInfo(String contract_number);
 }

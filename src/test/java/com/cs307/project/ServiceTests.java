@@ -169,6 +169,13 @@ public class ServiceTests {
         }
     }
 
+    @Test
+    public void getContractInfo(){//13
+        System.out.println(iService.getContractInfo("CSE0000106"));
+        System.out.println(iService.getContractInfo("CSE0000209"));
+        System.out.println(iService.getContractInfo("CSE0000306"));
+    }
+
     public void readPlaceOrder(PlaceOrder placeOrder, String line) {
         String[] content = line.split(",");
         placeOrder.setContractNum(content[0]);

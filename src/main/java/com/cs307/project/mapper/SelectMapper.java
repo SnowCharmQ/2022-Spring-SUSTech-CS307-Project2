@@ -18,6 +18,8 @@ public interface SelectMapper {
     List<StockQuantity> selectStockQuantity();
     List<OrderQuantity> selectOrderQuantity();
     List<PlaceOrder> selectOrderByContractNum(String contract_num, String salesman);
+    List<PlaceOrder> selectContract(String contract_num);
     Integer getNeverSoldProductCount();
     List<AvgStockByCenter> getAvgStockByCenter();
+    Contract getContractInfo(String contract_number);
 }

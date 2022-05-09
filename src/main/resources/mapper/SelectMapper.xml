@@ -11,6 +11,9 @@
     <resultMap id="CenterEntityMap" type="com.cs307.project.entity.Center">
     </resultMap>
 
+    <resultMap id="ContractEntityMap" type="com.cs307.project.entity.Contract">
+    </resultMap>
+
     <resultMap id="ModelEntityMap" type="com.cs307.project.entity.Model">
         <result column="unit_price" property="unitPrice"/>
     </resultMap>
@@ -137,5 +140,18 @@
              ) as sub
         group by center,avg
         order by center;
+    </select>
+
+    <select id="selectContract" resultMap="PlaceOrderEntityMap">
+        SELECT *
+        FROM placeOrder
+        WHERE contract_num = #{contract_num}
+        order by estimated_delivery_date, product_model;
+    </select>
+
+    <select id="getContractInfo" resultMap="ContractEntityMap">
+        SELECT *
+        FROM contract
+        WHERE contract_num = #{contract_num}
     </select>
 </mapper>

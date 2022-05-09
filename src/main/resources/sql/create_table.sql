@@ -68,9 +68,12 @@ create table stock_info
     product_model varchar(100),
     quantity      integer
 );
+
 create table contract
 (
-    contract_num varchar(15)
+    contract_num     varchar(15),
+    contract_manager varchar(15),
+    enterprise       varchar(100)
 );
 
 drop function if exists insert_contract();
@@ -80,15 +83,16 @@ as
 $$
 begin
     IF NOT EXISTS(SELECT FROM contract WHERE contract_num = new.contract_num) THEN
-        INSERT INTO contract VALUES (new.contract_num);
-end IF;
+        INSERT INTO contract (contract_num, contract_manager, enterprise)
+        VALUes (new.contract_num, new.contract_manager, new.enterprise);
+end if;
 return new;
 end;
 $$ language plpgsql;
 
 create trigger record_contract
     before insert
-    on placeOrder
+    on placeorder
     for each row
     execute procedure insert_contract();
 
