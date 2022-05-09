@@ -1,0 +1,46 @@
+Q6 
+Director                 8
+Contracts Manager        160
+Salesman                 640
+Supply Staff             192
+Q7 84
+Q8 178
+Q9 53
+Q10 
+PrecisionAirConditionerG9     863
+Q11 
+America                                         448.3
+Asia                                            494.5
+Eastern China                                   594.2
+Europe                                          493.4
+Hong Kong, Macao and Taiwan regions of China    423.5
+Northern China                                  521.9
+Southern China                                  429.0
+Southwestern China                              473.2
+Q12 
+supply_center               product_model               quantity            
+Asia                        Air-ConditioningFan21       61                  
+Northern China              Air-ConditioningFan51       279                 
+Q13 
+contract_number: CSE0000106
+enterprise: Pinduoduo
+manager: Zhang Wanzhi
+supply_center: Eastern China
+product_model               salesman            quantity  unit_price  estimate_delivery_date      lodgement_date              
+DigitalFrame48              Qi Yishan                1         340         2022-01-11                  2022-01-11                  
+Router92                    Shi Tianlan              1         420         2022-01-11                  2022-01-11                  
+Router92                    Wang Qiuyan              1         420         2022-01-11                  2022-01-11                  
+Q13 
+contract_number: CSE0000209
+enterprise: Rwe Group
+manager: Kong Yuandong
+supply_center: Europe
+product_model               salesman            quantity  unit_price  estimate_delivery_date      lodgement_date              
+E-Book87                    Kong Aonan               53        680         2022-02-14                  2022-02-14                  
+E-Book87                    Qi Erqing                53        680         2022-02-14                  2022-02-14                  
+PrecisionAirConditionerG9   He Leshuang              1         940         2022-01-23                  2022-02-14                  
+Q13 
+contract_number: CSE0000306
+enterprise: Fannie Mae
+manager: Jing Ziyan
+supply_center: America
