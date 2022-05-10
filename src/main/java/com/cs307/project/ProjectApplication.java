@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @MapperScan("com.cs307.project.mapper")
 public class ProjectApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ProjectApplication.class, args);
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs307.project.mapper.UserMapper">
+    <resultMap id="UserEntityMap" type="com.cs307.project.entity.User">
+        <result column="is_super" property="isSuper"/>
+        <result column="can_insert" property="canInsert"/>
+        <result column="can_delete" property="canDelete"/>
+        <result column="can_update" property="canUpdate"/>
+        <result column="can_select" property="canSelect"/>
+    </resultMap>
+
+    <select id="selectByName" resultMap="UserEntityMap">
+        SELECT *
+        FROM t_user
+        WHERE username = #{username};
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO t_user (username, pwd, salt, is_super, can_insert, can_delete, can_update, can_select)
+        VALUES (#{username}, #{pwd}, #{salt}, #{isSuper}, #{canInsert}, #{canDelete}, #{canUpdate}, #{canSelect});
+    </insert>
+</mapper>
