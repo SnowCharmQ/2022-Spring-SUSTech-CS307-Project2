@@ -28,5 +28,5 @@ public interface IService {
 
     List<ProductStock> getProductByNumber(String number);
 
-    String getContractInfo(String contract_number);
+    Contract getContractInfo(String contract_number);
 }
