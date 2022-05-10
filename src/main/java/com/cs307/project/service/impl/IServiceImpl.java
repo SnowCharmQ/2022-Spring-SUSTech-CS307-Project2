@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class IServiceImpl implements IService {
@@ -144,31 +146,16 @@ public class IServiceImpl implements IService {
     }
 
     @Override
-    public String getContractInfo(String contract_number) {
+    public Contract getContractInfo(String contract_number) {
         List<PlaceOrder> orders = selectMapper.selectContract(contract_number);
-        if (orders.isEmpty()) {
-            Contract contract = selectMapper.getContractInfo(contract_number);
-            if (contract != null) {
-                return "Contract{\n" +
-                        "contract_number='" + contract_number + '\'' +
-                        "\ncontract_manager_name='" + selectMapper.selectStaffByNumber(contract.getContract_manager()).getName() + '\'' +
-                        "\nenterprise_name='" + contract.getEnterprise() + '\'' +
-                        "\nsupply_center='" + selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter() + '\'' +
-                        "\n}";
-            } else throw new OrderNotFoundException("No such contract");
-        }
-        StringBuilder order = new StringBuilder();
-        order.append(String.format("%-30s%-20s%-10s%-15s%-30s%-30s\n", "product_model", "salesman", "quantity", "unit_price", "estimate_delivery_date", "lodgement_date"));
-        orders.forEach((o) -> {
-            order.append(String.format("%-30s%-20s%-10d%-15d%-30s%-30s\n", o.getProductModel(), selectMapper.selectStaffByNumber(o.getSalesmanNum()).getName(), o.getQuantity(), selectMapper.selectModelByModel(o.getProductModel()).getUnitPrice(), o.getEstimatedDeliveryDate(), o.getLodgementDate()));
-        });
-        PlaceOrder firstOrder = orders.get(0);
-        return "Contract{\n" +
-                "contract_number='" + contract_number + '\'' +
-                "\ncontract_manager_name='" + selectMapper.selectStaffByNumber(firstOrder.getContractManager()).getName() + '\'' +
-                "\nenterprise_name='" + firstOrder.getEnterprise() + '\'' +
-                "\nsupply_center='" + selectMapper.selectEnterpriseByName(firstOrder.getEnterprise()).getSupplyCenter() + '\'' +
-                "\norders=\n" + order +
-                '}';
+        Contract contract = selectMapper.getContractInfo(contract_number);
+        List<Contract.OrderInContract> orderlists = orders.stream().map(new Function<PlaceOrder, Contract.OrderInContract>() {
+            @Override
+            public Contract.OrderInContract apply(PlaceOrder placeOrder) {
+                Contract.OrderInContract order = new Contract.OrderInContract(placeOrder.getProductModel(), selectMapper.selectStaffByNumber(placeOrder.getSalesmanNum()).getName(), placeOrder.getQuantity(), selectMapper.selectModelByModel(placeOrder.getProductModel()).getUnitPrice(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate());
+                return order;
+            }
+        }).collect(Collectors.toList());
+        return new Contract(contract_number,selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(),contract.getEnterprise(),selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(),orderlists);
     }
 }
