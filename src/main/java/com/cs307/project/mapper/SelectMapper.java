@@ -1,8 +1,6 @@
 package com.cs307.project.mapper;
 
 import com.cs307.project.entity.*;
-import javafx.util.Pair;
-
 import java.util.List;
 
 public interface SelectMapper {
@@ -21,5 +19,6 @@ public interface SelectMapper {
     List<PlaceOrder> selectContract(String contract_num);
     Integer getNeverSoldProductCount();
     List<AvgStockByCenter> getAvgStockByCenter();
+    List<ProductStock> selectProductByModel(String number);
     Contract getContractInfo(String contract_number);
 }

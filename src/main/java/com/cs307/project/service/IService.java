@@ -22,9 +22,11 @@ public interface IService {
 
     Integer getNeverSoldProductCount();
 
-    List<AvgStockByCenter> getgetAvgStockByCenter();
+    List<AvgStockByCenter> getAvgStockByCenter();
 
     FavoriteModel getFavoriteProductModel();
+
+    List<ProductStock> getProductByNumber(String number);
 
     String getContractInfo(String contract_number);
 }

@@ -71,7 +71,7 @@ public class Loader {
                 content = line.split(",");
                 if (content.length > 2) {
                     content[1] = content[1] + "," + content[2];
-                    content[1] = content[1].substring(1,content[1].length()-1);
+                    content[1] = content[1].substring(1, content[1].length() - 1);
                 }
                 set_center.add(new Center(Integer.parseInt(content[id]), content[name]));
             }
@@ -97,12 +97,12 @@ public class Loader {
             int id = 0, name = 1, country = 2, city = 3, supply_center = 4, industry = 5;
             while ((line = inline.readLine()) != null) {
                 content = line.split(",");
-                if (content.length > 6){
-                    content[4] = content[4]+","+content[5];
-                    content[4] = content[4].substring(1,content[4].length()-1);
+                if (content.length > 6) {
+                    content[4] = content[4] + "," + content[5];
+                    content[4] = content[4].substring(1, content[4].length() - 1);
                     content[5] = content[6];
                 }
-                set_enterprise.add(new Enterprise(Integer.parseInt(content[id]),content[name], content[country], content[city], content[supply_center], content[industry]));
+                set_enterprise.add(new Enterprise(Integer.parseInt(content[id]), content[name], content[country], content[city], content[supply_center], content[industry]));
             }
             stmt = con.prepareStatement("insert into enterprise (id, name, country, city, supply_center, industry) values (?,?,?,?,?,?)");
             for (Enterprise e :
@@ -157,9 +157,9 @@ public class Loader {
             int id = 0, name = 1, age = 2, gender = 3, number = 4, supply_center = 5, mobile_number = 6, type = 7;
             while ((line = inline.readLine()) != null) {
                 content = line.split(",");
-                if (content.length > 8){
-                    content[5] = content[5]+","+content[6];
-                    content[5] = content[5].substring(1,content[5].length()-1);
+                if (content.length > 8) {
+                    content[5] = content[5] + "," + content[6];
+                    content[5] = content[5].substring(1, content[5].length() - 1);
                     content[6] = content[7];
                     content[7] = content[8];
                 }
@@ -199,9 +199,8 @@ public class Loader {
         Statement stmt0;
         if (con != null) {
             stmt0 = con.createStatement();
-            stmt0.execute(
-                    "truncate table " +
-                            "center, enterprise, model, staff, stock_info, stockIn cascade;");
+            stmt0.execute("truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract cascade;");
+            stmt0.execute("");
             con.commit();
             stmt0.close();
         }

@@ -7,5 +7,4 @@ public interface UpdateMapper {
 
     void updateStockInfo(String supplyCenter, String productModel, Integer quantity);
 
-    void updateOrderType(String contractNum, int seq);
 }

@@ -107,19 +107,20 @@ public class IServiceImpl implements IService {
         return selectMapper.selectOrderCount();
     }
 
-    public Integer getContractCount(){
+    public Integer getContractCount() {
         return selectMapper.selectContractCount();
     }
-    public Integer getNeverSoldProductCount(){
+
+    public Integer getNeverSoldProductCount() {
         return selectMapper.getNeverSoldProductCount();
     }
 
-    public List<AvgStockByCenter> getgetAvgStockByCenter(){
+    public List<AvgStockByCenter> getAvgStockByCenter() {
         return selectMapper.getAvgStockByCenter();
     }
 
     @Override
-    public FavoriteModel getFavoriteProductModel() {//貌似有点问题
+    public FavoriteModel getFavoriteProductModel() {
         List<StockQuantity> stockQuantityList = selectMapper.selectStockQuantity();
         List<OrderQuantity> orderQuantityList = selectMapper.selectOrderQuantity();
         String productModel = null;
@@ -138,24 +139,28 @@ public class IServiceImpl implements IService {
     }
 
     @Override
+    public List<ProductStock> getProductByNumber(String number) {
+        return selectMapper.selectProductByModel(number);
+    }
+
+    @Override
     public String getContractInfo(String contract_number) {
         List<PlaceOrder> orders = selectMapper.selectContract(contract_number);
         if (orders.isEmpty()) {
             Contract contract = selectMapper.getContractInfo(contract_number);
-            if(contract!=null){
+            if (contract != null) {
                 return "Contract{\n" +
                         "contract_number='" + contract_number + '\'' +
                         "\ncontract_manager_name='" + selectMapper.selectStaffByNumber(contract.getContract_manager()).getName() + '\'' +
                         "\nenterprise_name='" + contract.getEnterprise() + '\'' +
                         "\nsupply_center='" + selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter() + '\'' +
                         "\n}";
-            }
-            else throw new OrderNotFoundException("No such contract");
+            } else throw new OrderNotFoundException("No such contract");
         }
         StringBuilder order = new StringBuilder();
-        order.append(String.format("%-30s%-20s%-10s%-15s%-30s%-30s\n","product_model","salesman","quantity","unit_price","estimate_delivery_date","lodgement_date"));
+        order.append(String.format("%-30s%-20s%-10s%-15s%-30s%-30s\n", "product_model", "salesman", "quantity", "unit_price", "estimate_delivery_date", "lodgement_date"));
         orders.forEach((o) -> {
-            order.append(String.format("%-30s%-20s%-10d%-15d%-30s%-30s\n",o.getProductModel(), selectMapper.selectStaffByNumber(o.getSalesmanNum()).getName(), o.getQuantity(), selectMapper.selectModelByModel(o.getProductModel()).getUnitPrice(),o.getEstimatedDeliveryDate(), o.getLodgementDate()));
+            order.append(String.format("%-30s%-20s%-10d%-15d%-30s%-30s\n", o.getProductModel(), selectMapper.selectStaffByNumber(o.getSalesmanNum()).getName(), o.getQuantity(), selectMapper.selectModelByModel(o.getProductModel()).getUnitPrice(), o.getEstimatedDeliveryDate(), o.getLodgementDate()));
         });
         PlaceOrder firstOrder = orders.get(0);
         return "Contract{\n" +

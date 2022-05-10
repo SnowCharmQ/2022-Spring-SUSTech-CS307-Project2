@@ -4,7 +4,6 @@ import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +21,8 @@ public class ServiceTests {
     @Autowired
     private IService iService;
 
-    @BeforeAll
-    public static void init() {
+    @Test
+    public void init() {
         ClassLoader classLoader = ServiceTests.class.getClassLoader();
         try {
             Class<?> loadClass = classLoader.loadClass("com.cs307.project.utils.Loader");
@@ -101,7 +100,7 @@ public class ServiceTests {
                 System.out.println(++cnt);
                 try {
                     iService.updateOrder(content[0], content[1], content[2], Integer.parseInt(content[3]), edd, ld);
-                }catch (ServiceException e){
+                } catch (ServiceException e) {
                     System.out.println(e.getClass().getSimpleName());
                     System.out.println(e.getMessage());
                 }
@@ -121,7 +120,7 @@ public class ServiceTests {
                 System.out.println(++cnt);
                 try {
                     iService.deleteOrder(content[0], content[1], Integer.parseInt(content[2]));
-                }catch (ServiceException e){
+                } catch (ServiceException e) {
                     System.out.println(e.getClass().getSimpleName());
                     System.out.println(e.getMessage());
                 }
@@ -150,23 +149,28 @@ public class ServiceTests {
     }
 
     @Test
-    public void getNeverSoldProductCountTest(){//9
+    public void getNeverSoldProductCountTest() {//9
         Integer cnt = iService.getNeverSoldProductCount();
         System.out.println(cnt);
     }
 
     @Test
-    public void getFavoriteProductModelTest(){//10
+    public void getFavoriteProductModelTest() {//10
         FavoriteModel fm = iService.getFavoriteProductModel();
         System.out.println(fm);
     }
+
     @Test
-    public void getgetAvgStockByCenter(){//11
-        List<AvgStockByCenter> list = iService.getgetAvgStockByCenter();
-        for (AvgStockByCenter a:
-             list) {
+    public void getAvgStockByCenterTest() {//11
+        List<AvgStockByCenter> list = iService.getAvgStockByCenter();
+        for (AvgStockByCenter a : list) {
             System.out.println(a.toString());
         }
+    }
+
+    @Test
+    public void getProductByNumber() {//12
+        System.out.println(iService.getProductByNumber("A50L172"));
     }
 
     @Test
@@ -229,7 +233,7 @@ public class ServiceTests {
             stock.setQuantity(Integer.parseInt(content[6]));
         } else {
             String sub = content[1] + "," + content[2];
-            sub = sub.substring(1,sub.length()-1);
+            sub = sub.substring(1, sub.length() - 1);
             stock.setSupplyCenter(sub);
             stock.setProductModel(content[3]);
             stock.setSupplyStaff(content[4]);

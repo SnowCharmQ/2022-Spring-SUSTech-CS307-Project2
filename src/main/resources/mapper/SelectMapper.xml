@@ -47,6 +47,11 @@
         <result column="product_model" property="productModel"/>
     </resultMap>
 
+    <resultMap id="ProductStockEntityMap" type="com.cs307.project.entity.ProductStock">
+        <result column="supply_center" property="supplyCenter"/>
+        <result column="product_model" property="productModel"/>
+    </resultMap>
+
     <resultMap id="OrderQuantityEntityMap" type="com.cs307.project.entity.OrderQuantity">
         <result column="product_model" property="productModel"/>
     </resultMap>
@@ -117,28 +122,26 @@
         FROM stock_info
         GROUP BY product_model;
     </select>
+
     <select id="selectContractCount" resultType="java.lang.Integer">
         SELECT count(*)
         FROM contract;
     </select>
+
     <select id="getNeverSoldProductCount" resultType="java.lang.Integer">
         SELECT count(*)
-        FROM (
-                 select product_model
-                 from stock_info
-                 except
-                 select product_model
-                 from placeOrder
-        ) as sub;
+        FROM (select product_model
+              from stock_info
+              except
+              select product_model
+              from placeOrder) as sub;
     </select>
 
     <select id="getAvgStockByCenter" resultMap="AvgStockByCenterEntityMap">
         select *
-        from (
-                 select supply_center center, avg(quantity) over (partition by supply_center) avg
-                 from stock_info
-             ) as sub
-        group by center,avg
+        from (select supply_center center, avg(quantity) over (partition by supply_center) avg
+              from stock_info) as sub
+        group by center, avg
         order by center;
     </select>
 
@@ -147,6 +150,14 @@
         FROM placeOrder
         WHERE contract_num = #{contract_num}
         order by estimated_delivery_date, product_model;
+    </select>
+
+    <select id="selectProductByModel" resultMap="ProductStockEntityMap">
+        select supply_center, product_model, sum(quantity) as quantity
+        from stock_info
+                 left join model on model.model = stock_info.product_model
+        where number = #{number}
+        group by supply_center, product_model;
     </select>
 
     <select id="getContractInfo" resultMap="ContractEntityMap">
