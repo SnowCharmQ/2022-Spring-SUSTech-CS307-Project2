@@ -1,13 +1,14 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Contract {
+public class Contract implements Serializable {
     String contract_num, contract_manager, enterprise, supply_center;
     List<OrderInContract> orders;
 
-    public Contract(String contract_num, String contract_manager, String enterprises) {
+    public Contract(String contract_num, String contract_manager, String enterprise) {
         this.contract_num = contract_num;
         this.contract_manager = contract_manager;
         this.enterprise = enterprise;

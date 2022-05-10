@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ProductStock {
+public class ProductStock implements Serializable {
     String supplyCenter;
     String productModel;
     String quantity;

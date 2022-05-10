@@ -99,8 +99,13 @@ execute procedure insert_contract();
 
 truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract cascade;
 
-
-select * from stockIn order by product_model;
-select * from stock_info;
-select product_model, sum(quantity) from stock_info group by product_model;
-select product_model, sum(quantity) from stockIn group by product_model;
+create table t_user(
+    username varchar(20),
+    pwd varchar(100),
+    salt varchar(100),
+    super boolean,
+    can_insert boolean,
+    can_delete boolean,
+    can_update boolean,
+    can_select boolean
+);

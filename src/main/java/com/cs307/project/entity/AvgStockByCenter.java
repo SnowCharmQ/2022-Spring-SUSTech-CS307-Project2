@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class AvgStockByCenter {
+public class AvgStockByCenter implements Serializable {
     String center;
     float avg;
 

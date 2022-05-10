@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class FavoriteModel {
+public class FavoriteModel implements Serializable {
     String productModel;
     int quantity;
 

@@ -1,8 +1,9 @@
 package com.cs307.project.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class StockQuantity {
+public class StockQuantity implements Serializable {
     String productModel;
     int sum;
 
