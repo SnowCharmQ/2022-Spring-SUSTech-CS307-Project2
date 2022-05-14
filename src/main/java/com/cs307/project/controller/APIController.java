@@ -58,4 +58,10 @@ public class APIController extends BaseController{
         List<AvgStockByCenter> asbc = iService.getAvgStockByCenter();
         return new JsonResult<>(ok, asbc);
     }
+
+    @RequestMapping("q12api")
+    public JsonResult<List<ProductStock>> getProductByNumber(String number){
+        List<ProductStock> ps = iService.getProductByNumber(number);
+        return new JsonResult<>(ok, ps);
+    }
 }
