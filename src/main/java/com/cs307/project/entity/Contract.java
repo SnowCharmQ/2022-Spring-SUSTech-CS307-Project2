@@ -37,21 +37,27 @@ public class Contract implements Serializable {
     @Override
     public String toString() {
         StringBuilder order = new StringBuilder();
-        if (!orders.isEmpty())order.append(String.format("%-30s%-20s%-10s%-15s%-30s%-30s\n", "product_model", "salesman", "quantity", "unit_price", "estimate_delivery_date", "lodgement_date"));
+        if (!orders.isEmpty())
+            order.append(String.format("%-30s%-20s%-10s%-15s%-30s%-30s\n", "product_model", "salesman", "quantity", "unit_price", "estimate_delivery_date", "lodgement_date"));
         orders.forEach((o) -> {
-            String e_d = o.estimate_delivery_date.getYear() + "-" + o.estimate_delivery_date.getMonth() + "-" + o.estimate_delivery_date.getDay();
-            String l_d = o.lodgement_date.getYear() + "-" + o.lodgement_date.getMonth() + "-" + o.lodgement_date.getDay();
-            order.append(String.format("%-30s%-20s%-10d%-15d%-30s%-30s\n", o.product_model, o.salesman, o.quantity, o.unit_price , e_d , l_d));
+            String e_d = (o.estimate_delivery_date.getYear() + 1900) + "-" + (o.estimate_delivery_date.getMonth() + 1) + "-" + o.estimate_delivery_date.getDate();
+            String l_d = (o.lodgement_date.getYear() + 1900) + "-" + (o.lodgement_date.getMonth() + 1) + "-" + o.lodgement_date.getDate();
+            order.append(String.format("%-30s%-20s%-10d%-15d%-30s%-30s\n", o.product_model, o.salesman, o.quantity, o.unit_price, e_d, l_d));
         });
-        return "Contract{\n" +
-                "contract_number='" + contract_num + '\'' +
-                "\ncontract_manager_name='" + contract_manager + '\'' +
-                "\nenterprise_name='" + enterprise + '\'' +
-                "\nsupply_center='" + supply_center + '\'' +
-                "\n" + order +
-                '}';
-
+//        return "Contract{\n" +
+//                "contract_number='" + contract_num + '\'' +
+//                "\ncontract_manager_name='" + contract_manager + '\'' +
+//                "\nenterprise_name='" + enterprise + '\'' +
+//                "\nsupply_center='" + supply_center + '\'' +
+//                "\n" + order +
+//                '}';
+        return "number: " + contract_num + '\n' +
+                "manager: " + contract_manager + '\n' +
+                "enterprise: " + enterprise + '\n' +
+                "supply_center: " + supply_center + '\n' +
+                order;
     }
+
     public static class OrderInContract {
         String product_model;
         String salesman;

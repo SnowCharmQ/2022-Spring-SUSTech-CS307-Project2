@@ -149,13 +149,18 @@ public class IServiceImpl implements IService {
     public Contract getContractInfo(String contract_number) {
         List<PlaceOrder> orders = selectMapper.selectContract(contract_number);
         Contract contract = selectMapper.getContractInfo(contract_number);
-        List<Contract.OrderInContract> orderlists = orders.stream().map(new Function<PlaceOrder, Contract.OrderInContract>() {
-            @Override
-            public Contract.OrderInContract apply(PlaceOrder placeOrder) {
-                Contract.OrderInContract order = new Contract.OrderInContract(placeOrder.getProductModel(), selectMapper.selectStaffByNumber(placeOrder.getSalesmanNum()).getName(), placeOrder.getQuantity(), selectMapper.selectModelByModel(placeOrder.getProductModel()).getUnitPrice(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate());
-                return order;
-            }
-        }).collect(Collectors.toList());
-        return new Contract(contract_number,selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(),contract.getEnterprise(),selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(),orderlists);
+        List<Contract.OrderInContract> orderlists
+                = orders.stream().map(placeOrder ->
+                new Contract.OrderInContract(placeOrder.getProductModel(),
+                        selectMapper.selectStaffByNumber(placeOrder.getSalesmanNum()).getName(),
+                        placeOrder.getQuantity(),
+                        selectMapper.selectModelByModel(placeOrder.getProductModel()).getUnitPrice(),
+                        placeOrder.getEstimatedDeliveryDate(),
+                        placeOrder.getLodgementDate())).collect(Collectors.toList());
+        return new Contract(contract_number,
+                selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(),
+                contract.getEnterprise(),
+                selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(),
+                orderlists);
     }
 }
