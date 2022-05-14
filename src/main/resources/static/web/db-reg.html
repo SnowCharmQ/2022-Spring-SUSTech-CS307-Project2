@@ -149,14 +149,14 @@
             else if (pwd !== verifypwd) errorspan.innerHTML = "The password is inconsistent with the confirm password"
             else {
                 $.ajax({
-                    url: "/users/reg",
+                    url: "/users/db-reg",
                     type: "POST",
                     data: $("#form-reg").serialize(),
                     dataType: "json",
                     success: function (json) {
                         if (json.state === 200) {
                             alert("Successfully Register!");
-                            location.href = "login.html";
+                            location.href = "db-login.html";
                         } else {
                             document.getElementById("error-message-reg").innerText = ("Fail To Register！" + json.message);
                         }

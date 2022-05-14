@@ -15,13 +15,13 @@ public class UserController extends BaseController{
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("reg")
+    @RequestMapping("db-reg")
     public JsonResult<Void> reg(User user) {
         userService.reg(user);
         return new JsonResult<>(ok);
     }
 
-    @RequestMapping("login")
+    @RequestMapping("db-login")
     public JsonResult<User> login(String username, String password, HttpSession session) {
         User data = userService.login(username, password);
         session.setAttribute("username", data.getUsername());
