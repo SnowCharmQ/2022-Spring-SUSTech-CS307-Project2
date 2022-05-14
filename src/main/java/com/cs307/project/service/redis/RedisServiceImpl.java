@@ -39,6 +39,6 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean expire(String key, final long expireDate) {
-        return Boolean.TRUE.equals(redisTemplate.expire(key, expireDate, TimeUnit.MILLISECONDS));
+        return Boolean.TRUE.equals(redisTemplate.expire(key, expireDate, TimeUnit.MINUTES));
     }
 }

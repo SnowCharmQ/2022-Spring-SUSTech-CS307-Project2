@@ -55,6 +55,7 @@ public class IServiceImpl implements IService {
 
     @Override
     public void placeOrder(PlaceOrder placeOrder) {
+        orderChanged = true;
         Enterprise enterprise = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise());
         String supplyCenter = enterprise.getSupplyCenter();
         Integer stock = selectMapper.selectStockByModel(supplyCenter, placeOrder.getProductModel());
@@ -71,6 +72,7 @@ public class IServiceImpl implements IService {
 
     @Override
     public void updateOrder(String contractNum, String productModel, String salesmanNum, int quantity, Date estimatedDeliveryDate, Date lodgementDate) {
+        orderChanged = true;
         List<PlaceOrder> list = selectMapper.selectOrderBySalesman(salesmanNum);
         PlaceOrder placeOrder = null;
         for (PlaceOrder po : list) {
@@ -93,6 +95,7 @@ public class IServiceImpl implements IService {
 
     @Override
     public void deleteOrder(String contract, String salesman, int seq) {
+        orderChanged = true;
         List<PlaceOrder> orders = selectMapper.selectOrderByContractNum(contract, salesman);
         if (orders == null || orders.size() < seq) throw new OrderNotFoundException("No order of the seq");
         PlaceOrder order = orders.get(seq - 1);
@@ -110,16 +113,29 @@ public class IServiceImpl implements IService {
 
     @Override
     public List<StaffCount> getAllStaffCount() {
-        String staffCountString = redisService.get(STAFF_COUNT);
+//        return selectMapper.selectAllStaffCount();
+        String staffCountString = null;
+        try {
+            staffCountString = redisService.get(STAFF_COUNT);
+        } catch (Exception e) {
+            System.out.println("connection to redis failed");
+        }
         List<StaffCount> staffCounts;
         if (staffCountString == null) {
-            System.out.println("============from database===========");
-            staffCounts = selectMapper.selectAllStaffCount();
-            String jsonString = JSON.toJSONString(staffCounts);
-            redisService.set(STAFF_COUNT, jsonString);
-            //System.out.println(
+            synchronized (this) {
+                try {
+                    staffCountString = redisService.get(STAFF_COUNT);
+                } catch (Exception e) {
+                    System.out.println("connection to redis failed");
+                }
+                if (staffCountString == null) {
+                    System.out.println("============from database===========");
+                    staffCounts = selectMapper.selectAllStaffCount();
+                    String jsonString = JSON.toJSONString(staffCounts);
+                    redisService.set(STAFF_COUNT, jsonString);
                     redisService.expire(STAFF_COUNT, 500);
-            //);
+                } else staffCounts = JSONArray.parseArray(staffCountString, StaffCount.class);
+            }
         } else {
             //System.out.println("==========from cache=============");
             staffCounts = JSONArray.parseArray(staffCountString, StaffCount.class);
@@ -127,21 +143,112 @@ public class IServiceImpl implements IService {
         return staffCounts;
     }
 
+    boolean orderChanged = true;
+    public static final String ORDER_COUNT = "order_count";
     @Override
     public Integer getOrderCount() {
-        return selectMapper.selectOrderCount();
+        //return selectMapper.selectOrderCount();
+        String order = null;
+        try {
+            order = redisService.get(ORDER_COUNT);
+        } catch (Exception e) {
+            System.out.println("connection to redis failed");
+        }
+        int orderCount;
+        if (order == null || orderChanged) {
+            synchronized (this) {
+                try {
+                    order = redisService.get(ORDER_COUNT);
+                } catch (Exception e) {
+                    System.out.println("connection to redis failed");
+                }
+                if (order == null) {
+                    System.out.println("============from database===========");
+                    orderCount = selectMapper.selectOrderCount();
+                    String jsonString = JSON.toJSONString(orderCount);
+                    redisService.set(ORDER_COUNT, jsonString);
+                    orderChanged = false;
+                    redisService.expire(ORDER_COUNT, 500);
+                } else orderCount = Integer.parseInt(order);
+            }
+        } else {
+            //System.out.println("==========from cache=============");
+            orderCount = Integer.parseInt(order);
+        }
+        return orderCount;
     }
+
+    boolean contractChanged = true;
+    public static final String CONTRACT_COUNT = "contract_count";
 
     public Integer getContractCount() {
-        return selectMapper.selectContractCount();
+        //return selectMapper.selectContractCount();
+        String contract = null;
+        try {
+            contract = redisService.get(CONTRACT_COUNT);
+        } catch (Exception e) {
+            System.out.println("connection to redis failed");
+        }
+        int contractCount;
+        if (contract == null || contractChanged) {
+            synchronized (this) {
+                try {
+                    contract = redisService.get(CONTRACT_COUNT);
+                } catch (Exception e) {
+                    System.out.println("connection to redis failed");
+                }
+                if (contract == null) {
+                    System.out.println("============from database===========");
+                    contractCount = selectMapper.selectContractCount();
+                    String jsonString = JSON.toJSONString(contractCount);
+                    redisService.set(CONTRACT_COUNT, jsonString);
+                    contractChanged = false;
+                    redisService.expire(CONTRACT_COUNT, 500);
+                } else contractCount = Integer.parseInt(contract);
+            }
+        } else {
+            //System.out.println("==========from cache=============");
+            contractCount = Integer.parseInt(contract);
+        }
+        return contractCount;
     }
 
+    boolean productChanged = true;
     public Integer getNeverSoldProductCount() {
         return selectMapper.getNeverSoldProductCount();
     }
 
+    boolean stockChanged = true;
+    public static final String AVG_STOCK = "avg_stock";
     public List<AvgStockByCenter> getAvgStockByCenter() {
-        return selectMapper.getAvgStockByCenter();
+        List<AvgStockByCenter> avgStockByCenters;
+        String avgStock = null;
+        try {
+            avgStock = redisService.get(AVG_STOCK);
+        } catch (Exception e) {
+            System.out.println("connection to redis failed");
+        }
+        if (avgStock == null || stockChanged) {
+            synchronized (this) {
+                try {
+                    avgStock = redisService.get(AVG_STOCK);
+                } catch (Exception e) {
+                    System.out.println("connection to redis failed");
+                }
+                if (avgStock == null || stockChanged) {
+                    System.out.println("============from database===========");
+                    avgStockByCenters = selectMapper.getAvgStockByCenter();
+                    String jsonString = JSON.toJSONString(avgStockByCenters);
+                    redisService.set(AVG_STOCK, jsonString);
+                    stockChanged = false;
+                    redisService.expire(AVG_STOCK, 50);
+                } else avgStockByCenters = JSONArray.parseArray(avgStock, AvgStockByCenter.class);
+            }
+        } else {
+            //System.out.println("==========from cache=============");
+            avgStockByCenters = JSONArray.parseArray(avgStock, AvgStockByCenter.class);
+        }
+        return avgStockByCenters;
     }
 
     @Override

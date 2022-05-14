@@ -60,22 +60,29 @@ public class CacheDemoTests{
 
     @Test
     public void getAllStaffCountTest() {//6
-        List<StaffCount> staffCounts = iService.getAllStaffCount();
-        for (StaffCount sc : staffCounts) System.out.println(sc);
-        CountDownLatch countDownLatch = new CountDownLatch(1000000);
-        for (int i = 0; i < 1000000; i++) {
+//        List<StaffCount> staffCounts = iService.getAllStaffCount();
+//        for (StaffCount sc : staffCounts) System.out.println(sc);
+        for (int i = 0; i < 100000; i++) {
             new Thread(() ->{
-                countDownLatch.countDown();
                 iService.getAllStaffCount();
             }).start();
         }
+    }
 
-        try {
-            countDownLatch.await();
-            //Thread.currentThread().join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    @Test
+    public void getContractNumberTest() {//7
+        Integer cnt = iService.getContractCount();
+        System.out.println(cnt);
+    }
+
+    @Test
+    public void getOrderCountTest() {//8
+//        Integer cnt = iService.getOrderCount();
+//        System.out.println(cnt);
+        for (int i = 0; i < 100000; i++) {
+            new Thread(() ->{
+                iService.getOrderCount();
+            }).start();
         }
-
     }
 }
