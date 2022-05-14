@@ -1,5 +1,7 @@
 package com.cs307.project.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.cs307.project.entity.*;
 import com.cs307.project.mapper.DeleteMapper;
 import com.cs307.project.mapper.InsertMapper;
@@ -7,6 +9,7 @@ import com.cs307.project.mapper.SelectMapper;
 import com.cs307.project.mapper.UpdateMapper;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.*;
+import com.cs307.project.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,9 +102,29 @@ public class IServiceImpl implements IService {
         deleteMapper.deleteOrder(order.getContractNum(), order.getEnterprise(), order.getProductModel(), order.getQuantity(), order.getContractManager(), order.getContractDate(), order.getEstimatedDeliveryDate(), order.getLodgementDate(), order.getSalesmanNum(), order.getContractType());
     }
 
+
+    @Autowired
+    private RedisService redisService;
+
+    public static final String STAFF_COUNT = "staff_count";
+
     @Override
     public List<StaffCount> getAllStaffCount() {
-        return selectMapper.selectAllStaffCount();
+        String staffCountString = redisService.get(STAFF_COUNT);
+        List<StaffCount> staffCounts;
+        if (staffCountString == null) {
+            System.out.println("============from database===========");
+            staffCounts = selectMapper.selectAllStaffCount();
+            String jsonString = JSON.toJSONString(staffCounts);
+            redisService.set(STAFF_COUNT, jsonString);
+            //System.out.println(
+                    redisService.expire(STAFF_COUNT, 500);
+            //);
+        } else {
+            //System.out.println("==========from cache=============");
+            staffCounts = JSONArray.parseArray(staffCountString, StaffCount.class);
+        }
+        return staffCounts;
     }
 
     @Override
@@ -156,6 +179,6 @@ public class IServiceImpl implements IService {
                 return order;
             }
         }).collect(Collectors.toList());
-        return new Contract(contract_number,selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(),contract.getEnterprise(),selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(),orderlists);
+        return new Contract(contract_number, selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(), contract.getEnterprise(), selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(), orderlists);
     }
 }
