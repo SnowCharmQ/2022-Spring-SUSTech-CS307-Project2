@@ -1,4 +1,5 @@
-drop table if exists center, enterprise, model, staff, stockIn, placeOrder, stock_info cascade;
+drop table if exists center, enterprise, model, staff,
+    stockIn, placeOrder, stock_info, contract, t_user cascade;
 
 create table center
 (
@@ -99,11 +100,12 @@ execute procedure insert_contract();
 
 truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract cascade;
 
-create table t_user(
-    username varchar(20),
-    pwd varchar(100),
-    salt varchar(100),
-    is_super boolean,
+create table t_user
+(
+    username   varchar(20),
+    pwd        varchar(100),
+    salt       varchar(100),
+    is_super   boolean,
     can_insert boolean,
     can_delete boolean,
     can_update boolean,

@@ -1,9 +1,6 @@
 package com.cs307.project.controller;
 
-import com.cs307.project.entity.AvgStockByCenter;
-import com.cs307.project.entity.FavoriteModel;
-import com.cs307.project.entity.ProductStock;
-import com.cs307.project.entity.StaffCount;
+import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +60,11 @@ public class APIController extends BaseController{
     public JsonResult<List<ProductStock>> getProductByNumber(String number){
         List<ProductStock> ps = iService.getProductByNumber(number);
         return new JsonResult<>(ok, ps);
+    }
+
+    @RequestMapping("q13api")
+    public JsonResult<String> getContractInfo(String number){
+        Contract contract = iService.getContractInfo(number);
+        return new JsonResult<>(ok, contract.toString());
     }
 }

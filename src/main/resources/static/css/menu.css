@@ -160,9 +160,9 @@ body {
     align-items: center;
     font-weight: bold;
     color: #fff;
-    font-size: 32px;
+    font-size: 18px;
     /* 字间距 */
-    letter-spacing: 15px;
+    letter-spacing: 7px;
     /* 转大写 */
     text-transform: uppercase;
     text-align: center;
