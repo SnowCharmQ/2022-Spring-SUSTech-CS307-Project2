@@ -5,6 +5,7 @@ import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
 import com.cs307.project.service.redis.RedisService;
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,7 @@ public class ServiceTests {
     private IService iService;
 
     @Test
+    @Order(1)
     public void init() {
         ClassLoader classLoader = ServiceTests.class.getClassLoader();
         try {
@@ -36,6 +38,7 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(2)
     public void stockInTest() {//2
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task1_in_stoke_test_data_publish.csv")))) {
             String line = in.readLine();
@@ -57,6 +60,7 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(3)
     public void placeOrderTest() {//3
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task2_test_data_publish.csv")))) {
             String line = in.readLine();
@@ -78,6 +82,7 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(4)
     public void updateOrderTest() {//4
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_update_test_data_publish.tsv")))) {
             String line = in.readLine();
@@ -97,7 +102,7 @@ public class ServiceTests {
                 day = Integer.parseInt(dateArr[2]);
                 Calendar lc = Calendar.getInstance();
                 lc.set(year, month, day);
-                Date ld = edc.getTime();
+                Date ld = lc.getTime();
                 System.out.println(++cnt);
                 try {
                     iService.updateOrder(content[0], content[1], content[2], Integer.parseInt(content[3]), edd, ld);
@@ -112,6 +117,7 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(5)
     public void deleteOrderTest() {//5
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_delete_test_data_publish.tsv")))) {
             String line = in.readLine();
@@ -132,36 +138,42 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(6)
     public void getAllStaffCountTest() {//6
         List<StaffCount> staffCounts = iService.getAllStaffCount();
         for (StaffCount sc : staffCounts) System.out.println(sc);
     }
 
     @Test
+    @Order(7)
     public void getContractNumberTest() {//7
         Integer cnt = iService.getContractCount();
         System.out.println(cnt);
     }
 
     @Test
+    @Order(8)
     public void getOrderCountTest() {//8
         Integer cnt = iService.getOrderCount();
         System.out.println(cnt);
     }
 
     @Test
+    @Order(9)
     public void getNeverSoldProductCountTest() {//9
         Integer cnt = iService.getNeverSoldProductCount();
         System.out.println(cnt);
     }
 
     @Test
+    @Order(10)
     public void getFavoriteProductModelTest() {//10
         FavoriteModel fm = iService.getFavoriteProductModel();
         System.out.println(fm);
     }
 
     @Test
+    @Order(11)
     public void getAvgStockByCenterTest() {//11
         List<AvgStockByCenter> list = iService.getAvgStockByCenter();
         for (AvgStockByCenter a : list) {
@@ -170,11 +182,13 @@ public class ServiceTests {
     }
 
     @Test
+    @Order(12)
     public void getProductByNumber() {//12
         System.out.println(iService.getProductByNumber("A50L172"));
     }
 
     @Test
+    @Order(13)
     public void getContractInfo(){//13
         System.out.println(iService.getContractInfo("CSE0000106"));
         System.out.println(iService.getContractInfo("CSE0000209"));

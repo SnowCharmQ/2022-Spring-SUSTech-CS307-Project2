@@ -133,3 +133,107 @@ $(document).ready(
         })
     }
 )
+
+$(document).ready(
+    function () {
+        $("#q12-btn").click(function () {
+            var ele = $(".middle")
+            ele.empty()
+            var input = "<input type='text' name='number' id='product-number' style='width: 260px;" +
+                "position: absolute;" +
+                "height: 44px;" +
+                "top: 200px;" +
+                "left: 396px;" +
+                "border-bottom: 2px solid silver;" +
+                "background: royalblue;" +
+                "font-size: 36px;' required/>" +
+                "<button type='button' class='select-btn' style='position: absolute;\n" +
+                "    transform: translate(-50%, -50%);\n" +
+                "    width: 230px;\n" +
+                "    height: 90px;\n" +
+                "    top: 400px;\n" +
+                "    left: 530px;\n" +
+                "    line-height: 90px;\n" +
+                "    text-align: center;\n" +
+                "    color: #fff;\n" +
+                "    font-size: 25px;\n" +
+                "    text-transform: uppercase;\n" +
+                "    cursor: pointer;\n" +
+                "    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);\n" +
+                "    background-size: 400%;\n" +
+                "    border-radius: 60px;\n" +
+                "' onclick='selectProduct()'>SELECT</button>"
+            ele.append(input)
+        })
+    }
+)
+
+function selectProduct() {
+    $.ajax({
+        url: "/api/q12api",
+        type: "POST",
+        data: $("#product-number").serialize(),
+        dataType: "json",
+        success: function (json) {
+            if (json.state === 200) {
+                var ele = $(".middle")
+                ele.empty()
+                for (var i = 0; i < json.data.length; i++) {
+                    var str = json.data[i].supplyCenter + "\t" + json.data[i].productModel +
+                        "\t" + json.data[i].quantity + "<br>";
+                    ele.append(str)
+                }
+            }
+        }
+    })
+}
+
+$(document).ready(
+    function () {
+        $("#q13-btn").click(function () {
+            var ele = $(".middle")
+            ele.empty()
+            var input = "<input type='text' name='number' id='contract-number' style='width: 260px;" +
+                "position: absolute;" +
+                "height: 44px;" +
+                "top: 200px;" +
+                "left: 396px;" +
+                "border-bottom: 2px solid silver;" +
+                "background: royalblue;" +
+                "font-size: 36px;' required/>" +
+                "<button type='button' class='select-btn' style='position: absolute;\n" +
+                "    transform: translate(-50%, -50%);\n" +
+                "    width: 230px;\n" +
+                "    height: 90px;\n" +
+                "    top: 400px;\n" +
+                "    left: 530px;\n" +
+                "    line-height: 90px;\n" +
+                "    text-align: center;\n" +
+                "    color: #fff;\n" +
+                "    font-size: 25px;\n" +
+                "    text-transform: uppercase;\n" +
+                "    cursor: pointer;\n" +
+                "    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);\n" +
+                "    background-size: 400%;\n" +
+                "    border-radius: 60px;\n" +
+                "' onclick='selectContract()'>SELECT</button>"
+            ele.append(input)
+        })
+    }
+)
+
+function selectContract() {
+    $.ajax({
+        url: "/api/q13api",
+        type: "POST",
+        data: $("#contract-number").serialize(),
+        dataType: "json",
+        success: function (json) {
+            if (json.state === 200) {
+                var ele = $(".middle")
+                ele.empty()
+                ele.append(json.data)
+            }
+        }
+    })
+}

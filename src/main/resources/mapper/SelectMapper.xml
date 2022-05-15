@@ -139,8 +139,8 @@
 
     <select id="getAvgStockByCenter" resultMap="AvgStockByCenterEntityMap">
         select *
-        from (select supply_center as center,
-                     round(cast(avg(quantity) over (partition by supply_center) as numeric),1) as avg
+        from (select supply_center                                                              as center,
+                     round(cast(avg(quantity) over (partition by supply_center) as numeric), 1) as avg
               from stock_info) as sub
         group by center, avg
         order by center;
