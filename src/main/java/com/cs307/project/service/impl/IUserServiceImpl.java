@@ -43,6 +43,17 @@ public class IUserServiceImpl implements IUserService {
         return user;
     }
 
+    @Override
+    public void changePwd(String username, String oldPwd, String newPwd) {
+        User user = userMapper.selectByName(username);
+        if (user == null) throw new UserNotFoundException("User doesn't exist!");
+        String salt = user.getSalt();
+        String oldMd5Pwd = getMD5Pwd(oldPwd, salt);
+        if (!oldMd5Pwd.equals(user.getPwd())) throw new PasswordNotMatchException("The password is incorrect");
+        String newPwd5Password = getMD5Pwd(newPwd, salt);
+        userMapper.updatePwd(username, newPwd5Password);
+    }
+
     private String getMD5Pwd(String pwd, String salt) {
         return DigestUtils.md5DigestAsHex((salt + pwd + salt).getBytes()).toUpperCase();
     }

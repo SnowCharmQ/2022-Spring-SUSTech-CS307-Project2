@@ -13,6 +13,7 @@ public class BaseController {
     public static final int ok = 200;
 
     protected final String getUsernameFromSession(HttpSession session){
+        if (session == null || session.getAttribute("username") == null) throw new UserNotFoundException("You have not login in!");
         return session.getAttribute("username").toString();
     }
 

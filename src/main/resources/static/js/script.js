@@ -42,6 +42,7 @@ $(document).ready(
         })
     }
 )
+
 $(document).ready(
     function () {
         $("#q6-btn").click(function () {
