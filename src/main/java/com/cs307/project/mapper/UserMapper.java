@@ -5,4 +5,5 @@ import com.cs307.project.entity.User;
 public interface UserMapper {
     void insertUser(User user);
     User selectByName(String username);
+    void updatePwd(String username, String newPwd);
 }

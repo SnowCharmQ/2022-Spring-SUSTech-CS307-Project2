@@ -21,4 +21,8 @@
         INSERT INTO t_user (username, pwd, salt, is_super, can_insert, can_delete, can_update, can_select)
         VALUES (#{username}, #{pwd}, #{salt}, #{isSuper}, #{canInsert}, #{canDelete}, #{canUpdate}, #{canSelect});
     </insert>
+
+    <update id="updatePwd">
+        UPDATE t_user SET pwd = #{newPwd} WHERE username = #{username};
+    </update>
 </mapper>

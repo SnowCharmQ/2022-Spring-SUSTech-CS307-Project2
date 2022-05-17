@@ -127,7 +127,7 @@
             success: function (json) {
                 if (json.state === 200) {
                     alert("Successfully Login In！");
-                    location.href = "index.html";
+                    location.href = "db-menu.html";
                 } else {
                     document.getElementById("error-message").innerText = ("Fail To Login In！" + json.message);
                 }

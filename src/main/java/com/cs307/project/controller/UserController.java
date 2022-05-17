@@ -27,4 +27,11 @@ public class UserController extends BaseController{
         session.setAttribute("username", data.getUsername());
         return new JsonResult<>(ok, data);
     }
+
+    @RequestMapping("db-pwd-change")
+    public JsonResult<Void> changePwd(String oldPwd, String newPwd, HttpSession session){
+        String username = getUsernameFromSession(session);
+        userService.changePwd(username, oldPwd, newPwd);
+        return new JsonResult<>(ok);
+    }
 }
