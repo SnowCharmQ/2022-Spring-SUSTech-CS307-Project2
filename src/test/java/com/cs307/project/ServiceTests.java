@@ -3,6 +3,7 @@ package com.cs307.project;
 import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
+import com.cs307.project.service.redis.RedisService;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
