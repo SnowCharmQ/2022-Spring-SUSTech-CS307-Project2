@@ -1,0 +1,37 @@
+Q6
+
+Q7
+84
+Q8
+185
+Q9
+52
+Q10
+FavoriteModel{productModel='PrecisionAirConditionerG9', quantity=863}
+Q11
+AvgStockByCenter{center='America', avg = 448.3}AvgStockByCenter{center='Asia', avg = 494.5}AvgStockByCenter{center='Eastern China', avg = 594.2}AvgStockByCenter{center='Europe', avg = 493.4}AvgStockByCenter{center='Hong Kong, Macao and Taiwan regions of China', avg = 423.5}AvgStockByCenter{center='Northern China', avg = 521.9}AvgStockByCenter{center='Southern China', avg = 429.0}AvgStockByCenter{center='Southwestern China', avg = 473.2}
+Q12
+[ProductStock{supplyCenter='Asia', productModel='Air-ConditioningFan21', quantity='61'}, ProductStock{supplyCenter='Northern China', productModel='Air-ConditioningFan51', quantity='279'}]
+Q13
+number: CSE0000106
+manager: Zhang Wanzhi
+enterprise: Pinduoduo
+supply_center: Eastern China
+product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
+DigitalFrame48                Qi Yishan           1         340            2022-1-11                     2022-1-11                     
+Router92                      Shi Tianlan         1         420            2022-1-11                     2022-1-11                     
+Router92                      Wang Qiuyan         1         420            2022-1-11                     2022-1-11                     
+number: CSE0000209
+manager: Kong Yuandong
+enterprise: Rwe Group
+supply_center: Europe
+product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
+PrecisionAirConditionerG9     He Leshuang         1         940            2022-1-23                     2022-2-14                     
+E-Book87                      Kong Aonan          53        680            2022-2-14                     2022-2-14                     
+E-Book87                      Qi Erqing           53        680            2022-2-14                     2022-2-14                     
+number: CSE0000306
+manager: Jing Ziyan
+enterprise: Fannie Mae
+supply_center: America
+product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
+TonerCartridgeH6              Wang Qimei          1         190            2022-3-11                     2022-3-11                     

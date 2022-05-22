@@ -4,6 +4,7 @@ import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
 import com.cs307.project.service.redis.RedisService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
@@ -24,7 +25,135 @@ public class ServiceTests {
     private IService iService;
 
     @Test
+    public void allTest() throws IOException {
+        String line = null;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/in_stoke_test.csv")))) {
+            line = in.readLine();
+            int cnt = 0;
+            while ((line = in.readLine()) != null) {
+                StockIn stock = new StockIn();
+                readStockIn(stock, line);
+                try {
+                    iService.stockIn(stock);
+                } catch (ServiceException e) {
+                    System.out.println(e.getClass().getSimpleName());
+                    System.out.println(e.getMessage());
+                }
+                //System.out.println(++cnt);
+            }
+        } catch (IOException e) {
+            System.out.println(line);
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/task2_test_data_final_public.tsv")))) {
+            line = in.readLine();
+            int cnt = 0;
+            while ((line = in.readLine()) != null) {
+                PlaceOrder placeOrder = new PlaceOrder();
+                readPlaceOrder(placeOrder, line);
+                try {
+                    iService.placeOrder(placeOrder);
+                } catch (ServiceException e) {
+                    System.out.println(e.getClass().getSimpleName());
+                    System.out.println(e.getMessage());
+                }
+                //System.out.println(++cnt);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/update_final_test.tsv")))) {
+            line = in.readLine();
+            int cnt = 0;
+            while ((line = in.readLine()) != null) {
+                String[] content = line.split("\t");
+                String[] dateArr = content[4].split("-");
+                int year = Integer.parseInt(dateArr[0]);
+                int month = Integer.parseInt(dateArr[1]) - 1;
+                int day = Integer.parseInt(dateArr[2]);
+                Calendar edc = Calendar.getInstance();
+                edc.set(year, month, day);
+                Date edd = edc.getTime();
+                dateArr = content[5].split("-");
+                year = Integer.parseInt(dateArr[0]);
+                month = Integer.parseInt(dateArr[1]) - 1;
+                day = Integer.parseInt(dateArr[2]);
+                Calendar lc = Calendar.getInstance();
+                lc.set(year, month, day);
+                Date ld = lc.getTime();
+                //System.out.println(++cnt);
+                try {
+                    iService.updateOrder(content[0], content[1], content[2], Integer.parseInt(content[3]), edd, ld);
+                } catch (ServiceException e) {
+                    System.out.println(e.getClass().getSimpleName());
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/delete_final.tsv")))) {
+            line = in.readLine();
+            System.out.println(iService.getOrderCount());
+            int cnt = 0;
+            while ((line = in.readLine()) != null) {
+                String[] content = line.split(",");
+                //System.out.println(++cnt);
+                try {
+                    iService.deleteOrder(content[0], content[1], Integer.parseInt(content[2]));
+                } catch (ServiceException e) {
+                    System.out.println(e.getClass().getSimpleName());
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(iService.getOrderCount());
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("src/main/resources/data/test2/out.txt"));
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Q6\n");
+        List<StaffCount> staffCounts = iService.getAllStaffCount();//6
+        for (StaffCount sc : staffCounts) stringBuilder.append(sc);
+
+        stringBuilder.append("\nQ7\n");
+        Integer cnt = iService.getContractCount();//7
+        stringBuilder.append(cnt);
+
+        stringBuilder.append("\nQ8\n");
+        cnt = iService.getOrderCount();//8
+        stringBuilder.append(cnt);
+
+        stringBuilder.append("\nQ9\n");
+        cnt = iService.getNeverSoldProductCount();//9
+        stringBuilder.append(cnt);
+
+        stringBuilder.append("\nQ10\n");
+        FavoriteModel fm = iService.getFavoriteProductModel();//10
+        stringBuilder.append(fm);
+
+        stringBuilder.append("\nQ11\n");
+        List<AvgStockByCenter> list = iService.getAvgStockByCenter();//11
+        for (AvgStockByCenter a : list) {
+            stringBuilder.append(a.toString());
+        }
+
+        stringBuilder.append("\nQ12\n");
+        stringBuilder.append(iService.getProductByNumber("A50L172"));//12
+
+        stringBuilder.append("\nQ13\n");
+        stringBuilder.append(iService.getContractInfo("CSE0000106"));//13
+        stringBuilder.append(iService.getContractInfo("CSE0000209"));
+        stringBuilder.append(iService.getContractInfo("CSE0000306"));
+
+        writer.write(stringBuilder.toString());
+        writer.close();
+    }
+
+    @Test
     @Order(1)
+    @Ignore
     public void init() {
         ClassLoader classLoader = ServiceTests.class.getClassLoader();
         try {
@@ -189,14 +318,14 @@ public class ServiceTests {
 
     @Test
     @Order(13)
-    public void getContractInfo(){//13
+    public void getContractInfo() {//13
         System.out.println(iService.getContractInfo("CSE0000106"));
         System.out.println(iService.getContractInfo("CSE0000209"));
         System.out.println(iService.getContractInfo("CSE0000306"));
     }
 
     public void readPlaceOrder(PlaceOrder placeOrder, String line) {
-        String[] content = line.split(",");
+        String[] content = line.split("\t");
         placeOrder.setContractNum(content[0]);
         placeOrder.setEnterprise(content[1]);
         placeOrder.setProductModel(content[2]);
