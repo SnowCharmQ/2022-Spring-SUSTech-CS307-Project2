@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Properties;
@@ -63,7 +64,7 @@ public class Loader {
     }
 
     private static void loadCenter() {
-        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/center.csv")))) {
+        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/center.csv"), StandardCharsets.UTF_8))) {
             String line = inline.readLine();
             String[] content;
             int id = 0, name = 1;
@@ -91,7 +92,7 @@ public class Loader {
     }
 
     private static void loadEnterprise() {
-        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/enterprise.csv")))) {
+        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/enterprise.csv"), StandardCharsets.UTF_8))) {
             String line = inline.readLine();
             String[] content;
             int id = 0, name = 1, country = 2, city = 3, supply_center = 4, industry = 5;
@@ -124,7 +125,7 @@ public class Loader {
     }
 
     private static void loadModel() {
-        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/model.csv")))) {
+        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/model.csv"), StandardCharsets.UTF_8))) {
             String line = inline.readLine();
             String[] content;
             int id = 0, number = 1, model = 2, name = 3, unit_price = 4;
@@ -151,7 +152,7 @@ public class Loader {
     }
 
     private static void loadStaff() {
-        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/staff.csv")))) {
+        try (BufferedReader inline = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/staff.csv"), StandardCharsets.UTF_8))) {
             String line = inline.readLine();
             String[] content;
             int id = 0, name = 1, age = 2, gender = 3, number = 4, supply_center = 5, mobile_number = 6, type = 7;

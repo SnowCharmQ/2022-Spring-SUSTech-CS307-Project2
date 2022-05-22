@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -169,7 +170,7 @@ public class ServiceTests {
     @Test
     @Order(2)
     public void stockInTest() {//2
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task1_in_stoke_test_data_publish.csv")))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task1_in_stoke_test_data_publish.csv"), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             int cnt = 0;
             while ((line = in.readLine()) != null) {
@@ -191,7 +192,7 @@ public class ServiceTests {
     @Test
     @Order(3)
     public void placeOrderTest() {//3
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task2_test_data_publish.csv")))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task2_test_data_publish.csv"), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             int cnt = 0;
             while ((line = in.readLine()) != null) {
@@ -213,7 +214,7 @@ public class ServiceTests {
     @Test
     @Order(4)
     public void updateOrderTest() {//4
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_update_test_data_publish.tsv")))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_update_test_data_publish.tsv"), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             int cnt = 0;
             while ((line = in.readLine()) != null) {
@@ -248,7 +249,7 @@ public class ServiceTests {
     @Test
     @Order(5)
     public void deleteOrderTest() {//5
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_delete_test_data_publish.tsv")))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task34_delete_test_data_publish.tsv"), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             int cnt = 0;
             while ((line = in.readLine()) != null) {
