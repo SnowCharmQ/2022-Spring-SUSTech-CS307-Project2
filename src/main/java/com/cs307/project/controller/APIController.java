@@ -1,6 +1,7 @@
 package com.cs307.project.controller;
 
 import com.cs307.project.entity.*;
+import com.cs307.project.service.IBaseService;
 import com.cs307.project.service.IService;
 import com.cs307.project.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,60 +12,87 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class APIController extends BaseController{
+public class APIController extends BaseController {
     @Autowired
     private IService iService;
 
+    @Autowired
+    private IBaseService iBaseService;
+
     @RequestMapping("menu")
-    public String getMenu(){
+    public String getMenu() {
         return "Change the sidebar selection to invoke the corresponding API";
     }
 
     @RequestMapping("q6api")
-    public JsonResult<List<StaffCount>> getAllStaffCount(){
+    public JsonResult<List<StaffCount>> getAllStaffCount() {
         List<StaffCount> sc = iService.getAllStaffCount();
         return new JsonResult<>(ok, sc);
     }
 
     @RequestMapping("q7api")
-    public JsonResult<Integer> getContractCount(){
+    public JsonResult<Integer> getContractCount() {
         Integer cnt = iService.getContractCount();
         return new JsonResult<>(ok, cnt);
     }
 
     @RequestMapping("q8api")
-    public JsonResult<Integer> getOrderCount(){
+    public JsonResult<Integer> getOrderCount() {
         Integer cnt = iService.getOrderCount();
         return new JsonResult<>(ok, cnt);
     }
 
     @RequestMapping("q9api")
-    public JsonResult<Integer> getNeverSoldProductCount(){
+    public JsonResult<Integer> getNeverSoldProductCount() {
         Integer cnt = iService.getNeverSoldProductCount();
         return new JsonResult<>(ok, cnt);
     }
 
     @RequestMapping("q10api")
-    public JsonResult<FavoriteModel> getFavoriteProductModel(){
+    public JsonResult<FavoriteModel> getFavoriteProductModel() {
         FavoriteModel fm = iService.getFavoriteProductModel();
         return new JsonResult<>(ok, fm);
     }
 
     @RequestMapping("q11api")
-    public JsonResult<List<AvgStockByCenter>> getAvgStockByCenter(){
+    public JsonResult<List<AvgStockByCenter>> getAvgStockByCenter() {
         List<AvgStockByCenter> asbc = iService.getAvgStockByCenter();
         return new JsonResult<>(ok, asbc);
     }
 
     @RequestMapping("q12api")
-    public JsonResult<List<ProductStock>> getProductByNumber(String number){
+    public JsonResult<List<ProductStock>> getProductByNumber(String number) {
         List<ProductStock> ps = iService.getProductByNumber(number);
         return new JsonResult<>(ok, ps);
     }
 
     @RequestMapping("q13api")
-    public JsonResult<String> getContractInfo(String number){
+    public JsonResult<String> getContractInfo(String number) {
         Contract contract = iService.getContractInfo(number);
         return new JsonResult<>(ok, contract.toString());
+    }
+
+    @RequestMapping("center")
+    public JsonResult<List<Center>> getCenter() {
+        List<Center> list = iBaseService.selectCenter();
+        return new JsonResult<>(ok, list);
+    }
+
+    @RequestMapping("enterprise")
+    public JsonResult<List<Enterprise>> getEnterprise() {
+        List<Enterprise> list = iBaseService.selectEnterprise();
+        return new JsonResult<>(ok, list);
+    }
+
+    @RequestMapping("model")
+    public JsonResult<List<Model>> getModel() {
+        List<Model> list = iBaseService.selectModel();
+        return new JsonResult<>(ok, list);
+    }
+
+    @RequestMapping("staff")
+    public JsonResult<List<Staff>> getStaff() {
+        List<Staff> list = iBaseService.selectStaff();
+        return new JsonResult<>(ok, list);
     }
 }

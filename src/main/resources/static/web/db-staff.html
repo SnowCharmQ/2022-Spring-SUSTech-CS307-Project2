@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff</title>
+  <link rel="stylesheet" type="text/css" href="../css/staff.css">
+  <script src='../js/prefixfree.min.js'></script>
+  <script src="../bootstrap3/js/holder.js"></script>
+  <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+  <script src="../bootstrap3/js/bootstrap.js"></script>
+  <script src="../js/staff.js"></script>
+</head>
+<body style="background-color: black">
+<h1 style="font-size: 19px">The Information Of The Staff</h1>
+<div class="top-boarder"></div>
+
+<div class="btns" style="position:absolute;right: 45px;top:3px">
+  <a href="db-user.html"><img src="../img/return.jpg" alt=""></a>
+</div>
+
+<div class="btns" style="position:absolute;right: 100px;top:3px">
+  <a href="#" id="save3"><img src="../img/save.png"
+                              onclick="download(save_data, 'staff.csv', 'text/plaintext')"
+                              alt=""></a>
+</div>
+<div class="occupy">none</div>
+<div class="occupy">none</div>
+<div class="panel">
+  <div class="head">
+    <span class="head-id">id</span>
+    <span class="head-name">name</span>
+    <span class="head-age">age</span>
+    <span class="head-gender">gender</span>
+    <span class="head-number">number</span>
+    <span class="head-supply_center">supply_center</span>
+    <span class="head-mobile_number">mobile_number</span>
+    <span class="head-type">type</span>
+  </div>
+  <div class="spacing">none</div>
+<!--  <div class="row">-->
+<!--    <div class="id">1</div>-->
+<!--    <div class="name">Kong Yibo</div>-->
+<!--    <div class="age">47</div>-->
+<!--    <div class="gender">Female</div>-->
+<!--    <div class="number">11311024</div>-->
+<!--    <div class="supply_center">Hong Kong, Macao and Taiwan regions of China</div>-->
+<!--    <div class="mobile_number">15038403217</div>-->
+<!--    <div class="type">Supply Staff</div>-->
+<!--  </div>-->
+</div>
+
+<script>
+  function download(text, name, type) {
+    var a = document.getElementById("save2");
+    var file = new Blob([text], {type: type});
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+  }
+</script>
+
+<script type="text/javascript">
+  var save_data = "id,name,country,city,supply_center,industry\n";
+  var temp;
+  $(document).ready($.ajax({
+    url: "/api/enterprise",
+    type: 'POST',
+    async: false,
+    success: function (json) {
+      temp = json.data;
+    }
+  }))
+
+  for (var i = 0; i < temp.length; i++) {
+    var d = temp[i];
+    save_data = save_data + d.id + "," + d.name + "," + d.country + "," + d.city + "," + d.supply_center + "," + d.industry + "\n";
+  }
+</script>
+
+</div>
+
+</body>
+</html>

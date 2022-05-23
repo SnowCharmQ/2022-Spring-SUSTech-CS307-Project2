@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enterprise</title>
+    <link rel="stylesheet" type="text/css" href="../css/enterprise.css">
+    <script src='../js/prefixfree.min.js'></script>
+    <script src="../bootstrap3/js/holder.js"></script>
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+    <script src="../js/enterprise.js"></script>
+</head>
+<body style="background-color: black">
+<h1 style="font-size: 19px">The Information Of The Enterprise</h1>
+<div class="top-boarder"></div>
+
+<div class="btns" style="position:absolute;right: 45px;top:3px">
+    <a href="db-user.html"><img src="../img/return.jpg" alt=""></a>
+</div>
+
+<div class="btns" style="position:absolute;right: 100px;top:3px">
+    <a href="#" id="save2"><img src="../img/save.png"
+                                onclick="download(save_data, 'enterprise.csv', 'text/plaintext')"
+                                alt=""></a>
+</div>
+<div class="occupy">none</div>
+<div class="occupy">none</div>
+<div class="panel">
+    <div class="head">
+        <span class="head-id">id</span>
+        <span class="head-name">name</span>
+        <span class="head-country">country</span>
+        <span class="head-city">city</span>
+        <span class="head-supply_center">supply_center</span>
+        <span class="head-industry">industry</span>
+    </div>
+    <div class="spacing">none</div>
+</div>
+
+<script>
+    function download(text, name, type) {
+        var a = document.getElementById("save2");
+        var file = new Blob([text], {type: type});
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+    }
+</script>
+
+<script type="text/javascript">
+    var save_data = "id,name,country,city,supply_center,industry\n";
+    var temp;
+    $(document).ready($.ajax({
+        url: "/api/enterprise",
+        type: 'POST',
+        async: false,
+        success: function (json) {
+            temp = json.data;
+        }
+    }))
+
+    for (var i = 0; i < temp.length; i++) {
+        var d = temp[i];
+        save_data = save_data + d.id + "," + d.name + "," + d.country + "," + d.city + "," + d.supply_center + "," + d.industry + "\n";
+    }
+</script>
+
+</div>
+
+</body>
+</html>

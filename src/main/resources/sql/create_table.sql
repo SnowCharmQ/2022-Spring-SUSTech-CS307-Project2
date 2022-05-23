@@ -111,3 +111,5 @@ create table t_user
     can_update boolean,
     can_select boolean
 );
+
+select * from enterprise;
