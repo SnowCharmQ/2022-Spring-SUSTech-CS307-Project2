@@ -100,7 +100,8 @@
 
     <select id="selectOrderBySalesman" resultMap="PlaceOrderEntityMap">
         SELECT *
-        FROM placeOrder;
+        FROM placeOrder
+        WHERE salesman_num = #{salesman};
     </select>
 
     <select id="selectOrderByContractNum" resultMap="PlaceOrderEntityMap">
