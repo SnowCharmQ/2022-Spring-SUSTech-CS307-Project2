@@ -42,7 +42,7 @@ create table stockIn
 (
     id             integer primary key,
     supply_center  varchar(50),
-    product_model  varchar(50),
+    product_model  varchar(100),
     supply_staff   varchar(10),
     date           date,
     purchase_price integer,
@@ -53,7 +53,7 @@ create table placeOrder
 (
     contract_num            varchar(15),
     enterprise              varchar(100),
-    product_model           varchar(50),
+    product_model           varchar(100),
     quantity                integer,
     contract_manager        varchar(10),
     contract_date           date,
@@ -111,5 +111,3 @@ create table t_user
     can_update boolean,
     can_select boolean
 );
-
-select * from enterprise;
