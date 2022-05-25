@@ -23,6 +23,13 @@
     </insert>
 
     <update id="updatePwd">
-        UPDATE t_user SET pwd = #{newPwd} WHERE username = #{username};
+        UPDATE t_user
+        SET pwd = #{newPwd}
+        WHERE username = #{username};
     </update>
+
+    <select id="selectUser" resultMap="UserEntityMap">
+        SELECT *
+        FROM t_user;
+    </select>
 </mapper>
