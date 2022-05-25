@@ -116,37 +116,39 @@ public class ServiceTests {
 
         stringBuilder.append("Q6\n");
         List<StaffCount> staffCounts = iService.getAllStaffCount();//6
-        for (StaffCount sc : staffCounts) stringBuilder.append(sc);
+        for (StaffCount sc : staffCounts) {
+            stringBuilder.append(String.format("%-25s%d\n",sc.getStaffType(),sc.getCount()));
+        }
 
-        stringBuilder.append("\nQ7\n");
+        stringBuilder.append("\nQ7   ");
         Integer cnt = iService.getContractCount();//7
         stringBuilder.append(cnt);
 
-        stringBuilder.append("\nQ8\n");
+        stringBuilder.append("\nQ8   ");
         cnt = iService.getOrderCount();//8
         stringBuilder.append(cnt);
 
-        stringBuilder.append("\nQ9\n");
+        stringBuilder.append("\nQ9   ");
         cnt = iService.getNeverSoldProductCount();//9
         stringBuilder.append(cnt);
 
         stringBuilder.append("\nQ10\n");
         FavoriteModel fm = iService.getFavoriteProductModel();//10
-        stringBuilder.append(fm);
+        stringBuilder.append(String.format("%-25s%d",fm.getProductModel(),fm.getQuantity()));
 
         stringBuilder.append("\nQ11\n");
         List<AvgStockByCenter> list = iService.getAvgStockByCenter();//11
         for (AvgStockByCenter a : list) {
-            stringBuilder.append(a.toString());
+            stringBuilder.append(String.format("%-50s%.1f\n",a.getCenter(), a.getAvg()));
         }
 
-        stringBuilder.append("\nQ12\n");
-        stringBuilder.append(iService.getProductByNumber("A50L172"));//12
-
-        stringBuilder.append("\nQ13\n");
-        stringBuilder.append(iService.getContractInfo("CSE0000106"));//13
-        stringBuilder.append(iService.getContractInfo("CSE0000209"));
-        stringBuilder.append(iService.getContractInfo("CSE0000306"));
+//        stringBuilder.append("\nQ12\n");
+//        stringBuilder.append(iService.getProductByNumber("A50L172"));//12
+//
+//        stringBuilder.append("\nQ13\n");
+//        stringBuilder.append(iService.getContractInfo("CSE0000106"));//13
+//        stringBuilder.append(iService.getContractInfo("CSE0000209"));
+//        stringBuilder.append(iService.getContractInfo("CSE0000306"));
 
         writer.write(stringBuilder.toString());
         writer.close();
