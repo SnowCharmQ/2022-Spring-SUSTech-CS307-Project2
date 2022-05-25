@@ -38,7 +38,6 @@ h1.hogo {
     font-weight: bold;
     position: absolute;
     text-shadow: 0 0 10px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #000, 0 0 50px #000, 0 0 60px #000, 0 0 70px #000;
-    top: 50px;
 }
 
 h1.hogo:before {

@@ -201,7 +201,7 @@ $(document).ready(
                 "left: 396px;" +
                 "border-bottom: 2px solid silver;" +
                 "background: royalblue;" +
-                "font-size: 36px;' required/>" +
+                "font-size: 24px;' required/>" +
                 "<button type='button' class='select-btn' style='position: absolute;\n" +
                 "    transform: translate(-50%, -50%);\n" +
                 "    width: 230px;\n" +
