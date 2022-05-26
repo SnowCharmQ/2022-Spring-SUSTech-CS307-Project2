@@ -6,10 +6,6 @@ import com.cs307.project.entity.Model;
 import com.cs307.project.entity.Staff;
 import com.cs307.project.mapper.BaseMapper;
 import com.cs307.project.service.IBaseService;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,28 +34,6 @@ public class IBaseServiceImpl implements IBaseService {
     @Override
     public List<Staff> selectStaff() {
         return baseMapper.selectStaff();
-    }
-
-    @Override
-    @SelectProvider(type = com.cs307.project.service.SqlProvider.SelectProvider.class, method = "SelectCenter")
-    public List<Center> selectCenter(Center center) {
-        return null;
-    }
-
-    @Override
-    @SelectProvider(type = com.cs307.project.service.SqlProvider.SelectProvider.class, method = "SelectCenter")
-    public List<Enterprise> selectEnterprise(Integer id, String name, String country, String city, String supplyCenter, String industry) {
-        return null;
-    }
-
-    @Override
-    public List<Model> selectModel(Integer id, String number, String model, String name, Integer unitPrice) {
-        return null;
-    }
-
-    @Override
-    public List<Staff> selectStaff(int id, String name, int age, String gender, String number, String supplyCenter, String mobileNumber, String type) {
-        return null;
     }
 
 }
