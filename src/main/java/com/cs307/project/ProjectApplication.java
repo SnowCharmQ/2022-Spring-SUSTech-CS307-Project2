@@ -1,7 +1,6 @@
 package com.cs307.project;
 
 import com.cs307.project.mapper.UpdateTypeMapper;
-import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +22,7 @@ public class ProjectApplication {
     @Scheduled(fixedDelay = 5000)
     public void scheduleFixedDelayTask() {
         updateTypeMapper.scheduleFixedDelayTask();
-        System.out.println(
-                "update order type at - " + System.currentTimeMillis() / 1000);
+//        System.out.println(
+//                "update order type at - " + System.currentTimeMillis() / 1000);
     }
 }

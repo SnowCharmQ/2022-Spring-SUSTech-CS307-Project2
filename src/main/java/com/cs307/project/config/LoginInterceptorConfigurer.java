@@ -25,6 +25,7 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         patterns.add("/web/db-reg.html");
         patterns.add("/users/db-login");
         patterns.add("/users/db-reg");
+        patterns.add("/api/select-model");
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(patterns);

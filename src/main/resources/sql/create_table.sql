@@ -1,5 +1,5 @@
 drop table if exists center, enterprise, model, staff,
-    stockIn, placeOrder, stock_info, contract, t_user cascade;
+    stockIn, placeOrder, stock_info, contract, bill cascade;
 
 create table center
 (
@@ -100,23 +100,6 @@ create trigger record_contract
     for each row
     execute procedure insert_contract();
 
-
-truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract, bill cascade;
-
-truncate table stock_info, stockIn, placeOrder, contract, bill cascade;
-
-create table t_user
-(
-    username   varchar(20),
-    pwd        varchar(100),
-    salt       varchar(100),
-    is_super   boolean,
-    can_insert boolean,
-    can_delete boolean,
-    can_update boolean,
-    can_select boolean
-);
-
 create table bill
 (
     date     date,
@@ -183,7 +166,7 @@ create trigger bill_record
     for each row
     execute procedure uppdate_bill();
 
-drop trigger bill_order on placeOrder;
+drop trigger if exists bill_order on placeOrder;
 create trigger bill_order
     before insert or
 delete

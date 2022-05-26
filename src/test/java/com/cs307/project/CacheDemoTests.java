@@ -62,7 +62,7 @@ public class CacheDemoTests {
 
     @Test
     public void getOrderCountTest() {//8
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 iService.getOrderCount();
             }).start();

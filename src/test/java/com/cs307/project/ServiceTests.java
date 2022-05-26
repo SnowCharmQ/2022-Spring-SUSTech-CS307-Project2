@@ -171,7 +171,7 @@ public class ServiceTests {
     @Test
     @Order(2)
     public void stockInTest() {//2
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/task1_in_stoke_test_data_publish.csv"), StandardCharsets.UTF_8))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/in_stoke_test.csv"), StandardCharsets.UTF_8))) {
             String line = in.readLine();
             int cnt = 0;
             while ((line = in.readLine()) != null) {
