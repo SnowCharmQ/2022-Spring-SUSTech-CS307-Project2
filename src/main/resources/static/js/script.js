@@ -435,7 +435,9 @@ function selectProduct() {
             if (json.state === 200) {
                 for (var i = 0; i < json.data.length; i++) {
                     var str = json.data[i].supplyCenter + "\t" + json.data[i].productModel +
-                        "\t" + json.data[i].quantity + "<br>";
+                        "\t" + json.data[i].quantity;
+                    console.log(str);
+                    str = str + "<br>";
                     ele.append(str);
                 }
             } else ele.append(json.message);
@@ -488,6 +490,7 @@ function selectContract() {
             ele.empty()
             if (json.state === 200) {
                 ele.append(json.data)
+                console.log(json.data)
             } else ele.append(json.message)
         }
     })

@@ -19,7 +19,7 @@
 </div>
 
 <div class="btns" style="position:absolute;right: 100px;top:3px">
-  <a href="#" id="save3"><img src="../img/save.png"
+  <a href="#" id="save4"><img src="../img/save.png"
                               onclick="download(save_data, 'staff.csv', 'text/plaintext')"
                               alt=""></a>
 </div>
@@ -51,7 +51,7 @@
 
 <script>
   function download(text, name, type) {
-    var a = document.getElementById("save2");
+    var a = document.getElementById("save4");
     var file = new Blob([text], {type: type});
     a.href = URL.createObjectURL(file);
     a.download = name;
