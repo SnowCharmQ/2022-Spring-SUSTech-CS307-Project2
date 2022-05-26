@@ -35,13 +35,13 @@ public class IServiceImpl implements IService {
         product_cache.remove(stockIn.getProductModel());
         String supplyCenter = stockIn.getSupplyCenter();
         Center center = selectMapper.selectCenterByName(supplyCenter);
-        if (center == null) throw new SupplyCenterNotFoundException("Supply center does not exist");
+        if (center == null) throw new SupplyCenterNotFoundException("The supply center does not exist");
         String productModel = stockIn.getProductModel();
         Model model = selectMapper.selectModelByModel(productModel);
-        if (model == null) throw new ModelNotFoundException("Product does not exist");
+        if (model == null) throw new ModelNotFoundException("The product does not exist");
         String number = stockIn.getSupplyStaff();
         Staff staff = selectMapper.selectStaffByNumber(number);
-        if (staff == null) throw new StaffNotFoundException("Staff does not exist");
+        if (staff == null) throw new StaffNotFoundException("The staff does not exist");
         if (!staff.getType().equals("Supply Staff"))
             throw new SalesmanWrongTypeException("The type of the staff is not \"supply_staff\"");
         if (!stockIn.getSupplyCenter().equals(staff.getSupplyCenter()))
