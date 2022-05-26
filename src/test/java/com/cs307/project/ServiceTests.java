@@ -97,7 +97,7 @@ public class ServiceTests {
             System.out.println(iService.getOrderCount());
             int cnt = 0;
             while ((line = in.readLine()) != null) {
-                String[] content = line.split(",");
+                String[] content = line.split("\t");
                 //System.out.println(++cnt);
                 try {
                     iService.deleteOrder(content[0], content[1], Integer.parseInt(content[2]));
