@@ -101,7 +101,9 @@ create trigger record_contract
     execute procedure insert_contract();
 
 
-truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract cascade;
+truncate table center, enterprise, model, staff, stock_info, stockIn, placeOrder, contract, bill cascade;
+
+truncate table stock_info, stockIn, placeOrder, contract, bill cascade;
 
 create table t_user
 (
@@ -124,28 +126,6 @@ create table bill
     quantity integer,
     money    integer
 );
-
-create
-or replace function insert_contract()
-    returns trigger
-as
-$$
-begin
-    IF
-NOT EXISTS(SELECT FROM contract WHERE contract_num = new.contract_num) THEN
-        INSERT INTO contract (contract_num, contract_manager, enterprise)
-        VALUes (new.contract_num, new.contract_manager, new.enterprise);
-end if;
-return new;
-end;
-$$
-language plpgsql;
-
-create trigger record_contract
-    before insert
-    on placeorder
-    for each row
-    execute procedure insert_contract();
 
 create
 or replace function uppdate_bill()

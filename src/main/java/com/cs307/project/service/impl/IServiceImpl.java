@@ -48,12 +48,14 @@ public class IServiceImpl implements IService {
             throw new SalesmanWrongTypeException("The type of the staff is not \"supply_staff\"");
         if (!stockIn.getSupplyCenter().equals(staff.getSupplyCenter()))
             throw new MismatchSupplyCenterException("The supply center and the supply center to which the supply staff belongs do not match");
-        Integer stock = selectMapper.selectStockByModel(stockIn.getSupplyCenter(), stockIn.getProductModel());
-        if (stock == null)
-            insertMapper.insertStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getQuantity());
-        else
-            updateMapper.updateStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stock + stockIn.getQuantity());
-        insertMapper.insertStock(stockIn.getId(), stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getSupplyStaff(), stockIn.getDate(), stockIn.getPurchasePrice(), stockIn.getQuantity());
+        synchronized (this) {
+            Integer stock = selectMapper.selectStockByModel(stockIn.getSupplyCenter(), stockIn.getProductModel());
+            if (stock == null)
+                insertMapper.insertStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getQuantity());
+            else
+                updateMapper.updateStockInfo(stockIn.getSupplyCenter(), stockIn.getProductModel(), stock + stockIn.getQuantity());
+            insertMapper.insertStock(stockIn.getId(), stockIn.getSupplyCenter(), stockIn.getProductModel(), stockIn.getSupplyStaff(), stockIn.getDate(), stockIn.getPurchasePrice(), stockIn.getQuantity());
+        }
     }
 
     @Override
@@ -66,16 +68,18 @@ public class IServiceImpl implements IService {
 
         Enterprise enterprise = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise());
         String supplyCenter = enterprise.getSupplyCenter();
-        Integer stock = selectMapper.selectStockByModel(supplyCenter, placeOrder.getProductModel());
-        if (stock == null || stock < placeOrder.getQuantity())
-            throw new OrderQuantityOverflowException("The stock quantity is not enough");
         Staff staff = selectMapper.selectStaffByNumber(placeOrder.getSalesmanNum());
         if (staff == null || !staff.getType().equals("Salesman"))
             throw new SalesmanWrongTypeException("The type of the staff is not \"Salesman\"");
-        int quantity = stock - placeOrder.getQuantity();
-        updateMapper.updateStockInfo(supplyCenter, placeOrder.getProductModel(), quantity);
-        insertMapper.insertOrder(placeOrder.getContractNum(), placeOrder.getEnterprise(), placeOrder.getProductModel(), placeOrder.getQuantity(), placeOrder.getContractManager(), placeOrder.getContractDate(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate(), placeOrder.getSalesmanNum(), placeOrder.getContractType());
-        //insertMapper.insertContract(placeOrder.getContractNum());
+        synchronized (this) {
+            Integer stock = selectMapper.selectStockByModel(supplyCenter, placeOrder.getProductModel());
+            if (stock == null || stock < placeOrder.getQuantity())
+                throw new OrderQuantityOverflowException("The stock quantity is not enough");
+            int quantity = stock - placeOrder.getQuantity();
+            updateMapper.updateStockInfo(supplyCenter, placeOrder.getProductModel(), quantity);
+            insertMapper.insertOrder(placeOrder.getContractNum(), placeOrder.getEnterprise(), placeOrder.getProductModel(), placeOrder.getQuantity(), placeOrder.getContractManager(), placeOrder.getContractDate(), placeOrder.getEstimatedDeliveryDate(), placeOrder.getLodgementDate(), placeOrder.getSalesmanNum(), placeOrder.getContractType());
+            //insertMapper.insertContract(placeOrder.getContractNum());
+        }
     }
 
     @Override
@@ -97,13 +101,15 @@ public class IServiceImpl implements IService {
         if (placeOrder == null) throw new OrderNotFoundException("No matched order");
         Enterprise enterprise = selectMapper.selectEnterpriseByName(placeOrder.getEnterprise());
         String supplyCenter = enterprise.getSupplyCenter();
-        Integer stock = selectMapper.selectStockByModel(supplyCenter, productModel);
-        if (stock + placeOrder.getQuantity() - quantity < 0)
-            throw new OrderQuantityOverflowException("The stock quantity is not enough");
-        updateMapper.updateStockInfo(supplyCenter, productModel, stock + placeOrder.getQuantity() - quantity);
-        if (quantity == 0) deleteMapper.deleteOrderBySalesman(contractNum, productModel, salesmanNum);
-        else
-            updateMapper.updateOrder(contractNum, productModel, salesmanNum, quantity, estimatedDeliveryDate, lodgementDate);
+        synchronized (this) {
+            Integer stock = selectMapper.selectStockByModel(supplyCenter, productModel);
+            if (stock + placeOrder.getQuantity() - quantity < 0)
+                throw new OrderQuantityOverflowException("The stock quantity is not enough");
+            updateMapper.updateStockInfo(supplyCenter, productModel, stock + placeOrder.getQuantity() - quantity);
+            if (quantity == 0) deleteMapper.deleteOrderBySalesman(contractNum, productModel, salesmanNum);
+            else
+                updateMapper.updateOrder(contractNum, productModel, salesmanNum, quantity, estimatedDeliveryDate, lodgementDate);
+        }
     }
 
     @Override
@@ -113,14 +119,15 @@ public class IServiceImpl implements IService {
         stockChanged = true;
         favoriteChanged = true;
         contract_cache.remove(contract);
-
-        List<PlaceOrder> orders = selectMapper.selectOrderByContractNum(contract, salesman);
-        if (orders == null || orders.size() < seq) throw new OrderNotFoundException("No order of the seq");
-        PlaceOrder order = orders.get(seq - 1);
-        String supply_center = selectMapper.selectEnterpriseByName(order.getEnterprise()).getSupplyCenter();
-        int stock = selectMapper.selectStockByModel(supply_center, order.getProductModel()) + order.getQuantity();
-        updateMapper.updateStockInfo(supply_center, order.getProductModel(), stock);
-        deleteMapper.deleteOrder(order.getContractNum(), order.getEnterprise(), order.getProductModel(), order.getQuantity(), order.getContractManager(), order.getContractDate(), order.getEstimatedDeliveryDate(), order.getLodgementDate(), order.getSalesmanNum(), order.getContractType());
+        synchronized (this) {
+            List<PlaceOrder> orders = selectMapper.selectOrderByContractNum(contract, salesman);
+            if (orders == null || orders.size() < seq) throw new OrderNotFoundException("No order of the seq");
+            PlaceOrder order = orders.get(seq - 1);
+            String supply_center = selectMapper.selectEnterpriseByName(order.getEnterprise()).getSupplyCenter();
+            int stock = selectMapper.selectStockByModel(supply_center, order.getProductModel()) + order.getQuantity();
+            updateMapper.updateStockInfo(supply_center, order.getProductModel(), stock);
+            deleteMapper.deleteOrder(order.getContractNum(), order.getEnterprise(), order.getProductModel(), order.getQuantity(), order.getContractManager(), order.getContractDate(), order.getEstimatedDeliveryDate(), order.getLodgementDate(), order.getSalesmanNum(), order.getContractType());
+        }
     }
 
 

@@ -3,7 +3,6 @@ package com.cs307.project;
 import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
-import com.cs307.project.service.redis.RedisService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
@@ -356,6 +355,7 @@ public class ServiceTests {
         day = Integer.parseInt(dateArr[2]);
         c = Calendar.getInstance();
         c.set(year, month, day);
+        date = c.getTime();
         placeOrder.setLodgementDate(date);
         placeOrder.setSalesmanNum(content[8]);
         placeOrder.setContractType(content[9]);

@@ -1,47 +1,20 @@
 Q6
-StaffCount{staffType='Director', count=8}StaffCount{staffType='Contracts Manager', count=160}StaffCount{staffType='Supply Staff', count=192}StaffCount{staffType='Salesman', count=640}
-Q7
-113
-Q8
-529
-Q9
-55
+Director                 8
+Contracts Manager        160
+Supply Staff             192
+Salesman                 640
+
+Q7   112
+Q8   529
+Q9   55
 Q10
-FavoriteModel{productModel='WirelessSecurity90', quantity=1762}
+WirelessSecurity90       1762
 Q11
-AvgStockByCenter{center='America', avg = 303.4}AvgStockByCenter{center='Asia', avg = 226.4}AvgStockByCenter{center='Eastern China', avg = 183.9}AvgStockByCenter{center='Europe', avg = 322.8}AvgStockByCenter{center='Hong Kong, Macao and Taiwan regions of China', avg = 267.4}AvgStockByCenter{center='Northern China', avg = 229.9}AvgStockByCenter{center='Southern China', avg = 234.2}AvgStockByCenter{center='Southwestern China', avg = 313.6}
-Q12
-[ProductStock{supplyCenter='Hong Kong, Macao and Taiwan regions of China', productModel='Air-ConditioningFan21', quantity='299'}]
-Q13
-number: CSE0000106
-manager: Brian Brown
-enterprise: Ping An Insurance (Group) Company Of China
-supply_center: Southern China
-product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
-BarcodeAndCardReadingEquipment34Chu Guqiu           491       790            2022-1-10                     2022-1-10                     
-HeatSink24                    Tao Xixia           140       400            2022-1-10                     2022-1-10                     
-ToiletSeatM4                  Liu Hanshuang       350       110            2022-1-10                     2022-1-10                     
-CasetteLibraryI1              Qi Yinxiang         390       460            2022-1-11                     2022-1-11                     
-SoundCard93                   Trudie Lewis        374       10             2022-1-11                     2022-1-11                     
-Server40                      Sun Yankun          304       220            2022-1-12                     2022-1-12                     
-number: CSE0000209
-manager: Joseph Davies
-enterprise: Sinopec
-supply_center: Northern China
-product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
-DvdPlayer89                   Allen Williams      73        400            2022-2-12                     2022-2-12                     
-DotMatrixPrinter76            Susan Johnson       142       190            2022-2-15                     2022-2-15                     
-Earphone27                    Yang Nuobo          14        790            2022-2-15                     2022-2-15                     
-NetworkManagementAndBackupSoftwarevirtualizationSoftware51Feng Jingping       131       100            2022-3-3                      2022-2-12                     
-number: CSE0000306
-manager: You Dongsi
-enterprise: Ping An Insurance (Group) Company Of China
-supply_center: Southern China
-product_model                 salesman            quantity  unit_price     estimate_delivery_date        lodgement_date                
-PocketPcV3                    Jill Thomas         189       530            2022-2-11                     2022-3-9                      
-Anti-TheftAlarmHost23         Hua Haonan          320       220            2022-3-9                      2022-3-9                      
-BarcodeAndCardReadingEquipment34Ollie Smith         245       790            2022-3-11                     2022-3-11                     
-Mp4Z2                         Olive Wright        61        650            2022-3-11                     2022-3-11                     
-ElectricHeaterE3              Mildred Wright      79        270            2022-3-12                     2022-3-12                     
-FlatFilm23                    You Bisong          41        90             2022-3-12                     2022-3-12                     
-Server40                      Georgie Taylor      76        220            2022-3-12                     2022-3-12                     
+America                                           303.4
+Asia                                              226.4
+Eastern China                                     183.9
+Europe                                            322.8
+Hong Kong, Macao and Taiwan regions of China      267.4
+Northern China                                    224.6
+Southern China                                    234.2
+Southwestern China                                313.6
