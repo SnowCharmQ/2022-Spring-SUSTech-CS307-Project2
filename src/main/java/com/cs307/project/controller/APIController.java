@@ -5,6 +5,7 @@ import com.cs307.project.entity.*;
 import com.cs307.project.service.IBaseService;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.IUserService;
+import com.cs307.project.service.api1.ModelHandling;
 import com.cs307.project.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -218,5 +220,37 @@ public class APIController extends BaseController {
             PlaceOrder order = iService.getOrder(sorting, key, page);
             return new JsonResult<>(ok, order);
         }else throw new NoPrivilegeException("Permission Denied!");
+    }
+
+    @RequestMapping("select-model")
+    public JsonResult<List<Model>> getSelectModel(Integer id, String number, String model, String name, Integer unitPrice) throws SQLException {
+        ModelHandling.openDB("localhost","project2", "test", "123456");
+        List<Model> models = ModelHandling.selectModel(new Model(id, number, model, name, unitPrice));
+        ModelHandling.closeDB();
+        return new JsonResult<>(ok, models);
+    }
+
+    @RequestMapping("delete-model")
+    public JsonResult<Void> deleteModel(Integer id, String number, String model, String name, Integer unitPrice) throws SQLException { ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.delete(new Model(id, number, model, name, unitPrice));
+        ModelHandling.closeDB();
+        return new JsonResult<>(ok);
+    }
+
+    @RequestMapping("insert-model")
+    public JsonResult<Void> InsertModel(Integer id, String number, String model, String name, Integer unitPrice) throws SQLException { ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.insertModel(new Model(id, number, model, name, unitPrice));
+        ModelHandling.closeDB();
+        return new JsonResult<>(ok);
+    }
+
+    @RequestMapping("update-model")
+    public JsonResult<Void> UpdateModel(Integer id, String number, String model, String name, Integer unitPrice, Integer id2, String number2, String model2, String name2, Integer unitPrice2) throws SQLException { ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.openDB("localhost","project2", "test", "123456");
+        ModelHandling.update(new Model(id, number, model, name, unitPrice),new Model(id2, number2, model2, name2, unitPrice2));
+        ModelHandling.closeDB();
+        return new JsonResult<>(ok);
     }
 }
