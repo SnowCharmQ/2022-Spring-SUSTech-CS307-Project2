@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Model implements Serializable {
-    private int id;
+    private Integer id;
     private String number;
     private String model;
     private String name;
-    private int unitPrice;
+    private Integer unitPrice;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -42,7 +42,7 @@ public class Model implements Serializable {
         this.name = name;
     }
 
-    public int getUnitPrice() {
+    public Integer getUnitPrice() {
         return unitPrice;
     }
 
@@ -50,7 +50,7 @@ public class Model implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public Model(int id, String number, String model, String name, int unitPrice) {
+    public Model(Integer id, String number, String model, String name, Integer unitPrice) {
         this.id = id;
         this.number = number;
         this.model = model;

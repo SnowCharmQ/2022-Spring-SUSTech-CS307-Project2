@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Enterprise implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String country;
     private String city;
     private String supplyCenter;
     private String industry;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
