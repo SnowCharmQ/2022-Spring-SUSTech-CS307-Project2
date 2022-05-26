@@ -13,9 +13,7 @@ import com.cs307.project.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -432,5 +430,42 @@ public class IServiceImpl implements IService {
 //            }
 //        }).collect(Collectors.toList());
 //        return new Contract(contract_number, selectMapper.selectStaffByNumber(contract.getContract_manager()).getName(), contract.getEnterprise(), selectMapper.selectEnterpriseByName(contract.getEnterprise()).getSupplyCenter(), orderlists);
+    }
+
+    @Override
+    public PlaceOrder getOrder(String sorting, String key, String page) {
+        int offset = (!Objects.equals(page, "")) ? (Integer.parseInt(page) - 1) : 0;
+        if (Objects.equals(key, "")) {
+            switch (sorting) {
+                case "0":
+                    return selectMapper.selectOrder(offset);
+                case "1":
+                    return selectMapper.selectOrderQuantityAsc(offset);
+                case "2":
+                    return selectMapper.selectOrderQuantityDesc(offset);
+                case "3":
+                    return selectMapper.selectOrderDateAsc(offset);
+                case "4":
+                    return selectMapper.selectOrderDateDesc(offset);
+                default:
+                    return null;
+            }
+        } else {
+            key = key.toUpperCase();
+            switch (sorting) {
+                case "0":
+                    return selectMapper.selectOrderByNumber(key, offset);
+                case "1":
+                    return selectMapper.selectOrderQuantityAscByNumber(key, offset);
+                case "2":
+                    return selectMapper.selectOrderQuantityDescByNumber(key, offset);
+                case "3":
+                    return selectMapper.selectOrderDateAscByNumber(key, offset);
+                case "4":
+                    return selectMapper.selectOrderDateDescByNumber(key, offset);
+                default:
+                    return null;
+            }
+        }
     }
 }

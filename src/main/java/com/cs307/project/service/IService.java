@@ -29,4 +29,6 @@ public interface IService {
     List<ProductStock> getProductByNumber(String number);
 
     Contract getContractInfo(String contract_number);
+
+    PlaceOrder getOrder(String sorting, String key, String page);
 }

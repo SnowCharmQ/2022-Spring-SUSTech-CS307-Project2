@@ -1,0 +1,285 @@
+.top-boarder {
+    background: url("../img/bg.png") no-repeat;
+    position: absolute;
+    width: 1660px;
+    height: 90px;
+    top: 5px;
+    left: -210px;
+    z-index: -1;
+}
+
+h1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    /* 字间距 */
+    letter-spacing: 7px;
+    /* 转大写 */
+    /*text-transform: uppercase;*/
+    text-align: center;
+    line-height: 34px;
+    margin: 30px;
+    outline: none;
+    /* 自定义属性--c，可通过var函数对其调用 */
+    --c: lightseagreen;
+    /* 调用自定义属性--c，设置文字阴影（发光效果） */
+    text-shadow: 0 0 10px var(--c),
+    0 0 20px var(--c),
+    0 0 40px var(--c),
+    0 0 80px var(--c),
+    0 0 160px var(--c);
+    /* 执行动画：动画名 时长 线性的 无限次播放 */
+    animation: animate 5s linear infinite;
+    white-space: pre-line;
+    width: 500px;
+    height: 52px;
+    position: absolute;
+    left: 470px;
+    top: -20px;
+    z-index: -5;
+}
+
+.occupy {
+    visibility: hidden;
+    height: 46px;
+}
+
+.panel {
+    box-sizing: border-box;
+    border: 2px solid red;
+    border-image: url(../img/border.png) 51 38 21 132;
+    border-width: 1.2rem 3rem 3.3rem 3rem;
+    position: relative;
+    margin-bottom: 0.833rem;
+}
+
+.head {
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 24px;
+    /*padding: 0.5rem 1.5rem;*/
+    padding-top: 10px;
+    color: #68d8fe;
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    height: 50px;
+}
+
+.spacing {
+    visibility: hidden;
+    height: 22px;
+}
+
+.row {
+    line-height: 1.6;
+    /*padding: 6px 6px;*/
+    font-size: 14px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    word-break: break-word;
+    height: 160px;
+}
+
+.name{
+    color: #61a8ff;
+    width: 600px;
+    font-size: 20px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.insert{
+    color: #61a8ff;
+    width: 600px;
+    font-size: 20px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete{
+    color: #61a8ff;
+    width: 600px;
+    font-size: 20px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update{
+    color: #61a8ff;
+    width: 600px;
+    font-size: 20px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select{
+    color: #61a8ff;
+    width: 600px;
+    font-size: 20px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    cursor: pointer;
+}
+
+label span {
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 40px;
+    background-color: #222;
+    border-radius: 40px;
+    /* 内阴影 */
+    box-shadow: inset 0 2px 15px rgba(0, 0, 0, 0.2),
+    inset 0 2px 2px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+    left: 20px;
+}
+
+/* 滑块 */
+label .indicator {
+    /* 绝对定位 */
+    position: relative;
+    left: -66px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    /* 渐变背景 */
+    background: linear-gradient(to bottom, #444, #222);
+    border-radius: 50%;
+    /* 阴影 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    /* 缩小 */
+    transform: scale(0.9);
+    /* 动画过渡 */
+    transition: 0.5s;
+}
+
+/* 滑块中心的发光点 */
+label .indicator::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    /* 绝对定位 居中 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f00;
+    border-radius: 50%;
+    /* 阴影制造发光效果 */
+    box-shadow: 0 0 2px #f00,
+    0 0 5px #f00,
+    0 0 10px #f00,
+    0 0 15px #f00,
+    0 0 20px #f00,
+    0 0 25px #f00,
+    0 0 30px #f00,
+    0 0 35px #f00;
+    transition: 0.5s;
+}
+
+/* 勾选复选框后滑块的变化 */
+label input:checked ~ .indicator {
+    left: -12px;
+}
+
+label input:checked ~ .indicator::before {
+    background-color: #0f0;
+    box-shadow: 0 0 2px #0f0,
+    0 0 5px #0f0,
+    0 0 10px #0f0,
+    0 0 15px #0f0,
+    0 0 20px #0f0,
+    0 0 25px #0f0,
+    0 0 30px #0f0,
+    0 0 35px #0f0;
+}
+
+.username{
+    position: absolute;
+    font-size: 28px;
+    left: 66px;
+    top: 12px;
+}
+
+.insert-right{
+    position: absolute;
+    font-size: 28px;
+    left: 324px;
+    top: 12px;
+}
+
+.delete-right{
+    position: absolute;
+    font-size: 28px;
+    left: 584px;
+    top: 12px;
+}
+
+.update-right{
+    position: absolute;
+    font-size: 28px;
+    left: 850px;
+    top: 12px;
+}
+
+.select-right{
+    position: absolute;
+    font-size: 28px;
+    left: 1120px;
+    top: 12px;
+}
+
+/*.submit{*/
+/*    transform: translate(-50%, -50%);*/
+/*    width: 200px;*/
+/*    height: 80px;*/
+/*    text-align: center;*/
+/*    color: #fff;*/
+/*    font-size: 40px;*/
+/*    text-transform: uppercase;*/
+/*    cursor: pointer;*/
+/*    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);*/
+/*    background-size: 400%;*/
+/*    border-radius: 60px;*/
+/*    left: 50%;*/
+/*    position: absolute;*/
+/*}*/
+
+.btns {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.btns img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 14px;
+}

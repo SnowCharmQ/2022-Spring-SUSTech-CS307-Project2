@@ -32,4 +32,52 @@
         SELECT *
         FROM t_user;
     </select>
+
+    <update id="grantInsert">
+        UPDATE t_user
+        SET can_insert= TRUE
+        WHERE username = #{username};
+    </update>
+
+    <update id="grantDelete">
+        UPDATE t_user
+        SET can_delete= TRUE
+        WHERE username = #{username};
+    </update>
+
+    <update id="grantUpdate">
+        UPDATE t_user
+        SET can_update= TRUE
+        WHERE username = #{username};
+    </update>
+
+    <update id="grantSelect">
+        UPDATE t_user
+        SET can_select= TRUE
+        WHERE username = #{username};
+    </update>
+
+    <update id="revokeInsert">
+        UPDATE t_user
+        SET can_insert= FALSE
+        WHERE username = #{username};
+    </update>
+
+    <update id="revokeDelete">
+        UPDATE t_user
+        SET can_delete= FALSE
+        WHERE username = #{username};
+    </update>
+
+    <update id="revokeUpdate">
+        UPDATE t_user
+        SET can_update= FALSE
+        WHERE username = #{username};
+    </update>
+
+    <update id="revokeSelect">
+        UPDATE t_user
+        SET can_select= FALSE
+        WHERE username = #{username};
+    </update>
 </mapper>

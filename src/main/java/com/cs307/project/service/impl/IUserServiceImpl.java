@@ -27,6 +27,7 @@ public class IUserServiceImpl implements IUserService {
         String md5pwd = getMD5Pwd(oldPwd, salt);
         user.setPwd(md5pwd);
         user.setSalt(salt);
+        if (user.getUsername().equals("super")) user.setSuper(true);
         user.setCanInsert(true);
         user.setCanDelete(true);
         user.setCanUpdate(true);
@@ -58,6 +59,28 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public List<User> select() {
         return userMapper.selectUser();
+    }
+
+    @Override
+    public void manage(String data) {
+        String[] users = data.split("-");
+        for (String user : users) {
+            String username = user.substring(0, user.length() - 4);
+            char[] choice = user.substring(user.length() - 4).toCharArray();
+            if (choice[0] == '1') userMapper.grantInsert(username);
+            else userMapper.revokeInsert(username);
+            if (choice[1] == '1') userMapper.grantDelete(username);
+            else userMapper.revokeDelete(username);
+            if (choice[2] == '1') userMapper.grantUpdate(username);
+            else userMapper.revokeUpdate(username);
+            if (choice[3] == '1') userMapper.grantSelect(username);
+            else userMapper.revokeSelect(username);
+        }
+    }
+
+    @Override
+    public User selectUser(String username) {
+        return userMapper.selectByName(username);
     }
 
     private String getMD5Pwd(String pwd, String salt) {

@@ -167,4 +167,44 @@
         FROM contract
         WHERE contract_num = #{contract_num}
     </select>
+
+    <select id="selectOrder" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderDateAsc" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder ORDER BY contract_date ASC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderDateDesc" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder ORDER BY contract_date DESC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderQuantityAsc" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder ORDER BY quantity ASC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderQuantityDesc" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder ORDER BY quantity DESC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderByNumber" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{number} LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderDateAscByNumber" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{number}  ORDER BY contract_date ASC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderDateDescByNumber" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{number}  ORDER BY contract_date DESC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderQuantityAscByNumber" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{number}  ORDER BY quantity ASC LIMIT 1 OFFSET #{offset};
+    </select>
+
+    <select id="selectOrderQuantityDescByNumber" resultMap="PlaceOrderEntityMap">
+        SELECT * FROM placeOrder WHERE contract_num = #{number}  ORDER BY quantity DESC LIMIT 1 OFFSET #{offset};
+    </select>
 </mapper>

@@ -1,9 +1,6 @@
 package com.cs307.project.controller;
 
-import com.cs307.project.controller.ex.PasswordNotMatchException;
-import com.cs307.project.controller.ex.UserException;
-import com.cs307.project.controller.ex.UserNotFoundException;
-import com.cs307.project.controller.ex.UsernameDuplicatedException;
+import com.cs307.project.controller.ex.*;
 import com.cs307.project.utils.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -26,6 +23,8 @@ public class BaseController {
             result.setState(4001);
         } else if (e instanceof PasswordNotMatchException) {
             result.setState(4002);
+        }else if (e instanceof NoPrivilegeException){
+            result.setState(5000);
         }
         return result;
     }

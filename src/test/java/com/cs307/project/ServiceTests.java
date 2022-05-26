@@ -156,7 +156,7 @@ public class ServiceTests {
 
     @Test
     @Order(1)
-    @Ignore
+//    @Ignore
     public void init() {
         ClassLoader classLoader = ServiceTests.class.getClassLoader();
         try {
@@ -356,6 +356,7 @@ public class ServiceTests {
         day = Integer.parseInt(dateArr[2]);
         c = Calendar.getInstance();
         c.set(year, month, day);
+        date = c.getTime();
         placeOrder.setLodgementDate(date);
         placeOrder.setSalesmanNum(content[8]);
         placeOrder.setContractType(content[9]);
