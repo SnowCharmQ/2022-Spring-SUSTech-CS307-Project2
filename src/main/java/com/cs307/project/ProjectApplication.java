@@ -23,7 +23,7 @@ public class ProjectApplication {
     @Scheduled(fixedDelay = 5000)
     public void scheduleFixedDelayTask() {
         updateTypeMapper.scheduleFixedDelayTask();
-        System.out.println(
-                "update order type at - " + System.currentTimeMillis() / 1000);
+//        System.out.println(
+//                "update order type at - " + System.currentTimeMillis() / 1000);
     }
 }

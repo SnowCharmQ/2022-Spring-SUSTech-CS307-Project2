@@ -12,4 +12,8 @@ public interface IUserService {
     void changePwd(String username, String oldPwd, String newPwd);
 
     List<User> select();
+
+    void manage(String data);
+
+    User selectUser(String username);
 }

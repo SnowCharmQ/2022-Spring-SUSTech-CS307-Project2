@@ -28,6 +28,18 @@ handler.addEventListener('click', function () {
     }
 })
 
+$.ajax({
+    url: "/users/db-info",
+    type: "POST",
+    success: function (json) {
+        if (json.state === 200) {
+            var data = json.data;
+            var ele = document.getElementById("username")
+            ele.innerText = data.username;
+        }
+    }
+})
+
 $(document).ready(
     function () {
         $("#menu-btn").click(function () {
@@ -51,9 +63,13 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    for (var i = 0; i < result.data.length; i++) {
-                        var str = result.data[i].staffType + "\t" + result.data[i].count + "<br>";
-                        ele.append(str)
+                    if (result.state === 200) {
+                        for (var i = 0; i < result.data.length; i++) {
+                            var str = result.data[i].staffType + "\t" + result.data[i].count + "<br>";
+                            ele.append(str)
+                        }
+                    } else {
+                        ele.append(result.message)
                     }
                 }
             )
@@ -68,7 +84,8 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    ele.append(result.data)
+                    if (result.state === 200) ele.append(result.data)
+                    else ele.append(result.message)
                 }
             )
         })
@@ -82,7 +99,8 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    ele.append(result.data)
+                    if (result.state === 200) ele.append(result.data)
+                    else ele.append(result.message)
                 }
             )
         })
@@ -96,7 +114,8 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    ele.append(result.data)
+                    if (result.state === 200) ele.append(result.data)
+                    else ele.append(result.message)
                 }
             )
         })
@@ -110,8 +129,10 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    var str = result.data.productModel + "\t" + result.data.quantity
-                    ele.append(str)
+                    if (result.state === 200) {
+                        var str = result.data.productModel + "\t" + result.data.quantity
+                        ele.append(str)
+                    } else ele.append(result.message)
                 }
             )
         })
@@ -125,10 +146,12 @@ $(document).ready(
                 function (result) {
                     var ele = $(".middle")
                     ele.empty()
-                    for (var i = 0; i < result.data.length; i++) {
-                        var str = result.data[i].center + "\t" + result.data[i].avg + "<br>";
-                        ele.append(str)
-                    }
+                    if (result.state === 200) {
+                        for (var i = 0; i < result.data.length; i++) {
+                            var str = result.data[i].center + "\t" + result.data[i].avg + "<br>";
+                            ele.append(str)
+                        }
+                    } else ele.append(result.message)
                 }
             )
         })
@@ -157,7 +180,7 @@ $(document).ready(
                 "    line-height: 90px;\n" +
                 "    text-align: center;\n" +
                 "    color: #fff;\n" +
-                "    font-size: 25px;\n" +
+                "    font-size: 16px;\n" +
                 "    text-transform: uppercase;\n" +
                 "    cursor: pointer;\n" +
                 "    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);\n" +
@@ -176,15 +199,15 @@ function selectProduct() {
         data: $("#product-number").serialize(),
         dataType: "json",
         success: function (json) {
+            var ele = $(".middle")
+            ele.empty()
             if (json.state === 200) {
-                var ele = $(".middle")
-                ele.empty()
                 for (var i = 0; i < json.data.length; i++) {
                     var str = json.data[i].supplyCenter + "\t" + json.data[i].productModel +
                         "\t" + json.data[i].quantity + "<br>";
-                    ele.append(str)
+                    ele.append(str);
                 }
-            }
+            } else ele.append(json.message);
         }
     })
 }
@@ -211,7 +234,7 @@ $(document).ready(
                 "    line-height: 90px;\n" +
                 "    text-align: center;\n" +
                 "    color: #fff;\n" +
-                "    font-size: 25px;\n" +
+                "    font-size: 16px;\n" +
                 "    text-transform: uppercase;\n" +
                 "    cursor: pointer;\n" +
                 "    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);\n" +
@@ -230,11 +253,34 @@ function selectContract() {
         data: $("#contract-number").serialize(),
         dataType: "json",
         success: function (json) {
+            var ele = $(".middle")
+            ele.empty()
             if (json.state === 200) {
-                var ele = $(".middle")
-                ele.empty()
                 ele.append(json.data)
-            }
+            } else ele.append(json.message)
+        }
+    })
+}
+
+function selectOrder() {
+    $.ajax({
+        url: "/api/order",
+        type: "POST",
+        data: $("#select-order").serialize(),
+        dataType: "json",
+        success: function (json) {
+            var ele = $(".middle")
+            ele.empty();
+            var ori = ''
+            var str = '<div class="row">\n' +
+                '                <span class="number">' + json.contractNum + '</span>\n' +
+                '                <span class="enterprise">' + json.enterprise + '</span>\n' +
+                '                <span class="model">' + json.productModel + '</span>\n' +
+                '                <span class="quantity">' + json.quantity + '</span>\n' +
+                '                <span class="date">' + json.contractDate + '</span>\n' +
+                '                <span class="type">' + json.contractType + '</span>\n' +
+                '            </div>';
+            ele.append(str);
         }
     })
 }

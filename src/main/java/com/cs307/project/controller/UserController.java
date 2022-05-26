@@ -4,6 +4,7 @@ import com.cs307.project.entity.User;
 import com.cs307.project.service.IUserService;
 import com.cs307.project.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
@@ -30,15 +31,31 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("db-pwd-change")
-    public JsonResult<Void> changePwd(String oldPwd, String newPwd, HttpSession session){
+    public JsonResult<Void> changePwd(@RequestBody String pwds, HttpSession session) {
+        String[] strings = pwds.split("&");
+        String oldPwd = strings[0].substring(12);
+        String newPwd = strings[1].substring(12);
         String username = getUsernameFromSession(session);
         userService.changePwd(username, oldPwd, newPwd);
         return new JsonResult<>(ok);
     }
 
     @RequestMapping("db-users")
-    public JsonResult<List<User>> select(){
+    public JsonResult<List<User>> select() {
         List<User> list = userService.select();
         return new JsonResult<>(ok, list);
+    }
+
+    @RequestMapping(value = "db-user-management", produces = "application/json;charset=utf-8")
+    public JsonResult<Void> userManage(@RequestBody String data) {
+        userService.manage(data);
+        return new JsonResult<>(ok);
+    }
+
+    @RequestMapping("db-info")
+    public JsonResult<User> getUserInfo(HttpSession session) {
+        String username = getUsernameFromSession(session);
+        User user = userService.selectUser(username);
+        return new JsonResult<>(ok, user);
     }
 }

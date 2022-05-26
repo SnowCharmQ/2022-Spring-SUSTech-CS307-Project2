@@ -155,7 +155,7 @@ public class ServiceTests {
 
     @Test
     @Order(1)
-    @Ignore
+//    @Ignore
     public void init() {
         ClassLoader classLoader = ServiceTests.class.getClassLoader();
         try {

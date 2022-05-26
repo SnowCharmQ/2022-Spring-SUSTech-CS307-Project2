@@ -10,7 +10,7 @@
     <script src="../bootstrap3/js/bootstrap.js"></script>
     <title>Menu</title>
     <link rel="shortcut icon" href="#"/>
-<!--    <link rel="stylesheet" href="../css/menu.css" charset="UTF-8">-->
+    <!--    <link rel="stylesheet" href="../css/menu.css" charset="UTF-8">-->
     <style type="text/css">
         * {
             /* 初始化 */
@@ -122,6 +122,10 @@
             margin-right: 14px;
         }
 
+        .user-info img:hover {
+            cursor: pointer;
+        }
+
         .user-info span {
             flex: 1;
         }
@@ -169,12 +173,12 @@
 
         .right-box .middle {
             flex: 1;
-            display: flex;
+            /*display: flex;*/
             justify-content: center;
             align-items: center;
             font-weight: bold;
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             /* 字间距 */
             letter-spacing: 7px;
             /* 转大写 */
@@ -184,7 +188,7 @@
             margin: 30px;
             outline: none;
             /* 自定义属性--c，可通过var函数对其调用 */
-            --c:lightseagreen;
+            --c: lightseagreen;
             /* 调用自定义属性--c，设置文字阴影（发光效果） */
             text-shadow: 0 0 10px var(--c),
             0 0 20px var(--c),
@@ -252,18 +256,194 @@
             transform: skewX(-15deg);
         }
 
-        .cirBtn{
+        .cirBtn {
             width: 33px;
             height: 33px;
             border: none;
             border-radius: 50%;
         }
 
-        @keyframes animate {
-            to{
-                /* 色相旋转滤镜（设置度数可改变颜色） */
-                filter: hue-rotate(360deg);
-            }
+        /*@keyframes animate {*/
+        /*    to{*/
+        /*        !* 色相旋转滤镜（设置度数可改变颜色） *!*/
+        /*        filter: hue-rotate(360deg);*/
+        /*    }*/
+        /*}*/
+
+        .head {
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 17px;
+            /*padding: 0.5rem 1.5rem;*/
+            padding-top: 10px;
+            color: #68d8fe;
+            display: flex;
+            justify-content: space-between;
+            line-height: 1.05;
+            height: 50px;
+            width: 1160px;
+            position: absolute;
+            top: 240px;
+        }
+
+        .row {
+            line-height: 1.4;
+            /*padding: 6px 6px;*/
+            font-size: 16px;
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            word-break: break-word;
+            height: 140px;
+            top: 400px
+        }
+
+        .number {
+            color: #61a8ff;
+            width: 140px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .enterprise {
+            color: #61a8ff;
+            width: 260px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .model {
+            color: #61a8ff;
+            width: 250px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quantity {
+            color: #61a8ff;
+            width: 70px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .date {
+            color: #61a8ff;
+            width: 160px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .type {
+            color: #61a8ff;
+            width: 140px;
+            font-size: 17px;
+            border: 2px #00fffd solid;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            background: #222;
+            background: linear-gradient(#333333, #222222);
+            border: 1px solid #444;
+            border-radius: 5px;
+            box-shadow: 0 2px 0 #000;
+            color: #888;
+            display: block;
+            font-family: 'Cabin', helvetica, arial, sans-serif;
+            font-size: 1.3rem;
+            height: 36px;
+            margin: 20px auto 10px;
+            padding: 0 10px;
+            text-shadow: 0 -1px 0 #000;
+        }
+
+        .key {
+            position: absolute;
+            width: 164px;
+            height: 40px;
+            left: 770px;
+            top: 80px;
+        }
+
+        .page {
+            position: absolute;
+            left: 440px;
+            top: 84px;
+        }
+
+        .page-num {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            top: 80px;
+            left: 580px;
+        }
+
+        .select_box {
+            width: 210px;
+            height: 40px;
+            border: 1px solid #3CF;
+            position: absolute;
+            float: left;
+            margin-right: 50px;
+            background: #3c3c3c;
+            color: #2aabd2;
+            top: 100px;
+            left: 140px;
+            z-index: 5;
+        }
+
+        .select_box font {
+            position: absolute;
+            right: 10px;
+            font-size: 26px;
+            font-family: "微软雅黑", serif;
+            color: #3CF;
+            transform: rotate(90deg);
+        }
+
+        .select_box option {
+            background: #3c3c3c;
+            color: #2aabd2;
+        }
+
+        .select-btn {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 42px;
+            top: 120px;
+            left: 1080px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            border-radius: 60px;
         }
     </style>
 </head>
@@ -275,6 +455,7 @@
             <li class="item active" id="menu-btn">
                 Menu
             </li>
+
             <li class="item" id="q6-btn">
                 Q6 getAllStaffCount
             </li>
@@ -299,11 +480,14 @@
             <li class="item" id="q13-btn">
                 Q13 getContractInfo
             </li>
+            <li class="item" id="order_info">
+                Advanced: Order Query
+            </li>
         </ul>
         <div class="user-info">
-            <a><img src="../img/avatar.jpg" alt=""></a>
+            <a><img src="../img/avatar.jpg" alt="" onclick="window.location.href='db-user.html'"></a>
             <!--            <button class="cirBtn"><img src="avatar.jpg" alt=""></button>-->
-            <span>Test</span>
+            <span id="username"></span>
             <i class="icon icon-gear"></i>
         </div>
     </div>
@@ -312,7 +496,41 @@
         <div class="top">
             <span class="current-tag">Menu</span>
         </div>
-        <div class="middle">Change the sidebar selection to invoke the corresponding API</div>
+        <!--        <div class="middle">Change the sidebar selection to invoke the corresponding API</div>-->
+
+        <div class="middle">
+            <form id="select-order">
+                <select name="sorting" id="sort-method" class="select_box">
+                    <option value="0">Sorting Method</option>
+                    <option value="1">Sort By Quantity ASC</option>
+                    <option value="2">Sort By Quantity DESC</option>
+                    <option value="3">Sort By Contract Date ASC</option>
+                    <option value="4">Sort By Contract Date DESC</option>
+                </select>
+                <div class="page">Number:</div>
+                <input type="text" name="key" class="key" placeholder="Contract Number">
+                <input type="text" name="page" class="page-num" placeholder="1">
+                <button type="button" class="select-btn" onclick="selectOrder()">SELECT</button>
+            </form>
+            <div class="head">
+                <span class="t-number">Contract Number</span>
+                <span class="t-enterprise">Enterprise</span>
+                <span class="t-model">Product Model</span>
+                <span class="t-quantity">Quantity</span>
+                <span class="t-date">Contract Date</span>
+                <span class="t-type">Contract Type</span>
+            </div>
+            <div class="row">
+                <span class="number">CSE0000101</span>
+                <span class="enterprise">Ping An Insurance (Group) Company Of China</span>
+                <span class="model">BarcodeAndCardReadingEquipment34</span>
+                <span class="quantity">245</span>
+                <span class="date">2022-03-06</span>
+                <span class="type">Finished</span>
+            </div>
+        </div>
+
+
         <div class="handler"></div>
     </div>
 </div>

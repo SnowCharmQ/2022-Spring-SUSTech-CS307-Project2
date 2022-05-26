@@ -12,4 +12,20 @@ public interface UserMapper {
     void updatePwd(String username, String newPwd);
 
     List<User> selectUser();
+
+    void grantInsert(String username);
+
+    void grantDelete(String username);
+
+    void grantUpdate(String username);
+
+    void grantSelect(String username);
+
+    void revokeInsert(String username);
+
+    void revokeDelete(String username);
+
+    void revokeUpdate(String username);
+
+    void revokeSelect(String username);
 }

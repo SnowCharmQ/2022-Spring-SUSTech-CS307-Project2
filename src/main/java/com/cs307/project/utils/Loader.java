@@ -87,6 +87,7 @@ public class Loader {
             stmt.clearBatch();
             con.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
@@ -120,6 +121,7 @@ public class Loader {
             stmt.clearBatch();
             con.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
@@ -147,6 +149,7 @@ public class Loader {
             stmt.clearBatch();
             con.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
@@ -183,6 +186,7 @@ public class Loader {
             stmt.clearBatch();
             con.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
