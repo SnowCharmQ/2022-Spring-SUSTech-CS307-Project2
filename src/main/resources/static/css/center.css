@@ -1,0 +1,136 @@
+.btns {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.btns img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 14px;
+}
+
+.top-boarder {
+    background: url("../img/bg.png") no-repeat;
+    position: absolute;
+    width: 1660px;
+    height: 90px;
+    top: 5px;
+    left: -210px;
+    z-index: -1;
+}
+
+h1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    /* 字间距 */
+    letter-spacing: 7px;
+    /* 转大写 */
+    /*text-transform: uppercase;*/
+    text-align: center;
+    line-height: 34px;
+    margin: 30px;
+    outline: none;
+    /* 自定义属性--c，可通过var函数对其调用 */
+    --c: lightseagreen;
+    /* 调用自定义属性--c，设置文字阴影（发光效果） */
+    text-shadow: 0 0 10px var(--c),
+    0 0 20px var(--c),
+    0 0 40px var(--c),
+    0 0 80px var(--c),
+    0 0 160px var(--c);
+    /* 执行动画：动画名 时长 线性的 无限次播放 */
+    animation: animate 5s linear infinite;
+    white-space: pre-line;
+    width: 500px;
+    height: 52px;
+    position: absolute;
+    left: 470px;
+    top: -20px;
+    z-index: -5;
+}
+
+.occupy {
+    visibility: hidden;
+    height: 46px;
+}
+
+.panel{
+    box-sizing: border-box;
+    border: 2px solid red;
+    border-image: url(../img/border.png) 51 38 21 132;
+    border-width: 1.2rem 3rem 3.3rem 3rem;
+    position: relative;
+    margin-bottom: 0.833rem;
+}
+
+.head{
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 24px;
+    /*padding: 0.5rem 1.5rem;*/
+    padding-top: 10px;
+    color: #68d8fe;
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    height: 50px;
+}
+
+.head-id{
+    position: absolute;
+    font-size: 32px;
+    left: 322px;
+    top: 12px;
+}
+
+.head-name{
+    position: absolute;
+    font-size: 32px;
+    left: 957px;
+    top: 12px;
+}
+
+.spacing{
+    visibility: hidden;
+    height: 22px;
+}
+
+.row {
+    line-height: 1.4;
+    /*padding: 6px 6px;*/
+    font-size: 16px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    word-break: break-word;
+    height: 76px;
+}
+
+.id{
+    color: #61a8ff;
+    width: 700px;
+    font-size: 22px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name{
+    color: #61a8ff;
+    width: 700px;
+    font-size: 22px;
+    border: 2px #00fffd solid;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

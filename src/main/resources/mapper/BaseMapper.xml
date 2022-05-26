@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs307.project.mapper.BaseMapper">
+    <resultMap id="CenterEntityMap" type="com.cs307.project.entity.Center">
+    </resultMap>
+    <resultMap id="EnterpriseEntityMap" type="com.cs307.project.entity.Enterprise">
+        <result column="supply_center" property="supplyCenter"/>
+    </resultMap>
+    <resultMap id="ModelEntityMap" type="com.cs307.project.entity.Model">
+        <result column="unit_price" property="unitPrice"/>
+    </resultMap>
+    <resultMap id="StaffEntityMap" type="com.cs307.project.entity.Staff">
+        <result column="supply_center" property="supplyCenter"/>
+        <result column="mobile_number" property="mobileNumber"/>
+    </resultMap>
+
+    <select id="selectCenter" resultMap="CenterEntityMap">
+        SELECT *
+        FROM center
+        ORDER BY id;
+    </select>
+
+    <select id="selectEnterprise" resultMap="EnterpriseEntityMap">
+        SELECT *
+        FROM enterprise
+        ORDER BY id;
+    </select>
+
+    <select id="selectModel" resultMap="ModelEntityMap">
+        SELECT *
+        FROM model
+        ORDER BY id;
+    </select>
+
+    <select id="selectStaff" resultMap="StaffEntityMap">
+        SELECT *
+        FROM staff
+        ORDER BY id;
+    </select>
+</mapper>

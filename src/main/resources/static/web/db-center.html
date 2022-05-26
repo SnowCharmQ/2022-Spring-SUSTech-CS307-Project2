@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Center</title>
+    <link rel="stylesheet" type="text/css" href="../css/center.css">
+    <script src='../js/prefixfree.min.js'></script>
+    <script src="../bootstrap3/js/holder.js"></script>
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+</head>
+<body style="background-color: black">
+<h1 style="font-size: 19px">The Information Of The Center</h1>
+<div class="top-boarder"></div>
+
+<div class="btns" style="position:absolute;right: 45px;top:3px">
+    <a href="db-user.html"><img src="../img/return.jpg" alt=""></a>
+</div>
+
+<div class="btns" style="position:absolute;right: 100px;top:3px">
+    <a href="#" id="save1"><img src="../img/save.png"
+                                onclick="download(save_data, 'center.csv', 'text/plaintext')"
+                                alt=""></a>
+</div>
+<div class="occupy">none</div>
+<div class="occupy">none</div>
+<div class="panel">
+    <div class="head">
+        <span class="head-id">id</span>
+        <span class="head-name">name</span>
+    </div>
+    <div class="spacing">none</div>
+    <div class="row">
+        <span class="id">1</span>
+        <span class="name">America</span>
+    </div>
+    <div class="row">
+        <span class="id">2</span>
+        <span class="name">Eastern China</span>
+    </div>
+    <div class="row">
+        <span class="id">3</span>
+        <span class="name">Asia</span>
+    </div>
+    <div class="row">
+        <span class="id">4</span>
+        <span class="name">Southern China</span>
+    </div>
+    <div class="row">
+        <span class="id">5</span>
+        <span class="name">Northern China</span>
+    </div>
+    <div class="row">
+        <span class="id">6</span>
+        <span class="name">Europe</span>
+    </div>
+    <div class="row">
+        <span class="id">7</span>
+        <span class="name">Southwestern</span>
+    </div>
+    <div class="row">
+        <span class="id">8</span>
+        <span class="name">Hong Kong, Macao and Taiwan regions of China</span>
+    </div>
+</div>
+
+<script>
+    function download(text, name, type) {
+        var a = document.getElementById("save1");
+        var file = new Blob([text], {type: type});
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+    }
+</script>
+
+<script type="text/javascript">
+    var save_data = "id,name\n" +
+        "1,America\n" +
+        "2,Eastern China\n" +
+        "3,Asia\n" +
+        "4,Southern China\n" +
+        "5,Northern China\n" +
+        "6,Europe\n" +
+        "7,Southwestern China\n" +
+        "8,Hong Kong, Macao and Taiwan regions of China\n";
+</script>
+
+
+</body>
+</html>

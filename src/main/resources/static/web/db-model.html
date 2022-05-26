@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model</title>
+    <link rel="stylesheet" type="text/css" href="../css/model.css">
+    <script src='../js/prefixfree.min.js'></script>
+    <script src="../bootstrap3/js/holder.js"></script>
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+    <script src="../js/model.js"></script>
+</head>
+<body style="background-color: black">
+<h1 style="font-size: 19px">The Information Of The Model</h1>
+<div class="top-boarder"></div>
+
+<div class="btns" style="position:absolute;right: 45px;top:3px">
+    <a href="db-user.html"><img src="../img/return.jpg" alt=""></a>
+</div>
+
+<div class="btns" style="position:absolute;right: 100px;top:3px">
+    <a href="#" id="save3"><img src="../img/save.png"
+                                onclick="download(save_data, 'model.csv', 'text/plaintext')"
+                                alt=""></a>
+</div>
+<div class="occupy">none</div>
+<div class="occupy">none</div>
+<div class="panel">
+    <div class="head">
+        <span class="head-id">id</span>
+        <span class="head-number">number</span>
+        <span class="head-model">model</span>
+        <span class="head-name">name</span>
+        <span class="head-unit_price">unit_price</span>
+    </div>
+    <div class="spacing">none</div>
+</div>
+
+<script>
+    function download(text, name, type) {
+        var a = document.getElementById("save3");
+        var file = new Blob([text], {type: type});
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+    }
+</script>
+
+<script type="text/javascript">
+    var save_data = "id,number,model,name,unit_price\n";
+    var temp;
+    $(document).ready($.ajax({
+        url: "/api/model",
+        type: 'POST',
+        async: false,
+        success: function (json) {
+            temp = json.data;
+        }
+    }))
+
+    for (var i = 0; i < temp.length; i++) {
+        var d = temp[i];
+        save_data = save_data + d.id + "," + d.number + "," + d.model + "," + d.name + "," + d.unitPrice + "\n";
+    }
+</script>
+
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
@@ -33,5 +34,11 @@ public class UserController extends BaseController{
         String username = getUsernameFromSession(session);
         userService.changePwd(username, oldPwd, newPwd);
         return new JsonResult<>(ok);
+    }
+
+    @RequestMapping("db-users")
+    public JsonResult<List<User>> select(){
+        List<User> list = userService.select();
+        return new JsonResult<>(ok, list);
     }
 }

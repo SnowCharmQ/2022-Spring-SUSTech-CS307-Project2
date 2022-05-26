@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -52,6 +53,11 @@ public class IUserServiceImpl implements IUserService {
         if (!oldMd5Pwd.equals(user.getPwd())) throw new PasswordNotMatchException("The password is incorrect");
         String newPwd5Password = getMD5Pwd(newPwd, salt);
         userMapper.updatePwd(username, newPwd5Password);
+    }
+
+    @Override
+    public List<User> select() {
+        return userMapper.selectUser();
     }
 
     private String getMD5Pwd(String pwd, String salt) {
