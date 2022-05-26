@@ -204,7 +204,7 @@ public class ModelHandling {
     }
 
 
-    private static void openDB(String host, String dbname,
+    public static void openDB(String host, String dbname,
                                String user, String pwd) {
         try {//find the driver
             Class.forName("org.postgresql.Driver");
@@ -231,7 +231,7 @@ public class ModelHandling {
         }
     }
 
-    private static void closeDB() {
+    public static void closeDB() {
         if (con != null) {
             try {
                 if (stmt1 != null) {
