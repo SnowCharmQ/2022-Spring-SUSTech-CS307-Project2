@@ -2,6 +2,7 @@ package com.cs307.project;
 
 import com.cs307.project.entity.StockIn;
 import com.cs307.project.service.IService;
+import com.cs307.project.service.redis.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,22 @@ public class CacheDemoTests {
     @Autowired
     private IService iService;
 
+    @Autowired
+    private RedisService redisService;
+
     @Test
-    public void stockInTest() throws InterruptedException {//2
+    public void stockInTest() {//2
         //CountDownLatch cdl = new CountDownLatch(10);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             int finalI = i;
             new Thread(() -> {
                 String line = "1,Asia,Repeater97,11210906,2008/10/27,430,801";
                 StockIn stock = new StockIn();
                 readStockIn(stock, line);
                 stock.setId(finalI);
-                System.out.println("=========");
+                //System.out.println("=========");
                 iService.stockIn(stock);
-                System.out.println("done");
+                //System.out.println("done");
             }
             ).start();
         }

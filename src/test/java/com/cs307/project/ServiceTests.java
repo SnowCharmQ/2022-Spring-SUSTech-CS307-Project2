@@ -3,7 +3,6 @@ package com.cs307.project;
 import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
 import com.cs307.project.service.ex.ServiceException;
-import com.cs307.project.service.redis.RedisService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
@@ -98,7 +97,7 @@ public class ServiceTests {
             System.out.println(iService.getOrderCount());
             int cnt = 0;
             while ((line = in.readLine()) != null) {
-                String[] content = line.split(",");
+                String[] content = line.split("\t");
                 //System.out.println(++cnt);
                 try {
                     iService.deleteOrder(content[0], content[1], Integer.parseInt(content[2]));
