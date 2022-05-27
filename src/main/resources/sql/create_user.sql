@@ -9,3 +9,5 @@
     can_update boolean,
     can_select boolean
 );
+
+select * from t_user;

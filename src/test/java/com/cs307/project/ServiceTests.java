@@ -124,7 +124,7 @@ public class ServiceTests {
             stringBuilder.append(String.format("%-25s%d\n",sc.getStaffType(),sc.getCount()));
         }
 
-        stringBuilder.append("\nQ7   ");
+        stringBuilder.append("Q7   ");
         Integer cnt = iService.getContractCount();//7
         stringBuilder.append(cnt);
 

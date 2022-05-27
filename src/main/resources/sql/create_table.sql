@@ -205,6 +205,10 @@ create index center_index on center(name);
 create index model_index on model(model);
 create index enterprise_index on enterprise(name);
 
-select * from pg_indexes;
-
 drop index if exists staff_index,stockIn_index,placeOrder_index,center_index,model_index,enterprise_index;
+
+truncate table model, staff, enterprise, center cascade;
+
+select * from placeOrder;
+
+select * from bill;
