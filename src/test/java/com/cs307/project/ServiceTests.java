@@ -2,6 +2,7 @@ package com.cs307.project;
 
 import com.cs307.project.entity.*;
 import com.cs307.project.service.IService;
+import com.cs307.project.service.api1.ModelHandling;
 import com.cs307.project.service.ex.ServiceException;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,10 @@ public class ServiceTests {
     private IService iService;
 
     @Test
-    public void allTest() throws IOException {
+    public void allTest() throws IOException, SQLException {
+        ModelHandling.openDB();
+        ModelHandling.createIndex();
+        ModelHandling.closeDB();
         String line = null;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/data/test2/in_stoke_test.csv")))) {
             line = in.readLine();

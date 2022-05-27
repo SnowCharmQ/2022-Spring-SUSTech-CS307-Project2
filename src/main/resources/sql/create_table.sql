@@ -197,3 +197,14 @@ where lodgement_date <= now() at time zone 'PRC';
 end;
 $$
 language plpgsql;
+
+create index stockIn_index on stockIn(product_model);
+create index placeOrder_index on placeOrder(contract_num);
+create index staff_index on staff(number);
+create index center_index on center(name);
+create index model_index on model(model);
+create index enterprise_index on enterprise(name);
+
+select * from pg_indexes;
+
+drop index if exists staff_index,stockIn_index,placeOrder_index,center_index,model_index,enterprise_index;

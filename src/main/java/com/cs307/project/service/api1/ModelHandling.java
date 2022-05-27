@@ -203,6 +203,19 @@ public class ModelHandling {
         con.commit();
     }
 
+    public static void createIndex() throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("create index stockIn_index on stockIn(product_model);\n" +
+                "create index placeOrder_index on placeOrder(contract_num);\n" +
+                "create index staff_index on staff(number);\n" +
+                "create index center_index on center(name);\n" +
+                "create index model_index on model(model);\n" +
+                "create index enterprise_index on enterprise(name);");
+        Statement stmt = con.createStatement();
+        stmt.execute(sql.toString());
+        stmt.close();
+        con.commit();
+    }
 
     public static void openDB(String host, String dbname,
                                String user, String pwd) {
@@ -229,6 +242,10 @@ public class ModelHandling {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+    }
+
+    public static void openDB(){
+        openDB("localhost", "project2", "test", "123456");
     }
 
     public static void closeDB() {
