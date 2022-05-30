@@ -79,136 +79,138 @@ create table contract
 
 drop function if exists insert_contract();
 create
-or replace function insert_contract()
+    or replace function insert_contract()
     returns trigger
 as
 $$
 begin
     IF
-NOT EXISTS(SELECT FROM contract WHERE contract_num = new.contract_num) THEN
+        NOT EXISTS(SELECT FROM contract WHERE contract_num = new.contract_num) THEN
         INSERT INTO contract (contract_num, contract_manager, enterprise)
         VALUes (new.contract_num, new.contract_manager, new.enterprise);
-end if;
-return new;
+    end if;
+    return new;
 end;
 $$
-language plpgsql;
+    language plpgsql;
 
 create trigger record_contract
     before insert
     on placeorder
     for each row
-    execute procedure insert_contract();
+execute procedure insert_contract();
 
 create table bill
 (
-    date     date,
+    date      date,
     operation varchar(20),
-    product  varchar(100),
-    price    integer,
-    quantity integer,
-    money    integer
+    product   varchar(100),
+    price     integer,
+    quantity  integer,
+    money     integer
 );
 
 create
-or replace function uppdate_bill()
+    or replace function update_bill()
     returns trigger
 as
 $$
 declare
-temp integer;
+    temp integer;
 begin
     if
-(tg_table_name = 'stockin' and tg_op = 'INSERT') then
+        (tg_table_name = 'stockin' and tg_op = 'INSERT') then
         insert into bill (date, operation, product, price, quantity, money)
         VALUES (new.date, 'stock in', new.product_model, -new.purchase_price, new.quantity,
                 -new.purchase_price * new.quantity);
-return new;
-end if;
+        return new;
+    end if;
     if
-(tg_table_name = 'placeorder' and tg_op = 'INSERT') then
-select unit_price
-into temp
-from model
-where model = new.product_model;
-insert into bill (date, operation, product, price, quantity, money)
-values (new.contract_date, 'place order', new.product_model, temp, new.quantity, new.quantity * temp);
-return new;
-end if;
+        (tg_table_name = 'placeorder' and tg_op = 'INSERT') then
+        select unit_price
+        into temp
+        from model
+        where model = new.product_model;
+        insert into bill (date, operation, product, price, quantity, money)
+        values (new.contract_date, 'place order', new.product_model, temp, new.quantity, new.quantity * temp);
+        return new;
+    end if;
     if
-(tg_table_name = 'placeorder' and tg_op = 'DELETE') then
-select unit_price
-into temp
-from model
-where model = old.product_model;
-insert into bill (date, operation, product, price, quantity, money)
-values (new.contract_date, 'delete order', old.product_model, temp, -old.quantity, -old.quantity * temp);
-return old;
-end if;
+        (tg_table_name = 'placeorder' and tg_op = 'DELETE') then
+        select unit_price
+        into temp
+        from model
+        where model = old.product_model;
+        insert into bill (date, operation, product, price, quantity, money)
+        values (new.contract_date, 'delete order', old.product_model, temp, -old.quantity, -old.quantity * temp);
+        return old;
+    end if;
     if
-(tg_table_name = 'placeorder' and tg_op = 'UPDATE') then
-select unit_price
-into temp
-from model
-where model = old.product_model;
-insert into bill (date, operation, product, price, quantity, money)
-values (new.contract_date, 'update order', new.product_model, temp, new.quantity - old.quantity,
-        (new.quantity - old.quantity) * temp);
-return new;
-end if;
+        (tg_table_name = 'placeorder' and tg_op = 'UPDATE') then
+        select unit_price
+        into temp
+        from model
+        where model = old.product_model;
+        insert into bill (date, operation, product, price, quantity, money)
+        values (new.contract_date, 'update order', new.product_model, temp, new.quantity - old.quantity,
+                (new.quantity - old.quantity) * temp);
+        return new;
+    end if;
 end
 $$
-language plpgsql;
+    language plpgsql;
 
 create trigger bill_record
     before insert
     on stockin
     for each row
-    execute procedure uppdate_bill();
+execute procedure update_bill();
 
 drop trigger if exists bill_order on placeOrder;
 create trigger bill_order
     before insert or
-delete
-or update
+        delete
+        or update
     on placeOrder
     for each row
-execute procedure uppdate_bill();
+execute procedure update_bill();
 
 create
-or replace procedure update_order_type()
+    or replace procedure update_order_type()
 as
 $$
 BEGIN
-update placeOrder
-set contract_type = 'Before Contract'
-where contract_date > now() at time zone 'PRC';
-update placeOrder
-set contract_type = 'No Delivery'
-where contract_date <= now()
-  and estimated_delivery_date > now() at time zone 'PRC';
-update placeOrder
-set contract_type = 'No Lodgement'
-where estimated_delivery_date <= now() at time zone 'PRC'
-    AND lodgement_date > now() at time zone 'PRC';
-update placeOrder
-set contract_type = 'Finished'
-where lodgement_date <= now() at time zone 'PRC';
+    update placeOrder
+    set contract_type = 'Before Contract'
+    where contract_date > now() at time zone 'PRC';
+    update placeOrder
+    set contract_type = 'No Delivery'
+    where contract_date <= now()
+      and estimated_delivery_date > now() at time zone 'PRC';
+    update placeOrder
+    set contract_type = 'No Lodgement'
+    where estimated_delivery_date <= now() at time zone 'PRC'
+      AND lodgement_date > now() at time zone 'PRC';
+    update placeOrder
+    set contract_type = 'Finished'
+    where lodgement_date <= now() at time zone 'PRC';
 end;
 $$
-language plpgsql;
+    language plpgsql;
 
-create index stockIn_index on stockIn(product_model);
-create index placeOrder_index on placeOrder(contract_num);
-create index staff_index on staff(number);
-create index center_index on center(name);
-create index model_index on model(model);
-create index enterprise_index on enterprise(name);
+create index stockIn_index on stockIn (product_model);
+create index placeOrder_index on placeOrder (contract_num);
+create index staff_index on staff (number);
+create index center_index on center (name);
+create index model_index on model (model);
+create index enterprise_index on enterprise (name);
 
 drop index if exists staff_index,stockIn_index,placeOrder_index,center_index,model_index,enterprise_index;
 
 truncate table model, staff, enterprise, center cascade;
 
-select * from placeOrder;
+select *
+from placeOrder;
 
-select * from bill;
+select *
+from bill;
