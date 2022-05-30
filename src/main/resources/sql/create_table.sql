@@ -103,7 +103,7 @@ create trigger record_contract
 create table bill
 (
     date     date,
-    operator varchar(20),
+    operation varchar(20),
     product  varchar(100),
     price    integer,
     quantity integer,
@@ -120,8 +120,8 @@ temp integer;
 begin
     if
 (tg_table_name = 'stockin' and tg_op = 'INSERT') then
-        insert into bill (date, operator, product, price, quantity, money)
-        VALUES (new.date, 'stockin', new.product_model, -new.purchase_price, new.quantity,
+        insert into bill (date, operation, product, price, quantity, money)
+        VALUES (new.date, 'stock in', new.product_model, -new.purchase_price, new.quantity,
                 -new.purchase_price * new.quantity);
 return new;
 end if;
@@ -131,7 +131,7 @@ select unit_price
 into temp
 from model
 where model = new.product_model;
-insert into bill (date, operator, product, price, quantity, money)
+insert into bill (date, operation, product, price, quantity, money)
 values (new.contract_date, 'place order', new.product_model, temp, new.quantity, new.quantity * temp);
 return new;
 end if;
@@ -141,8 +141,8 @@ select unit_price
 into temp
 from model
 where model = old.product_model;
-insert into bill (date, operator, product, price, quantity, money)
-values (new.contract_date, 'delete place order', old.product_model, temp, -old.quantity, -old.quantity * temp);
+insert into bill (date, operation, product, price, quantity, money)
+values (new.contract_date, 'delete order', old.product_model, temp, -old.quantity, -old.quantity * temp);
 return old;
 end if;
     if
@@ -151,8 +151,8 @@ select unit_price
 into temp
 from model
 where model = old.product_model;
-insert into bill (date, operator, product, price, quantity, money)
-values (new.contract_date, 'update place order', new.product_model, temp, new.quantity - old.quantity,
+insert into bill (date, operation, product, price, quantity, money)
+values (new.contract_date, 'update order', new.product_model, temp, new.quantity - old.quantity,
         (new.quantity - old.quantity) * temp);
 return new;
 end if;
