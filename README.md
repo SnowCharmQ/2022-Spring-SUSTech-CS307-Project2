@@ -12,7 +12,7 @@ This project we use the Spring Boot and MyBatis frameworks based on Java.
 
 ### What we have done:
 
-#### <u>13 APIs:</u>
+### <u>13 APIs:</u>
 
 **APIs for manipulating the original data**
 
@@ -40,13 +40,13 @@ This project we use the Spring Boot and MyBatis frameworks based on Java.
 
 **getContractInfo**
 
-#### <u>Independent Testing:</u>
+### <u>Independent Testing:</u>
 
 **Import data by REST API or by Junit Test**
 
 **Output data by main method with a single command**
 
-#### <u>Advanced Requirements:</u>
+### <u>Advanced Requirements:</u>
 
 **Query the order list based on multiple parameters, and the parameters can be null or not**
 
