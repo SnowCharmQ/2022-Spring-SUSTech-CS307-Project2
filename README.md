@@ -4,11 +4,11 @@ This is the project 2 for the Principles of Database Systems.
 
 **Group Members:**
 
-> **Leopold-Lee**
+> [**Leopold-Lee**](https://github.com/Leopold-Lee)
 >
-> **Olin66**
+> [**Olin66**](https://github.com/Olin66)
 
-This project we use the Spring Boot and MyBatis frameworks based on Java.
+***This project we use the Spring Boot and MyBatis frameworks based on Java.***
 
 ### What we have done:
 
